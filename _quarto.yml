@@ -8,21 +8,8 @@ project:
 
 website:
   title: "Sea Ice @ Alaska"
-
-  sidebar:
-    pinned: true
-    align: center
-    tools: 
-      - icon: github
-        href: https://github.com/polarwatch/alaska-seaice
-        text: "PolarWatch Repository"
-        target: _blank
-      - icon: globe
-        href: https://polarwatch.noaa.gov
-        text: "PolarWatch Website"
-        target: _blank
-
-    contents:
+  navbar:
+    left:
       - href: index.qmd
         text: "Main"
       - href: arctic.qmd
@@ -35,11 +22,20 @@ website:
         text: "Southeastern Bering"
       - href: methods.qmd
         text: "Data and Methods"
-      - href: https://shinyfin.psmfc.org/ak-sst-mhw/      
+      - href: https://shinyfin.psmfc.org/ak-sst-mhw/
         text: "ShinyFIN (SST)"
         target: _blank
       - href: https://polarwatch.noaa.gov
         text: "PolarWatch"
+        target: _blank
+    right:
+      - icon: github
+        href: https://github.com/polarwatch/alaska-seaice
+        text: "PolarWatch Repository"
+        target: _blank
+      - icon: globe
+        href: https://www.fisheries.noaa.gov/about/alaska-fisheries-science-center
+        text: "PolarWatch Website"
         target: _blank
         
 

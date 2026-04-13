@@ -12,3 +12,5 @@
 **/.mypy_cache
 **/.Rapp.history
 __pycache__
+
+**/*.quarto_ipynb

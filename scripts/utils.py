@@ -1,3 +1,5 @@
+# created by Sunny Hospital @ NOAA PolarWatch (2024)
+
 # utils.py
 
 
@@ -32,6 +34,8 @@ def get_var_data(server, id, crs, varname, dates):
     da = da[varname]
     da.rio.set_spatial_dims(x_dim="x", y_dim="y", inplace=True)
     da.rio.write_crs(crs, inplace=True)
+    # rename dimensions
+    da = da.rename({"x": "xgrid", "y": "ygrid"})
     da = da.clip(min=0, max=1).sel(time=slice(start_date, end_date))
     return da
 
@@ -64,6 +68,9 @@ def get_area(name):
     """
     try:
         ds = xr.open_dataset(f'data/area_{name}.nc')
+        print("printing area ds..")
+        print(ds)
+
         return ds.cell_area
     except: 
         raise("Cannot open regional area dataset")
@@ -104,7 +111,7 @@ def compute_extent_km(ds, area_ds):
 
         ice_ext_yearly_ts = (ice_ext_yearly
                             .groupby("time")
-                            .sum(dim=["x", "y"])) 
+                            .sum(dim=["xgrid", "ygrid"])) 
         
         # Add year-month 
         # ice_ext_yearly['time_ymd'] = ice_ext_yearly['time'].dt.strftime('%Y-%m-%d')

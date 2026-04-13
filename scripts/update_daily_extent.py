@@ -6,7 +6,7 @@ import geopandas as gpd
 from utils import *
 import xarray as xr
 
-SERVER="https://polarwatch.noaa.gov/erddap/griddap"
+SERVER="https://coastwatch.pfeg.noaa.gov/erddap/griddap"
 
 def main():
         
@@ -35,7 +35,7 @@ def main():
     sic = get_var_data(SERVER, nrt_id, crs, var_name, [start_date, end_date])
 
     # If new data are available, continue
-    if sic.size > 0:
+    if sic.shape[0] > 0:
 
         # Loop through regions
         for name, shp in regions.items():

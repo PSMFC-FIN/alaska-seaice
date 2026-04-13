@@ -7,7 +7,7 @@ dependencies:
   - pandas
   - geopandas
   - netcdf4
-  - pydap
+  # - pydap
   - xarray
   - dask
   - rasterio

@@ -231,6 +231,7 @@ anom_last <- left_join(dat_last, baseline_df, by = "month_day")
 
 # Compute anomalies
 anom_current$anom = anom_current$seaice_extent - anom_current$seaice_extent_mean
+
 anom_last$anom = anom_last$seaice_extent - anom_last$seaice_extent_mean
 
 
