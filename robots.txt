@@ -1,1 +1,1 @@
-Sitemap: https://polarwatch.github.io/alaska-seaice/sitemap.xml
+Sitemap: https://PSMFC-FIN.github.io/alaska-seaice/sitemap.xml
