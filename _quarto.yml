@@ -25,17 +25,17 @@ website:
       - href: https://shinyfin.psmfc.org/ak-sst-mhw/
         text: "ShinyFIN (SST)"
         target: _blank
-      - href: https://polarwatch.noaa.gov
-        text: "PolarWatch"
+      - href: https://www.psmfc.org/
+        text: "PSMFC"
         target: _blank
     right:
       - icon: github
-        href: https://github.com/polarwatch/alaska-seaice
-        text: "PolarWatch Repository"
+        href: https://github.com/PSMFC-FIN/alaska-seaice
+        text: "PSFMF Repository"
         target: _blank
       - icon: globe
-        href: https://www.fisheries.noaa.gov/about/alaska-fisheries-science-center
-        text: "PolarWatch Website"
+        href: https://www.psmfc.org/
+        text: "PSMFC Website"
         target: _blank
         
 
