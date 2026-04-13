@@ -110,9 +110,8 @@ def compute_extent_km(ds, area_ds):
 
 
         ice_ext_yearly_ts = (ice_ext_yearly
-                            .groupby("time")
-                            .sum(dim=["xgrid", "ygrid"])) 
-        
+                    .groupby("time")
+                    .sum(dim=["xgrid", "ygrid"]))
         # Add year-month 
         # ice_ext_yearly['time_ymd'] = ice_ext_yearly['time'].dt.strftime('%Y-%m-%d')
         return ice_ext_yearly_ts/1000000

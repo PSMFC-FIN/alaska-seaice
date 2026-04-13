@@ -13,3 +13,4 @@ dependencies:
   - rasterio
   - shapely
   - rioxarray
+  - bs4
