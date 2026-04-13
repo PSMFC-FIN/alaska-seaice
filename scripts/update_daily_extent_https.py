@@ -97,8 +97,8 @@ def get_var_data_nsidc(crs: str, var_name: str, date_range: list) -> xr.DataArra
             # x: Alaska broad region
             # y: descending in this file so slice high → low
             da = da.sel(
-                x=slice(-3_837_500, -500_000),
-                y=slice(5_837_500,   200_000),
+                x=slice(-3837500.0, -287500.0),
+                y=slice(4337500.0,   -2337500.0),
             )
 
             # ── Rename x/y → xgrid/ygrid to match area .nc files  
@@ -136,6 +136,7 @@ def main():
 
     recent_dat = pd.read_csv("data/nrt_extent_NorthernBering.csv", parse_dates=['date'])
     start_date = (recent_dat['date'].max() + pd.Timedelta(days=1)).strftime('%Y-%m-%d')
+    # start_date = '2026-04-11'  # For testing: hardcode start date to force processing of all available data
     end_date   = date.today().strftime('%Y-%m-%d')
 
     print(f"Fetching {start_date} → {end_date}")
@@ -157,7 +158,8 @@ def main():
                       .to_dataframe()
                       .reset_index()
                       .drop(['spatial_ref'], axis='columns', errors='ignore')
-                      .rename(columns={'time': 'date'}))
+                      .rename(columns={'time': 'date'})
+                      [['date', 'seaice_extent']])
             try:
                 ext_df.to_csv(f'data/nrt_extent_{name}.csv', mode='a', index=False, header=False)
                 print(f'  Successfully updated nrt_extent_{name}.csv')
