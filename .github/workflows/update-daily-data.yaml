@@ -34,7 +34,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.DATA_UPDATE_TOKEN }}
         run: |
-          git config --global user.email "sun.bak-hospital@noaa.gov"
+          git config --global user.email "sunnyhospital5@gmail.com"
           git config --global user.name "Sunny Hospital"
           git pull origin main
           git add data/*.csv
