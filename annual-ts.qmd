@@ -1,0 +1,258 @@
+---
+title: "Annualized Time Series"
+format: 
+  html:
+    code-fold: true
+    toc: true
+    toc-location: left
+    toc-depth: 3
+page-layout: full
+---
+
+
+::: {.callout-tip title="Plots are interactive!"}
+-   **To zoom in and out, reset or download the plot**, hover on the plot to see the option on the top right corner.
+-   **To turn on and off data series**, click on the data series title in the legend located below each plot.
+:::
+
+## Eastern Bering
+
+:::: {.columns}
+
+::: {.column width="80%"}
+
+
+```{r "configure region"}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: 'hide'
+
+
+library(dplyr)
+library(gt)
+library(reshape2)
+library(plotly)
+library(magrittr)
+library(lubridate)
+
+```
+ 
+
+```{r "Eastern Bering"}
+#| echo: false
+#| warning: false
+#| message: false
+
+## ANNUAL TIME SERIES PLOT ##
+
+
+
+# Load annualized extent
+annual = read.csv("data/annualized_extent_EasternBering.csv")
+
+# Plot annual time series
+fig_annual <- plot_ly(annual, type = 'scatter', mode = 'lines+markers')%>%
+  add_trace(x = ~year, y = ~extent, 
+            line=list(color='lightblue'),
+            marker = list(color='blue', size =8))%>%
+  layout(showlegend = F, title="Annualized time series(1985-2024)",
+         xaxis = list(rangeslider = list(visible = T),
+                      zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff',
+                      title="Year"),
+         yaxis = list(zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff',
+                      title="Extent (Square km)"),
+         #autosize = TRUE,
+         plot_bgcolor='#e5ecf6') %>%
+  config(responsive = TRUE)
+
+# Display
+fig_annual
+```
+
+
+### Data downloads
+
+-   Annualized extent time series (1985-Current) [Data](data/annualized_extent_EasternBering.csv) - [Description](data/annualized_extent_README.md)
+
+
+:::
+
+::: {.column width="20%"}
+![Eastern Bering](img/ebering.png){width="200px"}
+:::
+
+::::
+ 
+
+
+## Northern Bering
+:::: {.columns}
+
+::: {.column width="80%"}
+
+```{r "Northern Bering"}
+#| echo: false
+#| warning: false
+#| message: false
+
+## ANNUAL TIME SERIES PLOT ##
+
+
+
+# Load annualized extent
+annual = read.csv("data/annualized_extent_NorthernBering.csv")
+
+# Plot annual time series
+fig_annual <- plot_ly(annual, type = 'scatter', mode = 'lines+markers')%>%
+  add_trace(x = ~year, y = ~extent, 
+            line=list(color='lightblue'),
+            marker = list(color='blue', size =8))%>%
+  layout(showlegend = F, title="Annualized time series(1985-2024)",
+         xaxis = list(rangeslider = list(visible = T),
+                      zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff',
+                      title="Year"),
+         yaxis = list(zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff',
+                      title="Extent (Square km)"),
+         #autosize = TRUE,
+         plot_bgcolor='#e5ecf6') %>%
+  config(responsive = TRUE)
+
+# Display
+fig_annual
+```
+
+
+### Data downloads
+
+-   Annualized extent time series (1985-Current) [Data](data/annualized_extent_NorthernBering.csv) - [Description](data/annualized_extent_README.md)
+
+
+
+:::
+
+::: {.column width="20%"}
+![Northern Bering](img/nbering.png){width="200px"}
+:::
+
+::::
+
+## Southeastern Bering
+:::: {.columns}
+
+::: {.column width="80%"}
+
+```{r "Southeastern Bering"}
+#| echo: false
+#| warning: false
+#| message: false
+
+## ANNUAL TIME SERIES PLOT ##
+
+
+
+# Load annualized extent
+annual = read.csv("data/annualized_extent_SoutheasternBering.csv")
+
+# Plot annual time series
+fig_annual <- plot_ly(annual, type = 'scatter', mode = 'lines+markers')%>%
+  add_trace(x = ~year, y = ~extent, 
+            line=list(color='lightblue'),
+            marker = list(color='blue', size =8))%>%
+  layout(showlegend = F, title="Annualized time series(1985-2024)",
+         xaxis = list(rangeslider = list(visible = T),
+                      zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff',
+                      title="Year"),
+         yaxis = list(zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff',
+                      title="Extent (Square km)"),
+         #autosize = TRUE,
+         plot_bgcolor='#e5ecf6') %>%
+  config(responsive = TRUE)
+
+# Display
+fig_annual
+```
+
+### Data downloads
+
+-   Annualized extent time series (1985-Current) [Data](data/annualized_extent_SoutheasternBering.csv) - [Description](data/annualized_extent_README.md)
+
+
+
+:::
+
+::: {.column width="20%"}
+![Southeastern Bering](img/sebering.png){width="200px"}
+:::
+
+::::
+## Alaskan Arctic
+
+:::: {.columns}
+
+::: {.column width="80%"}
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+## ANNUAL TIME SERIES PLOT ##
+
+
+
+# Load annualized extent
+annual = read.csv("data/annualized_extent_AlaskanArctic.csv")
+
+# Plot annual time series
+fig_annual <- plot_ly(annual, type = 'scatter', mode = 'lines+markers')%>%
+  add_trace(x = ~year, y = ~extent, 
+            line=list(color='lightblue'),
+            marker = list(color='blue', size =8))%>%
+  layout(showlegend = F, title="Annualized time series(1985-2024)",
+         xaxis = list(rangeslider = list(visible = T),
+                      zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff',
+                      title="Year"),
+         yaxis = list(zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff',
+                      title="Extent (Square km)"),
+         #autosize = TRUE,
+         plot_bgcolor='#e5ecf6') %>%
+  config(responsive = TRUE)
+
+# Display
+fig_annual
+```
+
+### Data downloads
+
+-   Annualized extent time series (1985-Current) [Data](data/annualized_extent_AlaskanArctic.csv) - [Description](data/annualized_extent_README.md)
+
+
+
+:::
+
+::: {.column width="20%"}
+![Alaskan Arctic ](img/arctic.png){width="200px"}
+
+
+
+:::
+
+::::

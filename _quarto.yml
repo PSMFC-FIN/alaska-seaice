@@ -7,43 +7,31 @@ project:
     - "!dataproc/"
 
 website:
-  title: "AKFIN - Sea Ice Indicators"
+  title: "AKFIN - Sea Ice"
   navbar:
+    background: primary
+    foreground: light
     left:
-      - href: index.qmd
-        text: "Main"
-      - href: arctic.qmd
-        text: "Alaskan Arctic"
-      - href: ebering.qmd
-        text: "Eastern Bering"
-      - href: nbering.qmd
-        text: "Northern Bering"
-      - href: sebering.qmd
-        text: "Southeastern Bering"
-      - href: https://shinyfin.psmfc.org/ak-sst-mhw/
-        text: "ShinyFIN (SST)"
-        target: _blank
-    right:
-      - icon: github
-        href: https://github.com/PSMFC-FIN/alaska-seaice
-        text: "PSFMF Repository"
-        target: _blank
-      - icon: globe
-        href: https://www.psmfc.org/
-        text: "PSMFC Website"
-        target: _blank
-        
+      - href: daily-ts.qmd
+        text: "Daily Time Series"
+      - href: annual-ts.qmd
+        text: "Annualized Time Series"
+      - href: extent.qmd
+        text: "About Sea Ice Extent"
 
 format:
   html:
-    grid:
-      # sidebar-width: 200px
-      body-width: 960px
     theme: cosmo
     css: styles.css
     include-after-body: custom.js
     toc: true
-
+    toc-depth: 2
+    toc-location: left
+    grid:
+      sidebar-width: 250px
+      body-width: 1200px
+      margin-width: 100px
+      gutter-width: 1.5rem
 
 exclude:
   - "scripts/"

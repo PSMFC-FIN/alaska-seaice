@@ -1,0 +1,796 @@
+---
+title: "Daily Time Series"
+format: 
+  html:
+    code-fold: true
+    toc: true
+    toc-location: left
+    toc-depth: 3
+page-layout: full
+---
+
+
+::: {.callout-tip title="Plots are interactive!"}
+-   **To zoom in and out, reset or download the plot**, hover on the plot to see the option on the top right corner.
+-   **To turn on and off data series**, click on the data series title in the legend located below each plot.
+:::
+
+## Eastern Bering
+
+:::: {.columns}
+
+::: {.column width="80%"}
+
+
+```{r "configure region"}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: 'hide'
+
+
+
+# Set region title
+region_title <- "Eastern Bering"
+
+# Load near real time data for this year and last year
+nrt_df = read.csv("data/nrt_extent_EasternBering.csv")
+
+# Load baseline data
+baseline_df = read.csv("data/bs_extent_EasternBering.csv")
+
+# Total area
+total_area = 891335.77
+
+
+```
+
+```{r "configure variables"}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: 'hide'
+
+library(dplyr)
+library(gt)
+library(reshape2)
+library(plotly)
+library(magrittr)
+library(lubridate)
+
+
+## Format two recent year data
+
+# Set last year based on 09-01 to 08-31
+today <- Sys.Date()
+lastyear <- ifelse(as.integer(format(today, "%m")) > 8, as.integer(format(today, "%Y")), as.integer(format(today, "%Y")) -1)
+
+
+# add month_day column
+nrt_df$month_day <- format(as.Date(nrt_df$date), "%m-%d")
+
+# Subset
+last_start = paste0(lastyear-1, "-09-01")
+last_end = paste0(lastyear, "-08-31")
+this_start = paste0(lastyear, "-09-01")
+this_end = paste0(lastyear+1, "-08-31")
+
+# Filter the dataframe for the desired date range
+dat_last <- nrt_df[nrt_df$date >= as.Date(last_start) & nrt_df$date <= as.Date(last_end), ]
+dat_this <- nrt_df[nrt_df$date >= as.Date(this_start) & nrt_df$date <= as.Date(this_end), ]
+latest = dat_this[dat_this$date == max(dat_this$date),]
+
+# Create month_day order
+month_day_order <- c(
+  format(seq(as.Date(last_start), as.Date(last_end), by = "day"), "%m-%d"),
+  format(seq(as.Date(this_start), as.Date(this_end), by = "day"), "%m-%d")
+)
+
+
+# Reorder date
+all_dates = format(seq(as.Date(last_start), as.Date(last_end), by = "day"), "%m-%d")
+
+dat_last$month_day = factor(dat_last$month_day, levels = all_dates)
+dat_this$month_day = factor(dat_this$month_day, levels = all_dates)
+baseline_df$month_day = factor(baseline_df$month_day, levels = all_dates)
+
+dat_last = dat_last[order(dat_last$month_day), ]
+dat_this = dat_this[order(dat_this$month_day), ]
+baseline_df = baseline_df[order(baseline_df$month_day), ]
+```
+
+```{r "configure plot"}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: 'hide'
+
+# Set plot colors
+plot_colors = c("#318CE7", "#F08080", "#94C973", "#cccccc", "#cccccc", "#cccccc")
+
+xaxis <- list(title = "Dates (MM-DD)",
+            type = 'category',  # Ensures correct ordering without converting to full date format
+            tickformat = "%m-%d",  # Display ticks in mm-dd format
+            categoryorder = "array",  # Custom order for the x-axis
+            categoryarray = month_day_order,  # Sort month_day as a category
+            showline = TRUE,
+            showgrid = FALSE,
+            tickwidth = 1,
+            ticklen = 2
+            )
+
+yaxis <- list(title = "Square km",
+            showgrid = TRUE,
+            zeroline = FALSE,
+            showline = TRUE,
+            showticklabels = TRUE,
+            autorange = TRUE)
+
+# Define horizontal line specs (total area)
+hline <- function(y = 0, color = "black") {
+  list(
+    type = "line",
+    x0 = 0,
+    x1 = 1,
+    xref = "paper",
+    y0 = y,
+    y1 = y,
+    line = list(color = color, dash="dot")
+  )
+}
+
+
+thisyear_label = paste(lastyear,"/", lastyear+1)
+lastyear_label = paste(lastyear-1, "/", lastyear)
+
+```
+
+```{r "data processing"}
+#| echo: false
+#| warning: false
+#| message: false
+# Set Axis specs
+
+## BASELINE PLOT ##
+
+## Data processing
+
+# Get upper and lower bound of sea ice extent using standard dev
+baseline_df$upper_extent <- baseline_df$seaice_extent_mean + baseline_df$seaice_extent_std
+baseline_df$lower_extent <- ifelse(baseline_df$seaice_extent_mean - baseline_df$seaice_extent_std >= 0, baseline_df$seaice_extent_mean - baseline_df$seaice_extent_std, 0)
+
+## Draw plot
+ 
+  # Upper extent 
+fig_bs <- plot_ly(baseline_df, x = ~month_day, y = ~upper_extent, type = 'scatter', 
+              mode = 'lines',line = list(color = 'transparent'),
+              showlegend = FALSE, name = 'Upper bound')  %>%
+  # Lower extent 
+        add_trace(y = ~lower_extent, type = 'scatter', mode = 'lines',
+                  fill = 'tonexty', fillcolor='rgba(0,100,80,0.2)', line = list(color = 'transparent'),
+                  showlegend = FALSE, name = 'Lower bound')   %>%
+  # Baseline
+        add_trace(y = ~seaice_extent_mean, type = 'scatter', mode = 'lines',
+                  line = list(color=plot_colors[3], width  = 2),showlegend = TRUE, name = 'Baseline')  %>%
+
+  # Last year
+      add_trace(data = dat_last, x = ~month_day, y = ~seaice_extent, type = 'scatter', mode = 'lines',
+            line = list(
+            color = plot_colors[2], width = 2),showlegend = TRUE,  name = lastyear_label) %>%
+
+  # Current year
+        add_trace(data = dat_this, x = ~month_day, y = ~seaice_extent, type = 'scatter', mode = 'lines',
+            line = list(color=plot_colors[1], width  = 3),showlegend = TRUE, name = thisyear_label) %>%
+
+  # Latest point
+        add_trace( x= latest$month_day,  y = latest$seaice_extent, type='scatter', mode = 'markers',
+          marker = list(color=plot_colors[1], size=10),showlegend = FALSE, name = "Latest")  %>%
+      
+  # Style
+         layout(title = "Sea ice extent time series", hovermode = "x unified", showlegend=TRUE,
+         xaxis = xaxis,
+         yaxis = yaxis,
+         legend = list(
+                        orientation = 'h',    # Horizontal legend
+                        x = 0.5,              # Centered horizontally
+                        xanchor = 'center',   
+                        y = -0.2,             # Positioned below the chart
+                        yanchor = 'top'       # Align the top of the legend with this position
+                      ),
+         shapes = list(hline(total_area)))%>%
+        add_text(showlegend = FALSE, x = c("11-20"), y = c(total_area*1.02),
+        text = c("Total Area"))
+
+# Display
+fig_bs
+```
+
+
+### Data downloads
+
+-   Baseline daily extent time series (1991-2020) [Data](data/bs_extent_EasternBering.csv) - [Description](data/bs_extent_README.md)
+-   Near-real-time daily extent of two recent years [Data](data/nrt_extent_EasternBering.csv) - [Description](data/nrt_extent_README.md)
+
+
+:::
+
+::: {.column width="20%"}
+![Eastern Bering](img/ebering.png){width="200px"}
+:::
+
+::::
+ 
+
+
+## Northern Bering
+:::: {.columns}
+
+::: {.column width="80%"}
+```{r northern bering}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: 'hide'
+
+# Set region title
+region_title <- "Northern Bering"
+
+# Total area
+total_area = 311729.44
+
+
+# Load near real time data for this year and last year
+nrt_df = read.csv("data/nrt_extent_NorthernBering.csv")
+
+# Load baseline data
+baseline_df = read.csv("data/bs_extent_NorthernBering.csv")
+
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+
+
+# add month_day column
+nrt_df$month_day <- format(as.Date(nrt_df$date), "%m-%d")
+
+# Subset
+last_start = paste0(lastyear-1, "-09-01")
+last_end = paste0(lastyear, "-08-31")
+this_start = paste0(lastyear, "-09-01")
+this_end = paste0(lastyear+1, "-08-31")
+
+# Filter the dataframe for the desired date range
+dat_last <- nrt_df[nrt_df$date >= as.Date(last_start) & nrt_df$date <= as.Date(last_end), ]
+dat_this <- nrt_df[nrt_df$date >= as.Date(this_start) & nrt_df$date <= as.Date(this_end), ]
+latest = dat_this[dat_this$date == max(dat_this$date),]
+
+# Get upper and lower bound of sea ice extent using standard dev
+baseline_df$upper_extent <- baseline_df$seaice_extent_mean + baseline_df$seaice_extent_std
+baseline_df$lower_extent <- ifelse(baseline_df$seaice_extent_mean - baseline_df$seaice_extent_std >= 0, baseline_df$seaice_extent_mean - baseline_df$seaice_extent_std, 0)
+
+# Reorder date
+all_dates = format(seq(as.Date(last_start), as.Date(last_end), by = "day"), "%m-%d")
+dat_last$month_day = factor(dat_last$month_day, levels = all_dates)
+dat_this$month_day = factor(dat_this$month_day, levels = all_dates)
+baseline_df$month_day = factor(baseline_df$month_day, levels = all_dates)
+
+dat_last = dat_last[order(dat_last$month_day), ]
+dat_this = dat_this[order(dat_this$month_day), ]
+baseline_df = baseline_df[order(baseline_df$month_day), ]
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+# Set Axis specs
+ 
+# Set plot colors
+plot_colors = c("#318CE7", "#F08080", "#94C973", "#cccccc", "#cccccc", "#cccccc")
+
+
+month_day_order <- c(
+  format(seq(as.Date("2023-09-01"), as.Date("2023-12-31"), by = "day"), "%m-%d"),
+  format(seq(as.Date("2024-01-01"), as.Date("2024-08-31"), by = "day"), "%m-%d")
+)
+
+xaxis <- list(title = "Dates (MM-DD)",
+            type = 'category',  # Ensures correct ordering without converting to full date format
+            tickformat = "%m-%d",  # Display ticks in mm-dd format
+            categoryorder = "array",  # Custom order for the x-axis
+            categoryarray = month_day_order,  # Sort month_day as a category
+            showline = TRUE,
+            showgrid = FALSE,
+            tickwidth = 1,
+            ticklen = 2
+            )
+
+yaxis <- list(title = "Square km",
+            showgrid = TRUE,
+            zeroline = FALSE,
+            showline = TRUE,
+            showticklabels = TRUE,
+            autorange = TRUE)
+
+# Define horizontal line specs (total area)
+hline <- function(y = 0, color = "black") {
+  list(
+    type = "line",
+    x0 = 0,
+    x1 = 1,
+    xref = "paper",
+    y0 = y,
+    y1 = y,
+    line = list(color = color, dash="dot")
+  )
+}
+
+
+thisyear_label = paste(lastyear,"/", lastyear+1)
+lastyear_label = paste(lastyear-1, "/", lastyear)
+anom_lastyear_label = paste("Anomaly: ", substr(lastyear-1,3, 4), "/", substr(lastyear, 3,4))
+anom_thisyear_label = paste("Anomaly: ", substr(lastyear,3, 4), "/", substr(lastyear+1, 3,4))
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+# Set Axis specs
+
+## BASELINE PLOT ##
+
+## Draw plot
+ 
+  # Upper extent 
+fig_bs <- plot_ly(baseline_df, x = ~month_day, y = ~upper_extent, type = 'scatter', 
+              mode = 'lines',line = list(color = 'transparent'),
+              showlegend = FALSE, name = 'Upper bound')  %>%
+  # Lower extent 
+        add_trace(y = ~lower_extent, type = 'scatter', mode = 'lines',
+                  fill = 'tonexty', fillcolor='rgba(0,100,80,0.2)', line = list(color = 'transparent'),
+                  showlegend = FALSE, name = 'Lower bound')   %>%
+  # Baseline
+        add_trace(y = ~seaice_extent_mean, type = 'scatter', mode = 'lines',
+                  line = list(color=plot_colors[3], width  = 2),showlegend = TRUE, name = 'Baseline')  %>%
+
+  # Last year
+      add_trace(data = dat_last, x = ~month_day, y = ~seaice_extent, type = 'scatter', mode = 'lines',
+            line = list(
+            color = plot_colors[2], width = 2),showlegend = TRUE,  name = lastyear_label) %>%
+
+  # Current year
+        add_trace(data = dat_this, x = ~month_day, y = ~seaice_extent, type = 'scatter', mode = 'lines',
+            line = list(color=plot_colors[1], width  = 3),showlegend = TRUE, name = thisyear_label) %>%
+
+  # Latest point
+        add_trace( x= latest$month_day,  y = latest$seaice_extent, type='scatter', mode = 'markers',
+          marker = list(color=plot_colors[1], size=10),showlegend = FALSE, name = "Latest")  %>%
+      
+  # Style
+         layout(title = "Sea ice extent time series", hovermode = "x unified", showlegend=TRUE,
+         xaxis = xaxis,
+         yaxis = yaxis,
+         legend = list(
+                        orientation = 'h',    # Horizontal legend
+                        x = 0.5,              # Centered horizontally
+                        xanchor = 'center',   
+                        y = -0.2,             # Positioned below the chart
+                        yanchor = 'top'       # Align the top of the legend with this position
+                      ),
+         shapes = list(hline(total_area)))%>%
+        add_text(showlegend = FALSE, x = c("11-20"), y = c(total_area*1.02),
+        text = c("Total Area"))
+
+# Display
+fig_bs
+```
+
+
+### Data downloads
+
+-   Baseline daily extent time series (1991-2020) [Data](data/bs_extent_NorthernBering.csv) - [Description](data/bs_extent_README.md)
+-   Near-real-time daily extent of two recent years [Data](data/nrt_extent_NorthernBering.csv) - [Description](data/nrt_extent_README.md)
+
+
+:::
+
+::: {.column width="20%"}
+![Eastern Bering](img/nbering.png){width="200px"}
+:::
+
+::::
+
+## Southeastern Bering
+:::: {.columns}
+
+::: {.column width="80%"}
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: 'hide'
+
+
+## REGION SPECIFIC INFO ##
+
+# Set region title
+region_title <- "Southeastern Bering"
+
+# Total area
+total_area = 311729.44
+
+# Load baseline data
+baseline_df = read.csv("data/bs_extent_SoutheasternBering.csv")
+
+
+# Load near real time data for this year and last year
+nrt_df = read.csv("data/nrt_extent_SoutheasternBering.csv")
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+# add month_day column
+
+
+# add month_day column
+nrt_df$month_day <- format(as.Date(nrt_df$date), "%m-%d")
+
+# Subset
+last_start = paste0(lastyear-1, "-09-01")
+last_end = paste0(lastyear, "-08-31")
+this_start = paste0(lastyear, "-09-01")
+this_end = paste0(lastyear+1, "-08-31")
+
+# Filter the dataframe for the desired date range
+dat_last <- nrt_df[nrt_df$date >= as.Date(last_start) & nrt_df$date <= as.Date(last_end), ]
+dat_this <- nrt_df[nrt_df$date >= as.Date(this_start) & nrt_df$date <= as.Date(this_end), ]
+latest = dat_this[dat_this$date == max(dat_this$date),]
+
+# Get upper and lower bound of sea ice extent using standard dev
+baseline_df$upper_extent <- baseline_df$seaice_extent_mean + baseline_df$seaice_extent_std
+baseline_df$lower_extent <- ifelse(baseline_df$seaice_extent_mean - baseline_df$seaice_extent_std >= 0, baseline_df$seaice_extent_mean - baseline_df$seaice_extent_std, 0)
+
+# Reorder date
+all_dates = format(seq(as.Date(last_start), as.Date(last_end), by = "day"), "%m-%d")
+dat_last$month_day = factor(dat_last$month_day, levels = all_dates)
+dat_this$month_day = factor(dat_this$month_day, levels = all_dates)
+baseline_df$month_day = factor(baseline_df$month_day, levels = all_dates)
+
+dat_last = dat_last[order(dat_last$month_day), ]
+dat_this = dat_this[order(dat_this$month_day), ]
+baseline_df = baseline_df[order(baseline_df$month_day), ]
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+# Set Axis specs
+ 
+# Set plot colors
+plot_colors = c("#318CE7", "#F08080", "#94C973", "#cccccc", "#cccccc", "#cccccc")
+
+
+month_day_order <- c(
+  format(seq(as.Date(last_start), as.Date(last_end), by = "day"), "%m-%d"),
+  format(seq(as.Date(this_start), as.Date(this_end), by = "day"), "%m-%d")
+)
+
+xaxis <- list(title = "Dates (MM-DD)",
+            type = 'category',  # Ensures correct ordering without converting to full date format
+            tickformat = "%m-%d",  # Display ticks in mm-dd format
+            categoryorder = "array",  # Custom order for the x-axis
+            categoryarray = month_day_order,  # Sort month_day as a category
+            showline = TRUE,
+            showgrid = FALSE,
+            tickwidth = 1,
+            ticklen = 2
+            )
+
+yaxis <- list(title = "Square km",
+            showgrid = TRUE,
+            zeroline = FALSE,
+            showline = TRUE,
+            showticklabels = TRUE,
+            autorange = TRUE)
+
+# Define horizontal line specs (total area)
+hline <- function(y = 0, color = "black") {
+  list(
+    type = "line",
+    x0 = 0,
+    x1 = 1,
+    xref = "paper",
+    y0 = y,
+    y1 = y,
+    line = list(color = color, dash="dot")
+  )
+}
+
+
+thisyear_label = paste(lastyear,"/", lastyear+1)
+lastyear_label = paste(lastyear-1, "/", lastyear)
+anom_lastyear_label = paste("Anomaly: ", substr(lastyear-1,3, 4), "/", substr(lastyear, 3,4))
+anom_thisyear_label = paste("Anomaly: ", substr(lastyear,3, 4), "/", substr(lastyear+1, 3,4))
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+# Set Axis specs
+
+## BASELINE PLOT ##
+
+## Data processing
+
+# Get upper and lower bound of sea ice extent using standard dev
+baseline_df$upper_extent <- baseline_df$seaice_extent_mean + baseline_df$seaice_extent_std
+baseline_df$lower_extent <- ifelse(baseline_df$seaice_extent_mean - baseline_df$seaice_extent_std >= 0, baseline_df$seaice_extent_mean - baseline_df$seaice_extent_std, 0)
+
+## Draw plot
+ 
+  # Upper extent 
+fig_bs <- plot_ly(baseline_df, x = ~month_day, y = ~upper_extent, type = 'scatter', 
+              mode = 'lines',line = list(color = 'transparent'),
+              showlegend = FALSE, name = 'Upper bound')  %>%
+  # Lower extent 
+        add_trace(y = ~lower_extent, type = 'scatter', mode = 'lines',
+                  fill = 'tonexty', fillcolor='rgba(0,100,80,0.2)', line = list(color = 'transparent'),
+                  showlegend = FALSE, name = 'Lower bound')   %>%
+  # Baseline
+        add_trace(y = ~seaice_extent_mean, type = 'scatter', mode = 'lines',
+                  line = list(color=plot_colors[3], width  = 2),showlegend = TRUE, name = 'Baseline')  %>%
+
+  # Last year
+      add_trace(data = dat_last, x = ~month_day, y = ~seaice_extent, type = 'scatter', mode = 'lines',
+            line = list(
+            color = plot_colors[2], width = 2),showlegend = TRUE,  name = lastyear_label) %>%
+
+  # Current year
+        add_trace(data = dat_this, x = ~month_day, y = ~seaice_extent, type = 'scatter', mode = 'lines',
+            line = list(color=plot_colors[1], width  = 3),showlegend = TRUE, name = thisyear_label) %>%
+
+  # Latest point
+        add_trace( x= latest$month_day,  y = latest$seaice_extent, type='scatter', mode = 'markers',
+          marker = list(color=plot_colors[1], size=10),showlegend = FALSE, name = "Latest")  %>%
+      
+  # Style
+         layout(title = "Sea ice extent time series", hovermode = "x unified", showlegend=TRUE,
+         xaxis = xaxis,
+         yaxis = yaxis,
+         legend = list(
+                        orientation = 'h',    # Horizontal legend
+                        x = 0.5,              # Centered horizontally
+                        xanchor = 'center',   
+                        y = -0.2,             # Positioned below the chart
+                        yanchor = 'top'       # Align the top of the legend with this position
+                      ),
+         shapes = list(hline(total_area)))%>%
+        add_text(showlegend = FALSE, x = c("11-20"), y = c(total_area*1.02),
+        text = c("Total Area"))
+
+# Display
+fig_bs
+```
+
+### Data downloads
+
+
+-   Baseline daily extent time series (1991-2020) [Data](data/bs_extent_SoutheasternBering.csv) - [Description](data/bs_extent_README.md)
+-   Near-real-time daily extent of two recent years [Data](data/nrt_extent_SoutheasternBering.csv) - [Description](data/nrt_extent_README.md)
+
+
+:::
+
+::: {.column width="20%"}
+![Southeastern Bering](img/sebering.png){width="200px"}
+:::
+
+::::
+## Alaskan Arctic
+
+:::: {.columns}
+
+::: {.column width="80%"}
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| results: 'hide'
+
+
+# Set region title
+region_title <- "Alaskan Arctic"
+
+# Total area
+total_area = 511126.86
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+
+# Load baseline data
+baseline_df = read.csv("data/bs_extent_AlaskanArctic.csv")
+
+# Load near real time data for this year and last year
+nrt_df = read.csv("data/nrt_extent_AlaskanArctic.csv")
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+# add month_day column
+
+## Format two recent year data
+
+# add month_day column
+nrt_df$month_day <- format(as.Date(nrt_df$date), "%m-%d")
+
+# Define date range
+last_start = paste0(lastyear-1, "-09-01")
+last_end = paste0(lastyear, "-08-31")
+this_start = paste0(lastyear, "-09-01")
+this_end = paste0(lastyear+1, "-08-31")
+
+# Filter the dataframe for the desired date range
+dat_last <- nrt_df[nrt_df$date >= as.Date(last_start) & nrt_df$date <= as.Date(last_end), ]
+dat_this <- nrt_df[nrt_df$date >= as.Date(this_start) & nrt_df$date <= as.Date(this_end), ]
+latest <- dat_this[dat_this$date == max(dat_this$date),]
+
+# Get upper and lower bound of sea ice extent using standard dev
+baseline_df$upper_extent <- baseline_df$seaice_extent_mean + baseline_df$seaice_extent_std
+baseline_df$lower_extent <- ifelse(baseline_df$seaice_extent_mean - baseline_df$seaice_extent_std >= 0, baseline_df$seaice_extent_mean - baseline_df$seaice_extent_std, 0)
+
+# Reorder date
+all_dates = format(seq(as.Date(last_start), as.Date(last_end), by = "day"), "%m-%d")
+
+dat_last$month_day = factor(dat_last$month_day, levels = all_dates)
+dat_this$month_day = factor(dat_this$month_day, levels = all_dates)
+baseline_df$month_day = factor(baseline_df$month_day, levels = all_dates)
+
+dat_last = dat_last[order(dat_last$month_day), ]
+dat_this = dat_this[order(dat_this$month_day), ]
+baseline_df = baseline_df[order(baseline_df$month_day), ]
+
+
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+# Set Axis specs
+ 
+# Set plot colors
+plot_colors = c("#318CE7", "#F08080", "#94C973", "#cccccc", "#cccccc", "#cccccc")
+
+xaxis <- list(title = "Dates (MM-DD)",
+            type = 'category',  # Ensures correct ordering without converting to full date format
+            tickformat = "%m-%d",  # Display ticks in mm-dd format
+            categoryorder = "array",  # Custom order for the x-axis
+            categoryarray = all_dates,  # Sort month_day as a category
+            showline = TRUE,
+            showgrid = FALSE,
+            tickwidth = 1,
+            ticklen = 2
+            )
+
+yaxis <- list(title = "Square km",
+            showgrid = TRUE,
+            zeroline = FALSE,
+            showline = TRUE,
+            showticklabels = TRUE,
+            autorange = TRUE)
+
+# Define horizontal line specs (total area)
+hline <- function(y = 0, color = "black") {
+  list(
+    type = "line",
+    x0 = 0,
+    x1 = 1,
+    xref = "paper",
+    y0 = y,
+    y1 = y,
+    line = list(color = color, dash="dot")
+  )
+}
+
+
+thisyear_label = paste(lastyear,"/", lastyear+1)
+lastyear_label = paste(lastyear-1, "/", lastyear)
+anom_lastyear_label = paste("Anomaly: ", substr(lastyear-1,3, 4), "/", substr(lastyear, 3,4))
+anom_thisyear_label = paste("Anomaly: ", substr(lastyear,3, 4), "/", substr(lastyear+1, 3,4))
+```
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+# Set Axis specs
+
+## BASELINE PLOT ##
+
+## Draw plot
+
+
+  # Upper extent 
+fig_bs <- plot_ly(baseline_df, x = ~month_day, y = ~upper_extent, type = 'scatter', 
+              mode = 'lines',line = list(color = 'transparent'),
+              showlegend = FALSE, name = 'Upper bound')  %>%
+  # Lower extent 
+        add_trace(y = ~lower_extent, type = 'scatter', mode = 'lines',
+                  fill = 'tonexty', fillcolor='rgba(0,100,80,0.2)', line = list(color = 'transparent'),
+                  showlegend = FALSE, name = 'Lower bound')   %>%
+  # Baseline
+        add_trace(y = ~seaice_extent_mean, type = 'scatter', mode = 'lines',
+                  line = list(color=plot_colors[3], width  = 2),showlegend = TRUE, name = 'Baseline')  %>%
+
+  # Last year
+      add_trace(data = dat_last, x = ~month_day, y = ~seaice_extent, type = 'scatter', mode = 'lines',
+            line = list(
+            color = plot_colors[2], width = 2),showlegend = TRUE,  name = lastyear_label) %>%
+
+  # Current year
+        add_trace(data = dat_this, x = ~month_day, y = ~seaice_extent, type = 'scatter', mode = 'lines',
+            line = list(color=plot_colors[1], width  = 3),showlegend = TRUE, name = thisyear_label) %>%
+
+  # Latest point
+        add_trace( x= latest$month_day,  y = latest$seaice_extent, type='scatter', mode = 'markers',
+          marker = list(color=plot_colors[1], size=10),showlegend = FALSE, name = "Latest")  %>%
+      
+  # Style
+         layout(title = "Sea ice extent time series", hovermode = "x unified", showlegend=TRUE,
+         xaxis = xaxis,
+         yaxis = yaxis,
+         legend = list(
+                        orientation = 'h',    # Horizontal legend
+                        x = 0.5,              # Centered horizontally
+                        xanchor = 'center',   
+                        y = -0.2,             # Positioned below the chart
+                        yanchor = 'top'       # Align the top of the legend with this position
+                      ),
+         shapes = list(hline(total_area)))%>%
+        add_text(showlegend = FALSE, x = c("11-20"), y = c(total_area*1.02),
+        text = c("Total Area"))
+
+# Display
+fig_bs
+```
+
+### Data downloads
+
+-   Baseline daily extent time series (1991-2020) [Data](data/bs_extent_AlaskanArctic.csv) - [Description](data/bs_extent_README.md)
+-   Near-real-time daily extent of two recent years [Data](data/nrt_recent_AlaskanArctic.csv) - [Description](data/nrt_extent_README.md)
+
+
+
+:::
+
+::: {.column width="20%"}
+![Alaskan Arctic ](img/arctic.png){width="200px"}
+
+
+
+:::
+
+::::

@@ -1,5 +1,5 @@
 ---
-title: "Sea Ice Indicators in Alaska"
+title: "AKFIN - Sea Ice Data and Information "
 ---
 This website presents sea ice indicators derived from data primarily 
 remote sensing geospatial sea ice data products. The indicators may
