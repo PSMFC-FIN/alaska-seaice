@@ -72,9 +72,16 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "AKFIN - Sea Ice Data and Information",
+    "title": "AKFIN - Sea Ice Extent",
     "section": "",
-    "text": "This website presents sea ice indicators derived from data primarily remote sensing geospatial sea ice data products. The indicators may provide information and insights for understanding the trends of the sea ice environment in the Alaska region.\nThe indicators presented here are associated with the three regions defined by the Ecosystem Management Regions that AKFIN supports.\nSea Ice Extent"
+    "text": "This site presents sea ice extent across key regions in Alaska, aligned with the Ecosystem Management Regions supported by AKFIN. You can explore how sea ice changes over time, visualize recent conditions, and download data for further analysis."
+  },
+  {
+    "objectID": "index.html#explore-the-data",
+    "href": "index.html#explore-the-data",
+    "title": "AKFIN - Sea Ice Extent",
+    "section": "Explore the Data",
+    "text": "Explore the Data\nUse the links below to visualize and access sea ice extent:\n\nDaily Time Series of Recent Years\nVisualize recent seasonal cycles and current conditions.\nDaily Time Series Anomalies\nCompare recent conditions to the long-term average.\nAnnualized Time Series (1985–Present)\nExplore long-term trends and variability."
   },
   {
     "objectID": "ebering.html",
