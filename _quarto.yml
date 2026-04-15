@@ -7,7 +7,7 @@ project:
     - "!dataproc/"
 
 website:
-  title: "Sea Ice @ Alaska"
+  title: "AKFIN - Sea Ice Indicators"
   navbar:
     left:
       - href: index.qmd
@@ -20,13 +20,8 @@ website:
         text: "Northern Bering"
       - href: sebering.qmd
         text: "Southeastern Bering"
-      - href: methods.qmd
-        text: "Data and Methods"
       - href: https://shinyfin.psmfc.org/ak-sst-mhw/
         text: "ShinyFIN (SST)"
-        target: _blank
-      - href: https://www.psmfc.org/
-        text: "PSMFC"
         target: _blank
     right:
       - icon: github
@@ -44,7 +39,7 @@ format:
     grid:
       # sidebar-width: 200px
       body-width: 960px
-    theme: flatly
+    theme: cosmo
     css: styles.css
     include-after-body: custom.js
     toc: true

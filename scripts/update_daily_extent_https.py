@@ -11,11 +11,19 @@ import tempfile
 import os
 from pyproj import CRS
 
-# Data source: NSIDC CDR SIC from https://nsidc.org/data/g10016/versions/4
-NSIDC_BASE = "https://noaadata.apps.nsidc.org/NOAA/G10016_V4/north/daily"
-
+# Data source: NSIDC CDR SIC Near Real Time from https://nsidc.org/data/g10016/versions/4
 # File pattern for versiion 4 CDR SIC files (e.g. sic_psn25_20260410_am2_icdr_v04r00.nc)
+# UPDATED: data processed and available as of 04/10/2026
+NSIDC_BASE = "https://noaadata.apps.nsidc.org/NOAA/G10016_V4/north/daily"
 FILE_PATTERN = re.compile(r"sic_psn25_(\d{8})_\w+_icdr_v04r00\.nc")
+
+# Data source: NSIDC CDR SIC Science Quality 
+# File pattern for versiion 4 CDR SIC files (e.g. sic_psn25_20241204_F17_v06r00.nc  )
+# UPDATED: data processed and available until 04/09/2026
+NSIDC_BASE = "https://noaadata.apps.nsidc.org/NOAA/G02202_V6/north/daily"
+FILE_PATTERN = re.compile(r"sic_psn25_(\d{8})_\w+_v06r00\.nc")
+
+
 
 
 def list_nsidc_files_for_year(year: int) -> dict:
@@ -48,6 +56,7 @@ def get_var_data_nsidc(crs: str, var_name: str, date_range: list) -> xr.DataArra
     available = {}
     for yr in range(start.year, end.year + 1):
         try:
+            print(f'Year {yr}: listing files from NSIDC ...')
             available.update(list_nsidc_files_for_year(yr))
         except requests.HTTPError as e:
             print(f"  Warning: could not list NSIDC files for {yr}: {e}")

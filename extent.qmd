@@ -1,0 +1,42 @@
+---
+title: "Sea Ice Extent"
+---
+
+## What is Sea Ice Extent?
+
+Sea ice extent refers to the total area (km^2) where snow or ice is 
+present.  Remote sensing sea ice were first identified from remote sensing satellite
+data then total the area within the boundary.  
+
+The extent page was originally developed by NOAA PolarWatch and to learn more about 
+how to compute sea ice extent, please visit PolarWatch page. 
+
+
+This website offers daily time series of sea ice extent and 
+its anomalies within the fisheries management regions of 
+Alaskan waters. You can click on the links below or on 
+the sidebar to view and download the daily time series for each region.
+The regional data are updated daily, with approximately a 2-day lag when new data become available.
+
+
+
+The Alaska region is made up of distinct large marine ecosystems across: the Gulf of Alaska (GOA), Aleutian Islands (AI), eastern Bering Sea (EBS), northern Bering Sea (a subset of EBS), and Chukchi Sea and Beaufort Seas (referred to here as the Alaskan Arctic). Fishery management areas include the Gulf of Alaska and Bering Sea/Aleutian Islands. No federal fisheries currently occur in the Alaskan Arctic.
+
+The website features sea ice extent data for three 
+regions defined by the Ecosystem Management Regions:
+
+* [the Alaskan Arctic](arctic.html) 
+* [the Eastern Bering Sea](ebering.html)
+* [the Northern Bering Sea](nbering.html) (a subset of the Eastern Bering sea).
+* [the Southeastern Bering Sea](sebering.html) (a subset of the Eastern Bering sea).
+
+::: {layout="[[1,1], [1]]"}
+
+[![](https://nsidc.org/data/seaice_index/images/daily_images/N_daily_extent_hires.png)](https://nsidc.org/data/seaice_index/images/daily_images/N_daily_extent_hires.png)
+
+[![](https://nsidc.org/data/seaice_index/images/daily_images/N_daily_concentration_hires.png)](https://nsidc.org/data/seaice_index/images/daily_images/N_daily_concentration_hires.png)
+
+The Arctic maps from the NSIDC display sea ice extent values (left) and sea ice concentration values (right). A grid cell in the sea ice extent map (left) is assigned a value of 1 when the sea ice concentration fraction (right) is greater than or equal to a threshold of 15%.
+
+:::
+
