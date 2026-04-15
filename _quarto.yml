@@ -8,6 +8,7 @@ project:
 
 website:
   title: "AKFIN - Sea Ice"
+  
   navbar:
     background: primary
     foreground: light

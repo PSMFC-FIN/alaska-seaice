@@ -1,12 +1,22 @@
 ---
-title: "AKFIN - Sea Ice Data and Information "
+title: "AKFIN - Sea Ice Extent"
+toc: False
 ---
-This website presents sea ice indicators derived from data primarily 
-remote sensing geospatial sea ice data products. The indicators may
-provide information and insights for understanding the trends of the sea ice 
-environment in the Alaska region.
 
-The indicators presented here are associated with the three regions 
-defined by the Ecosystem Management Regions that AKFIN supports.
+This site presents sea ice extent across key regions in Alaska, aligned with the 
+Ecosystem Management Regions supported by AKFIN. You can explore how sea ice 
+changes over time, visualize recent conditions, and download data for further analysis.
 
-[Sea Ice Extent](extent.qmd)
+## Explore the Data
+
+Use the links below to visualize and access sea ice extent:
+
+- [Daily Time Series of Recent Years](daily-ts.qmd)  
+  Visualize recent seasonal cycles and current conditions.
+
+- [Daily Time Series Anomalies](anomalies.qmd)  
+  Compare recent conditions to the long-term average.
+
+- [Annualized Time Series (1985–Present)](annual-ts.qmd)  
+  Explore long-term trends and variability.
+
