@@ -20,8 +20,8 @@ FILE_PATTERN = re.compile(r"sic_psn25_(\d{8})_\w+_icdr_v04r00\.nc")
 # Data source: NSIDC CDR SIC Science Quality 
 # File pattern for versiion 4 CDR SIC files (e.g. sic_psn25_20241204_F17_v06r00.nc  )
 # UPDATED: data processed and available until 04/09/2026
-NSIDC_BASE = "https://noaadata.apps.nsidc.org/NOAA/G02202_V6/north/daily"
-FILE_PATTERN = re.compile(r"sic_psn25_(\d{8})_\w+_v06r00\.nc")
+# NSIDC_BASE = "https://noaadata.apps.nsidc.org/NOAA/G02202_V6/north/daily"
+# FILE_PATTERN = re.compile(r"sic_psn25_(\d{8})_\w+_v06r00\.nc")
 
 
 
