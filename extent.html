@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Sea ice extent in Southeastern Bering – AKFIN - Sea Ice Indicators</title>
+<title>Sea Ice Extent – AKFIN - Sea Ice Indicators</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -139,15 +139,21 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-is-sea-ice-extent" id="toc-what-is-sea-ice-extent" class="nav-link active" data-scroll-target="#what-is-sea-ice-extent">What is Sea Ice Extent?</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Sea ice extent in Southeastern Bering</h1>
+<h1 class="title">Sea Ice Extent</h1>
 </div>
 
 
@@ -164,34 +170,37 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<blockquote class="blockquote">
-<p>Updated on <code>r format(Sys.Date(), '%B %d, %Y')</code></p>
-</blockquote>
-<p><img src="img/sebering.png" alt="Southeastern Bering" style="float: right; width: 200px;"></p>
-<p>The time series plot and data summary below present statistics on sea ice extent within northern Bering Sea computed from the remote sensing data from NOAA/NSIDC on PolarWatch:</p>
+<section id="what-is-sea-ice-extent" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-sea-ice-extent">What is Sea Ice Extent?</h2>
+<p>Sea ice extent refers to the total area (km^2) where snow or ice is present. Remote sensing sea ice were first identified from remote sensing satellite data then total the area within the boundary.</p>
+<p>The extent page was originally developed by NOAA PolarWatch and to learn more about how to compute sea ice extent, please visit PolarWatch page.</p>
+<p>This website offers daily time series of sea ice extent and its anomalies within the fisheries management regions of Alaskan waters. You can click on the links below or on the sidebar to view and download the daily time series for each region. The regional data are updated daily, with approximately a 2-day lag when new data become available.</p>
+<p>The Alaska region is made up of distinct large marine ecosystems across: the Gulf of Alaska (GOA), Aleutian Islands (AI), eastern Bering Sea (EBS), northern Bering Sea (a subset of EBS), and Chukchi Sea and Beaufort Seas (referred to here as the Alaskan Arctic). Fishery management areas include the Gulf of Alaska and Bering Sea/Aleutian Islands. No federal fisheries currently occur in the Alaskan Arctic.</p>
+<p>The website features sea ice extent data for three regions defined by the Ecosystem Management Regions:</p>
 <ul>
-<li>Mean (1991-2020): Represents the average sea ice extent from 1991-2020.</li>
-<li>Upper and Lower Bounds of Error Band (1991-2020): Reflect the uncertainty of the Mean.</li>
-<li>Current and Previous Year: Show the daily sea ice extent values for the current and previous year within the area.</li>
+<li><a href="arctic.html">the Alaskan Arctic</a></li>
+<li><a href="ebering.html">the Eastern Bering Sea</a></li>
+<li><a href="nbering.html">the Northern Bering Sea</a> (a subset of the Eastern Bering sea).</li>
+<li><a href="sebering.html">the Southeastern Bering Sea</a> (a subset of the Eastern Bering sea).</li>
 </ul>
-<div class="callout callout-style-default callout-tip callout-titled" title="Plots are interactive!">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<div class="quarto-layout-panel" data-layout="[[1,1], [1]]">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><a href="https://nsidc.org/data/seaice_index/images/daily_images/N_daily_extent_hires.png"><img src="https://nsidc.org/data/seaice_index/images/daily_images/N_daily_extent_hires.png" class="img-fluid"></a></p>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Plots are interactive!
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<p><a href="https://nsidc.org/data/seaice_index/images/daily_images/N_daily_concentration_hires.png"><img src="https://nsidc.org/data/seaice_index/images/daily_images/N_daily_concentration_hires.png" class="img-fluid"></a></p>
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<ul>
-<li><strong>To zoom in and out, reset or download the plot</strong>, hover on the plot to see the option on the top right corner.</li>
-<li><strong>To turn on and off data series</strong>, click on the data series title in the legend located below each plot.</li>
-</ul>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<p>The Arctic maps from the NSIDC display sea ice extent values (left) and sea ice concentration values (right). A grid cell in the sea ice extent map (left) is assigned a value of 1 when the sea ice concentration fraction (right) is greater than or equal to a threshold of 15%.</p>
+</div>
 </div>
 </div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script>

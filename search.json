@@ -72,9 +72,72 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Sea Ice in Alaska",
+    "title": "Sea Ice Indicators in Alaska",
     "section": "",
-    "text": "This website offers daily time series of sea ice extent and its anomalies within the fisheries management regions of Alaskan waters. You can click on the links below or on the sidebar to view and download the daily time series for each region. The regional data are updated daily, with approximately a 2-day lag when new data become available.\nSea ice extent refers to the total area where snow or ice is present and is calculated using sea ice concentration data from NOAA PolarWatch.\nThe Alaska region is made up of distinct large marine ecosystems across: the Gulf of Alaska (GOA), Aleutian Islands (AI), eastern Bering Sea (EBS), northern Bering Sea (a subset of EBS), and Chukchi Sea and Beaufort Seas (referred to here as the Alaskan Arctic). Fishery management areas include the Gulf of Alaska and Bering Sea/Aleutian Islands. No federal fisheries currently occur in the Alaskan Arctic.\nThe website features sea ice extent data for three regions defined by the Ecosystem Management Regions:\n\nthe Alaskan Arctic\nthe Eastern Bering Sea\nthe Northern Bering Sea (a subset of the Eastern Bering sea).\nthe Southeastern Bering Sea (a subset of the Eastern Bering sea).\n\n\n\n\n\n\n\n\n\n\n\n\nThe Arctic maps from the NSIDC display sea ice extent values (left) and sea ice concentration values (right). A grid cell in the sea ice extent map (left) is assigned a value of 1 when the sea ice concentration fraction (right) is greater than or equal to a threshold of 15%."
+    "text": "This website presents sea ice indicators derived from data primarily remote sensing geospatial sea ice data products. The indicators may provide information and insights for understanding the trends of the sea ice environment in the Alaska region.\nThe indicators presented here are associated with the three regions defined by the Ecosystem Management Regions that AKFIN supports.\nSea Ice Extent"
+  },
+  {
+    "objectID": "ebering.html",
+    "href": "ebering.html",
+    "title": "Sea ice extent in Eastern Bering",
+    "section": "",
+    "text": "Updated on April 15, 2026"
+  },
+  {
+    "objectID": "ebering.html#under-development",
+    "href": "ebering.html#under-development",
+    "title": "Sea ice extent in Eastern Bering",
+    "section": "Under Development",
+    "text": "Under Development\nThe time series plot and data summary below present statistics on sea ice extent within eastern Bering Sea computed from the remote sensing data from NOAA/NSIDC on PolarWatch:\n\nMean (1991-2020): Represents the average sea ice extent from 1991-2020.\nUpper and Lower Bounds of Error Band (1991-2020): Reflect the uncertainty of the Mean.\nCurrent and Previous Year: Show the daily sea ice extent values for the current and previous year within the area.\n\n\n\n\n\n\n\nTipPlots are interactive!\n\n\n\n\nTo zoom in and out, reset or download the plot, hover on the plot to see the option on the top right corner.\nTo turn on and off data series, click on the data series title in the legend located below each plot."
+  },
+  {
+    "objectID": "ebering.html#sea-ice-extent-daily-time-series",
+    "href": "ebering.html#sea-ice-extent-daily-time-series",
+    "title": "Sea ice extent in Eastern Bering",
+    "section": "Sea ice extent daily time series",
+    "text": "Sea ice extent daily time series\n\n\nCode\n# Set plot colors\nplot_colors = c(\"#318CE7\", \"#F08080\", \"#94C973\", \"#cccccc\", \"#cccccc\", \"#cccccc\")\n\nxaxis &lt;- list(title = \"Dates (MM-DD)\",\n            type = 'category',  # Ensures correct ordering without converting to full date format\n            tickformat = \"%m-%d\",  # Display ticks in mm-dd format\n            categoryorder = \"array\",  # Custom order for the x-axis\n            categoryarray = month_day_order,  # Sort month_day as a category\n            showline = TRUE,\n            showgrid = FALSE,\n            tickwidth = 1,\n            ticklen = 2\n            )\n\nyaxis &lt;- list(title = \"Square km\",\n            showgrid = TRUE,\n            zeroline = FALSE,\n            showline = TRUE,\n            showticklabels = TRUE,\n            autorange = TRUE)\n\n# Define horizontal line specs (total area)\nhline &lt;- function(y = 0, color = \"black\") {\n  list(\n    type = \"line\",\n    x0 = 0,\n    x1 = 1,\n    xref = \"paper\",\n    y0 = y,\n    y1 = y,\n    line = list(color = color, dash=\"dot\")\n  )\n}\n\n\nthisyear_label = paste(lastyear,\"/\", lastyear+1)\nlastyear_label = paste(lastyear-1, \"/\", lastyear)\nanom_lastyear_label = paste(\"Anomaly: \", substr(lastyear-1,3, 4), \"/\", substr(lastyear, 3,4))\nanom_thisyear_label = paste(\"Anomaly: \", substr(lastyear,3, 4), \"/\", substr(lastyear+1, 3,4))\n\n\n\n\n\n\n\n\nData: Sea ice extent was computed by PolarWatch using NOAA/NSIDC daily sea ice concentration data at a 25km resolution"
+  },
+  {
+    "objectID": "ebering.html#sea-ice-extent-anomalies",
+    "href": "ebering.html#sea-ice-extent-anomalies",
+    "title": "Sea ice extent in Eastern Bering",
+    "section": "Sea ice extent anomalies",
+    "text": "Sea ice extent anomalies\nUsers can click on the data names in the legend to toggle it on and off.\n\n\n\n\n\n\nData Source: NOAA/NSIDC Sea Ice Concentration NSIDC Climate Data Record V4 and Near-Real-Time V2, Arctic  Statistics/Figure Source : NOAA CoastWatch PolarWatch"
+  },
+  {
+    "objectID": "ebering.html#annualized-sea-ice-extent-time-series-1985-2024",
+    "href": "ebering.html#annualized-sea-ice-extent-time-series-1985-2024",
+    "title": "Sea ice extent in Eastern Bering",
+    "section": "Annualized Sea ice extent time series (1985-2024)",
+    "text": "Annualized Sea ice extent time series (1985-2024)\n\n\n\n\n\n\nData: Sea ice extent anomalies were computed by PolarWatch using NOAA/NSIDC monthly sea ice concentration data at a 25km resolution"
+  },
+  {
+    "objectID": "ebering.html#data-and-methods",
+    "href": "ebering.html#data-and-methods",
+    "title": "Sea ice extent in Eastern Bering",
+    "section": "Data and Methods",
+    "text": "Data and Methods\nThe data sources and calculation methods can be found on the methods page. (Methods)."
+  },
+  {
+    "objectID": "ebering.html#data-disclaimer",
+    "href": "ebering.html#data-disclaimer",
+    "title": "Sea ice extent in Eastern Bering",
+    "section": "Data Disclaimer",
+    "text": "Data Disclaimer\nThe extent values for this year are computed using near real-time data, while the science-quality data (Climate Data Record, or CDR) is still being processed and will be available at a later time.\nData may be missing or corrupted in the event of technical failures with sensors or ground stations.\nPlease check the data log or contact us at sun.bak-hospital@noaa.gov for further information."
+  },
+  {
+    "objectID": "ebering.html#daily-sea-ice-extent-data-downloads",
+    "href": "ebering.html#daily-sea-ice-extent-data-downloads",
+    "title": "Sea ice extent in Eastern Bering",
+    "section": "Daily Sea ice extent data downloads",
+    "text": "Daily Sea ice extent data downloads\n\nBaseline daily extent time series (1991-2020) Data - Metadata\nNear-real-time daily extent of two recent years Data - Metadata\nAnnual mean extent time series (1985-2024) Data - Metadata\n\nDaily sea ice concentration from near-real-time (NRT) Link to Portal\n\nDaily sea ice concentration from Climate Data Record (CDR) Link to Portal"
+  },
+  {
+    "objectID": "ebering.html#more-resources",
+    "href": "ebering.html#more-resources",
+    "title": "Sea ice extent in Eastern Bering",
+    "section": "More resources",
+    "text": "More resources\nNOAA’s Annual Arctic Report Card\n\nOfficial Arctic Report Card Page\n2-Pager Fact sheet"
   },
   {
     "objectID": "arctic.html",
@@ -140,67 +203,18 @@
     "text": "More resources\nNOAA’s Annual Arctic Report Card\n\nOfficial Arctic Report Card Page\n2-Pager Fact sheet"
   },
   {
-    "objectID": "ebering.html",
-    "href": "ebering.html",
-    "title": "Sea ice extent in Eastern Bering",
+    "objectID": "extent.html",
+    "href": "extent.html",
+    "title": "Sea Ice Extent",
     "section": "",
-    "text": "Updated on April 15, 2026"
+    "text": "Sea ice extent refers to the total area (km^2) where snow or ice is present. Remote sensing sea ice were first identified from remote sensing satellite data then total the area within the boundary.\nThe extent page was originally developed by NOAA PolarWatch and to learn more about how to compute sea ice extent, please visit PolarWatch page.\nThis website offers daily time series of sea ice extent and its anomalies within the fisheries management regions of Alaskan waters. You can click on the links below or on the sidebar to view and download the daily time series for each region. The regional data are updated daily, with approximately a 2-day lag when new data become available.\nThe Alaska region is made up of distinct large marine ecosystems across: the Gulf of Alaska (GOA), Aleutian Islands (AI), eastern Bering Sea (EBS), northern Bering Sea (a subset of EBS), and Chukchi Sea and Beaufort Seas (referred to here as the Alaskan Arctic). Fishery management areas include the Gulf of Alaska and Bering Sea/Aleutian Islands. No federal fisheries currently occur in the Alaskan Arctic.\nThe website features sea ice extent data for three regions defined by the Ecosystem Management Regions:\n\nthe Alaskan Arctic\nthe Eastern Bering Sea\nthe Northern Bering Sea (a subset of the Eastern Bering sea).\nthe Southeastern Bering Sea (a subset of the Eastern Bering sea).\n\n\n\n\n\n\n\n\n\n\n\n\nThe Arctic maps from the NSIDC display sea ice extent values (left) and sea ice concentration values (right). A grid cell in the sea ice extent map (left) is assigned a value of 1 when the sea ice concentration fraction (right) is greater than or equal to a threshold of 15%."
   },
   {
-    "objectID": "ebering.html#under-development",
-    "href": "ebering.html#under-development",
-    "title": "Sea ice extent in Eastern Bering",
-    "section": "Under Development",
-    "text": "Under Development\nThe time series plot and data summary below present statistics on sea ice extent within eastern Bering Sea computed from the remote sensing data from NOAA/NSIDC on PolarWatch:\n\nMean (1991-2020): Represents the average sea ice extent from 1991-2020.\nUpper and Lower Bounds of Error Band (1991-2020): Reflect the uncertainty of the Mean.\nCurrent and Previous Year: Show the daily sea ice extent values for the current and previous year within the area.\n\n\n\n\n\n\n\nTipPlots are interactive!\n\n\n\n\nTo zoom in and out, reset or download the plot, hover on the plot to see the option on the top right corner.\nTo turn on and off data series, click on the data series title in the legend located below each plot."
-  },
-  {
-    "objectID": "ebering.html#sea-ice-extent-daily-time-series",
-    "href": "ebering.html#sea-ice-extent-daily-time-series",
-    "title": "Sea ice extent in Eastern Bering",
-    "section": "Sea ice extent daily time series",
-    "text": "Sea ice extent daily time series\n\n\nCode\n# Set plot colors\nplot_colors = c(\"#318CE7\", \"#F08080\", \"#94C973\", \"#cccccc\", \"#cccccc\", \"#cccccc\")\n\nxaxis &lt;- list(title = \"Dates (MM-DD)\",\n            type = 'category',  # Ensures correct ordering without converting to full date format\n            tickformat = \"%m-%d\",  # Display ticks in mm-dd format\n            categoryorder = \"array\",  # Custom order for the x-axis\n            categoryarray = month_day_order,  # Sort month_day as a category\n            showline = TRUE,\n            showgrid = FALSE,\n            tickwidth = 1,\n            ticklen = 2\n            )\n\nyaxis &lt;- list(title = \"Square km\",\n            showgrid = TRUE,\n            zeroline = FALSE,\n            showline = TRUE,\n            showticklabels = TRUE,\n            autorange = TRUE)\n\n# Define horizontal line specs (total area)\nhline &lt;- function(y = 0, color = \"black\") {\n  list(\n    type = \"line\",\n    x0 = 0,\n    x1 = 1,\n    xref = \"paper\",\n    y0 = y,\n    y1 = y,\n    line = list(color = color, dash=\"dot\")\n  )\n}\n\n\nthisyear_label = paste(lastyear,\"/\", lastyear+1)\nlastyear_label = paste(lastyear-1, \"/\", lastyear)\nanom_lastyear_label = paste(\"Anomaly: \", substr(lastyear-1,3, 4), \"/\", substr(lastyear, 3,4))\nanom_thisyear_label = paste(\"Anomaly: \", substr(lastyear,3, 4), \"/\", substr(lastyear+1, 3,4))\n\n\n\n\n\n\n\n\nData: Sea ice extent was computed by PolarWatch using NOAA/NSIDC daily sea ice concentration data at a 25km resolution"
-  },
-  {
-    "objectID": "ebering.html#sea-ice-extent-anomalies",
-    "href": "ebering.html#sea-ice-extent-anomalies",
-    "title": "Sea ice extent in Eastern Bering",
-    "section": "Sea ice extent anomalies",
-    "text": "Sea ice extent anomalies\nUsers can click on the data names in the legend to toggle it on and off.\n\n\n\n\n\n\nData Source: NOAA/NSIDC Sea Ice Concentration NSIDC Climate Data Record V4 and Near-Real-Time V2, Arctic  Statistics/Figure Source : NOAA CoastWatch PolarWatch"
-  },
-  {
-    "objectID": "ebering.html#annualized-sea-ice-extent-time-series-1985-2024",
-    "href": "ebering.html#annualized-sea-ice-extent-time-series-1985-2024",
-    "title": "Sea ice extent in Eastern Bering",
-    "section": "Annualized Sea ice extent time series (1985-2024)",
-    "text": "Annualized Sea ice extent time series (1985-2024)\n\n\n\n\n\n\nData: Sea ice extent anomalies were computed by PolarWatch using NOAA/NSIDC monthly sea ice concentration data at a 25km resolution"
-  },
-  {
-    "objectID": "ebering.html#data-and-methods",
-    "href": "ebering.html#data-and-methods",
-    "title": "Sea ice extent in Eastern Bering",
-    "section": "Data and Methods",
-    "text": "Data and Methods\nThe data sources and calculation methods can be found on the methods page. (Methods)."
-  },
-  {
-    "objectID": "ebering.html#data-disclaimer",
-    "href": "ebering.html#data-disclaimer",
-    "title": "Sea ice extent in Eastern Bering",
-    "section": "Data Disclaimer",
-    "text": "Data Disclaimer\nThe extent values for this year are computed using near real-time data, while the science-quality data (Climate Data Record, or CDR) is still being processed and will be available at a later time.\nData may be missing or corrupted in the event of technical failures with sensors or ground stations.\nPlease check the data log or contact us at sun.bak-hospital@noaa.gov for further information."
-  },
-  {
-    "objectID": "ebering.html#daily-sea-ice-extent-data-downloads",
-    "href": "ebering.html#daily-sea-ice-extent-data-downloads",
-    "title": "Sea ice extent in Eastern Bering",
-    "section": "Daily Sea ice extent data downloads",
-    "text": "Daily Sea ice extent data downloads\n\nBaseline daily extent time series (1991-2020) Data - Metadata\nNear-real-time daily extent of two recent years Data - Metadata\nAnnual mean extent time series (1985-2024) Data - Metadata\n\nDaily sea ice concentration from near-real-time (NRT) Link to Portal\n\nDaily sea ice concentration from Climate Data Record (CDR) Link to Portal"
-  },
-  {
-    "objectID": "ebering.html#more-resources",
-    "href": "ebering.html#more-resources",
-    "title": "Sea ice extent in Eastern Bering",
-    "section": "More resources",
-    "text": "More resources\nNOAA’s Annual Arctic Report Card\n\nOfficial Arctic Report Card Page\n2-Pager Fact sheet"
+    "objectID": "extent.html#what-is-sea-ice-extent",
+    "href": "extent.html#what-is-sea-ice-extent",
+    "title": "Sea Ice Extent",
+    "section": "",
+    "text": "Sea ice extent refers to the total area (km^2) where snow or ice is present. Remote sensing sea ice were first identified from remote sensing satellite data then total the area within the boundary.\nThe extent page was originally developed by NOAA PolarWatch and to learn more about how to compute sea ice extent, please visit PolarWatch page.\nThis website offers daily time series of sea ice extent and its anomalies within the fisheries management regions of Alaskan waters. You can click on the links below or on the sidebar to view and download the daily time series for each region. The regional data are updated daily, with approximately a 2-day lag when new data become available.\nThe Alaska region is made up of distinct large marine ecosystems across: the Gulf of Alaska (GOA), Aleutian Islands (AI), eastern Bering Sea (EBS), northern Bering Sea (a subset of EBS), and Chukchi Sea and Beaufort Seas (referred to here as the Alaskan Arctic). Fishery management areas include the Gulf of Alaska and Bering Sea/Aleutian Islands. No federal fisheries currently occur in the Alaskan Arctic.\nThe website features sea ice extent data for three regions defined by the Ecosystem Management Regions:\n\nthe Alaskan Arctic\nthe Eastern Bering Sea\nthe Northern Bering Sea (a subset of the Eastern Bering sea).\nthe Southeastern Bering Sea (a subset of the Eastern Bering sea).\n\n\n\n\n\n\n\n\n\n\n\n\nThe Arctic maps from the NSIDC display sea ice extent values (left) and sea ice concentration values (right). A grid cell in the sea ice extent map (left) is assigned a value of 1 when the sea ice concentration fraction (right) is greater than or equal to a threshold of 15%."
   },
   {
     "objectID": "methods.html",
