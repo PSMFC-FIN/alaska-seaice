@@ -20,3 +20,7 @@ Use the links below to visualize and access sea ice extent:
 - [Annualized Time Series (1985–Present)](annual-ts.qmd)  
   Explore long-term trends and variability.
 
+## Acknowledgement
+
+The data and methods used in this site are based on work from the 
+[NOAA PolarWatch project](https://polarwatch.github.io/alaska-seaice).
