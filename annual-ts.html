@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>methods – AKFIN - Sea Ice</title>
+<title>Annualized Time Series – AKFIN - Sea Ice</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -70,36 +70,16 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.12.0/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -126,7 +106,7 @@ window.Quarto = {
 <span class="menu-text">Daily Time Series</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./annual-ts.html"> 
+    <a class="nav-link active" href="./annual-ts.html" aria-current="page"> 
 <span class="menu-text">Annualized Time Series</span></a>
   </li>  
   <li class="nav-item">
@@ -141,23 +121,17 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul class="collapse">
-  <li><a href="#sea-ice-extent-in-alaska-region" id="toc-sea-ice-extent-in-alaska-region" class="nav-link active" data-scroll-target="#sea-ice-extent-in-alaska-region">Sea ice Extent in Alaska region</a>
-  <ul class="collapse">
-  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
-  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
-  <li><a href="#intended-use" id="toc-intended-use" class="nav-link" data-scroll-target="#intended-use">Intended Use</a></li>
-  <li><a href="#contact-us" id="toc-contact-us" class="nav-link" data-scroll-target="#contact-us">Contact us</a></li>
-  <li><a href="#contributors" id="toc-contributors" class="nav-link" data-scroll-target="#contributors">Contributors</a></li>
-  <li><a href="#acknowledgments" id="toc-acknowledgments" class="nav-link" data-scroll-target="#acknowledgments">Acknowledgments</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul></li>
+  <ul>
+  <li><a href="#eastern-bering" id="toc-eastern-bering" class="nav-link active" data-scroll-target="#eastern-bering">Eastern Bering</a></li>
+  <li><a href="#northern-bering" id="toc-northern-bering" class="nav-link" data-scroll-target="#northern-bering">Northern Bering</a></li>
+  <li><a href="#southeastern-bering" id="toc-southeastern-bering" class="nav-link" data-scroll-target="#southeastern-bering">Southeastern Bering</a></li>
+  <li><a href="#alaskan-arctic" id="toc-alaskan-arctic" class="nav-link" data-scroll-target="#alaskan-arctic">Alaskan Arctic</a></li>
   </ul>
 </nav>
 </nav>
@@ -166,117 +140,148 @@ window.Quarto = {
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content column-page-right" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Annualized Time Series</h1>
+</div>
 
 
 
+<div class="quarto-title-meta column-page-right">
 
-<section id="sea-ice-extent-in-alaska-region" class="level1">
-<h1>Sea ice Extent in Alaska region</h1>
-<p>This website presents daily time series of sea ice extent and its anomaly within the management regions of Alaskan waters.</p>
-<p>The website features sea ice extent data for three regions defined by the Ecosystem Management Regions: the Alaskan Arctic, Eastern Bering Sea, and the Northern Bering Sea (a subset of the Eastern Bering sea).</p>
-<p>Sea ice extent for each region is calculated using sea ice concentration data available from NOAA PolarWatch and is updated automatically when the new data are available.</p>
-<section id="data" class="level2">
-<h2 class="anchored" data-anchor-id="data">Data</h2>
-<p>Sea ice concentration represents the fraction (between 0 and 1) of the grid cell covered by sea ice. This can be estimated using satellite microwave radiometers. To compute the sea ice extent baseline (i.e., the 30-year climatology), satellite Climate Data Record (CDR) sea ice concentration data from 1985 to 2015 were pulled from <a href="https://polarwatch.noaa.gov/catalog/ice-sq-nh-nsidc-cdr-v4/preview/?dataset=monthly&amp;var=cdr_seaice_conc_monthly&amp;time_min=2023-12-01T00:00:00Z&amp;time_max=2023-12-01T00:00:00Z&amp;proj=epsg3413&amp;colorBar=KT_ice,,,0,1,">PolarWatch</a>. The sea ice extent values of the two most recent years were computed using the Near-real-time Sea Ice Concentration data.</p>
-<p><strong>Climate Data Record (CDR) of Passive Microwave Sea Ice Concentration</strong></p>
-<p>This data set provides a CDR of sea ice concentration at 25 km resolution. Daily and monthly versions are available from 1978 to the most recent annual processing. The data are deemed of science quality. The product name is NOAA/NSIDC Climate Data Record of Passive Microwave Sea Ice Concentration, Version 4 (G02202), doi:10.7265/EFMZ-2T65. <a href="https://polarwatch.noaa.gov/catalog/ice-sq-nh-nsidc-cdr-v4/preview/?dataset=monthly&amp;var=cdr_seaice_conc_monthly&amp;time_min=2023-12-01T00:00:00Z&amp;time_max=2023-12-01T00:00:00Z&amp;proj=epsg3413&amp;colorBar=KT_ice,,,0,1,">Link to Data</a></p>
-<p><strong>Near-real-time Sea Ice Concentration</strong></p>
-<p>The NRT CDR of sea ice concentration at 25 km is updated daily and used while waiting for the annual processing of the science quality CDR described above. Daily and monthly versions are available. The product name is Near Real-Time NOAA/NSIDC Sea Ice Concentration Climate Data Record, Version 2 (G10016), doi:10.7265/TGAM-YV28. <a href="https://polarwatch.noaa.gov/catalog/ice-nrt-nh-nsidc-cdr-v2/preview/?dataset=monthly&amp;var=cdr_seaice_conc_monthly&amp;time_min=2024-09-01T00:00:00Z&amp;time_max=2024-09-01T00:00:00Z&amp;proj=epsg3413&amp;colorBar=KT_ice,,,0,1,">Link to Data</a></p>
-<p><strong>Polar Stereographic Grid Cell Area</strong></p>
-<p>This dataset includes grid cell area values for the 25-km polar stereographic grid used for the sea ice concentration data. <a href="https://polarwatch.noaa.gov/erddap/griddap/pstere_gridcell_N25k.html">Link to Data</a></p>
-</section>
-<section id="methods" class="level2">
-<h2 class="anchored" data-anchor-id="methods">Methods</h2>
-<p>Sea ice extent is calculated as the sum of the areas of each grid cell where the sea ice concentration meets or exceeds a specified threshold, indicating the presence of sea ice. Typically, that threshold is 0.15 (i.e.&nbsp;when the sea ice concentration estimated in that grid cell is 15% of greater, the area of the entire grid cell is used to calculate the sea ice extent). Alternatively, one can also calculate the sea ice area, in which case the grid cell area is multiplied by the sea ice concentration. Here, we work with sea ice extent.</p>
-<section id="sea-ice-extent" class="level3">
-<h3 class="anchored" data-anchor-id="sea-ice-extent">Sea ice extent</h3>
-<p>Let <span class="math inline">\(sic_{ij}\)</span> be the satellite estimated sea ice concentration (i.e., fraction) of the <span class="math inline">\(ij^{th}\)</span> grid cell covered by sea ice.</p>
-<p>Sea ice extent of a <span class="math inline">\({region}\)</span> is defined as follows:</p>
-<p><span class="math display">\[
-\text{Sea Ice Extent}_{\text{region, time}} = \sum_{i \in \text{xgrid}, j \in \text{ygrid}} seaice_{ij,\text{region, time}} \cdot \text{cellarea}_{ij, \text{region}}
-\]</span></p>
-<p><span class="math display">\[
-\text {where}
-\ seaice_{ij, region, time} =
-\begin{cases}
-1 &amp; \text{if } sic_{ij,\text{region, time}} \geq 0.15, \\
-0 &amp; \text{otherwise.}
-\end{cases}
-\]</span></p>
-<p><strong>Workflow of Data Processing and Computation:</strong></p>
-<ol type="1">
-<li><p><strong>Data Import for Baseline</strong> Import Climate Data Record (CDR) sea ice concentration data from 1991 to 2020 within the specified regional boundaries to compute daily baseline.</p></li>
-<li><p><strong>Data Import for most recent years</strong> Import Near-Real-Time sea ice concentration data to the CDR time series.</p></li>
-<li><p><strong>Data Cleaning</strong> Remove all flag values (non-sea ice concentration values) from the dataset.</p></li>
-<li><p><strong>Data Conversion</strong> Convert sea ice concentration values from fractions to binary values using a threshold of 0.15 (0 indicates no ice, 1 indicates ice presence).</p></li>
-<li><p><strong>Sea Ice Extent Calculation</strong> Sum the grid cell areas across all grids to obtain the total sea ice extent within the regional boundaries.</p></li>
-</ol>
-</section>
-<section id="daily-sea-ice-extent-baseline" class="level3">
-<h3 class="anchored" data-anchor-id="daily-sea-ice-extent-baseline">Daily sea ice extent baseline</h3>
-<p>The daily sea ice extent baseline for a given region was computed using sea ice extent from 1991 to 2020 based on the NOAA’s <a href="https://www.noaa.gov/explainers/understanding-climate-normals">recommendadtions</a>, and defined as follows:</p>
-<p><span class="math display">\[
-\text{Sea ice extent baseline}_{\text{region, day}} = Mean (\text{Sea ice extent}_{\text{region, day, year} \in [1985, 2015]})
-\]</span></p>
-</section>
-<section id="daily-sea-ice-extent-anomaly" class="level3">
-<h3 class="anchored" data-anchor-id="daily-sea-ice-extent-anomaly">Daily sea ice extent anomaly</h3>
-<p>The daily sea ice extent anomaly for a given region was computed using sea ice extent baseline:</p>
-<p><span class="math display">\[
-\text{Sea ice extent anomaly}_{\text{region, day, year}} = \text{Sea ice extent}_{\text{region, day, year}} - \text{Sea ice extent baseline}_{\text{region, day}}
-\]</span></p>
-</section>
-<section id="annualized-sea-ice-extent" class="level3">
-<h3 class="anchored" data-anchor-id="annualized-sea-ice-extent">Annualized sea ice extent</h3>
-<p>The annualized sea ice extent for a given region was computed by averaging monthly sea ice extent values.</p>
-<p><span class="math display">\[
-\text{Annualized sea ice extent}_{\text{region, year}} = \text{Mean} \left( \text{Sea ice extent}_{\text{region, date in [September (year-1), August (year)]}} \right)
-\]</span></p>
-</section>
-<section id="codes" class="level3">
-<h3 class="anchored" data-anchor-id="codes">Codes</h3>
-<p>The data processing and computation was performed using Python and the webpage generation and visualization were done using Quartot and R. The codes are available in <code>dataproc/</code> directory of the <a href="https://github.com/polarwatch/alaska-seaice">github repository</a>.</p>
-</section>
-</section>
-<section id="intended-use" class="level2">
-<h2 class="anchored" data-anchor-id="intended-use">Intended Use</h2>
-<p>The intended use of the data summaries, which include sea ice extent baselines and anomalies, is to compare the recent year’s sea ice extent against the 30-year baseline of sea ice extent. It is important to note that no additional data cleaning has been performed beyond what is described here. Users are advised to conduct further evaluations of the data and analysis themselves.</p>
-</section>
-<section id="contact-us" class="level2">
-<h2 class="anchored" data-anchor-id="contact-us">Contact us</h2>
-<p>For any questions, comments, or feedback, email us at polar.watch@noaa.gov or create a Github <a href="https://github.com/polarwatch/alaska-seaice/issues/new">Issue</a>.</p>
-</section>
-<section id="contributors" class="level2">
-<h2 class="anchored" data-anchor-id="contributors">Contributors</h2>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-tip callout-titled" title="Plots are interactive!">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Plots are interactive!
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <ul>
-<li><a href="https://polarwatch.noaa.gov/about/contact/">PolarWatch Team</a>, NOAA CoastWatch, UCSC Fisheries Cooperative Program</li>
-<li>Elizabeth Siddon, NOAA Alaska Fisheries Science Center</li>
-<li>Ludovic Brucker, NOAA NESDIS Center for Satellite Applications &amp; Research</li>
+<li><strong>To zoom in and out, reset or download the plot</strong>, hover on the plot to see the option on the top right corner.</li>
+<li><strong>To turn on and off data series</strong>, click on the data series title in the legend located below each plot.</li>
+</ul>
+</div>
+</div>
+<section id="eastern-bering" class="level2">
+<h2 class="anchored" data-anchor-id="eastern-bering">Eastern Bering</h2>
+<div class="columns">
+<div class="column" style="width:80%;">
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-9bd519c1500d1297c922" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-9bd519c1500d1297c922">{"x":{"visdat":{"196913525b18":["function () ","plotlyVisDat"]},"cur_data":"196913525b18","attrs":{"196913525b18":{"mode":"lines+markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"},"196913525b18.1":{"mode":"lines+markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","x":{},"y":{},"line":{"color":"lightblue"},"marker":{"color":"blue","size":8},"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"showlegend":false,"title":"Annualized time series(1985-2024)","xaxis":{"domain":[0,1],"automargin":true,"rangeslider":{"visible":true},"zerolinecolor":"#ffff","zerolinewidth":2,"gridcolor":"ffff","title":"Year"},"yaxis":{"domain":[0,1],"automargin":true,"zerolinecolor":"#ffff","zerolinewidth":2,"gridcolor":"ffff","title":"Extent (Square km)"},"plot_bgcolor":"#e5ecf6","hovermode":"closest"},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"responsive":true},"data":[{"mode":"lines+markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"mode":"lines+markers","type":"scatter","x":[1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],"y":[191375.58142688929,204285.92134700908,187312.54730393397,257863.45868359914,173427.37555801633,202596.40478100433,224329.0740061292,232226.87644242262,190556.51639445033,206960.19526748176,233508.74348580738,154040.89392453452,203530.2322192014,206464.01538777613,230117.54894005723,220414.60650568688,113294.65274600685,202537.81973905946,128141.39599469969,155279.26816666138,144361.760929107,225289.54535955959,200270.09409115268,232682.94068806505,237186.0764571875,245350.86292013666,184582.57650156543,283704.22045838874,308450.5728743638,134363.93965429472,136627.10445082479,116856.99662090122,138915.69774071439,62982.552506622334,70730.884206556904,151670.27142485985,138527.06760479102,182060.82003216338,162891.7447102007,195334.50214986221],"line":{"color":"lightblue"},"marker":{"color":"blue","size":8,"line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<section id="data-downloads" class="level3">
+<h3 class="anchored" data-anchor-id="data-downloads">Data downloads</h3>
+<ul>
+<li>Annualized extent time series (1985-Current) <a href="data/annualized_extent_EasternBering.csv">Data</a> - <a href="data/annualized_extent_README.md">Description</a></li>
 </ul>
 </section>
-<section id="acknowledgments" class="level2">
-<h2 class="anchored" data-anchor-id="acknowledgments">Acknowledgments</h2>
-<p>We thank Matt Calahan from the Alaska Fisheries Information Network (AKFIN) for his valuable insights, R package, and resources. We also appreciate Andy Teucher from OpenScapes for his contributions to the GitHub workflow. Their input was instrumental in the development of this work.</p>
+</div><div class="column" style="width:20%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/ebering.png" class="img-fluid figure-img" width="200"></p>
+<figcaption>Eastern Bering</figcaption>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<p><strong>Data</strong></p>
-<p>NOAA/NSIDC. (n.d.). Climate Data Record of Passive Microwave Sea Ice Concentration, Version 4, Arctic. DATA SET ID: G02202. https://doi.org/10.7265/EFMZ-2T65</p>
-<p>NOAA/NSIDC. (n.d). Near-Real-Time Climate Data Record of Passive Microwave Sea Ice Concentration Version 2, Arctic. DATA SET ID: G10016.https://doi.org/10.7265/TGAM-YV28</p>
-<p>Callahan, M. (2023/12/1). AKmarineareas: Management relevant spatial data for Alaska marine areas. Retrieved from https://github.com/MattCallahan-NOAA/AKmarineareas/</p>
-<p><strong>Data Access</strong></p>
-<p>NOAA/CoastWatch PolarWatch. (n.d.). Data Access and Visualization of Climate Data Record of Passive Microwave Sea Ice Concentration, Version 2 and 4 DATA SET ID: (nsidcG02202v4nh1day , nsidcG10016v2nh1day). https://polarwatch.noaa.gov/catalog/</p>
-<p><strong>Statistics and Plots</strong></p>
-<p>NOAA/CoastWatch PolarWatch. (n.d.). Sea ice extent time series for Alaska region.</p>
-<p><strong>Software</strong></p>
-<p>Hoyer, S., &amp; Hamman, J. (n.d.). xarray: N-D labeled arrays and datasets in Python. Retrieved from http://xarray.pydata.org</p>
-<p>Quarto Authors (n.d). Quarto: An Open-Source Scientific and Technical Publishing System Built on Pandoc. Retrieved from https://github.com/quarto-dev/quarto-cli</p>
-<p>R Core Team (2020). R(version) [Statistical package] Retrieved from https://www.R-project.org/.</p>
-<p>Python Software Foundation. (2024). Python (3.10.14) [Computer software]. Retrieved from https://www.python.org.</p>
+<section id="northern-bering" class="level2">
+<h2 class="anchored" data-anchor-id="northern-bering">Northern Bering</h2>
+<div class="columns">
+<div class="column" style="width:80%;">
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-2d71f8b74e1e58bc4235" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-2d71f8b74e1e58bc4235">{"x":{"visdat":{"19695ffb228c":["function () ","plotlyVisDat"]},"cur_data":"19695ffb228c","attrs":{"19695ffb228c":{"mode":"lines+markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"},"19695ffb228c.1":{"mode":"lines+markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","x":{},"y":{},"line":{"color":"lightblue"},"marker":{"color":"blue","size":8},"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"showlegend":false,"title":"Annualized time series(1985-2024)","xaxis":{"domain":[0,1],"automargin":true,"rangeslider":{"visible":true},"zerolinecolor":"#ffff","zerolinewidth":2,"gridcolor":"ffff","title":"Year"},"yaxis":{"domain":[0,1],"automargin":true,"zerolinecolor":"#ffff","zerolinewidth":2,"gridcolor":"ffff","title":"Extent (Square km)"},"plot_bgcolor":"#e5ecf6","hovermode":"closest"},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"responsive":true},"data":[{"mode":"lines+markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"mode":"lines+markers","type":"scatter","x":[1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],"y":[131887.33924401991,131844.26088421184,141853.86854075568,151039.28416947581,123119.56007996324,137428.28991196287,139106.37693094165,144152.86185826053,134313.44645961787,134006.74853796294,142644.25684872351,112701.73972692687,124841.79190398591,134034.30742581037,143410.0215856235,149341.42848254144,97896.584220500925,137294.47714921611,99399.976457249591,108793.71473652779,117467.31685960348,153302.96674539795,128454.21726188039,132378.99749904699,144630.87993170138,146090.9482681267,118061.50451325104,153479.62263919477,186499.03670767762,105121.72694707394,101182.01566230936,99929.671994602904,90842.036608748502,51743.703313306156,58888.622209993599,105179.41241818984,110516.61619118627,119350.00228794907,121119.33859366929,141596.79060733289],"line":{"color":"lightblue"},"marker":{"color":"blue","size":8,"line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<section id="data-downloads-1" class="level3">
+<h3 class="anchored" data-anchor-id="data-downloads-1">Data downloads</h3>
+<ul>
+<li>Annualized extent time series (1985-Current) <a href="data/annualized_extent_NorthernBering.csv">Data</a> - <a href="data/annualized_extent_README.md">Description</a></li>
+</ul>
+</section>
+</div><div class="column" style="width:20%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/nbering.png" class="img-fluid figure-img" width="200"></p>
+<figcaption>Northern Bering</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="southeastern-bering" class="level2">
+<h2 class="anchored" data-anchor-id="southeastern-bering">Southeastern Bering</h2>
+<div class="columns">
+<div class="column" style="width:80%;">
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-02e87423f631bd433944" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-02e87423f631bd433944">{"x":{"visdat":{"196969ce5de8":["function () ","plotlyVisDat"]},"cur_data":"196969ce5de8","attrs":{"196969ce5de8":{"mode":"lines+markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"},"196969ce5de8.1":{"mode":"lines+markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","x":{},"y":{},"line":{"color":"lightblue"},"marker":{"color":"blue","size":8},"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"showlegend":false,"title":"Annualized time series(1985-2024)","xaxis":{"domain":[0,1],"automargin":true,"rangeslider":{"visible":true},"zerolinecolor":"#ffff","zerolinewidth":2,"gridcolor":"ffff","title":"Year"},"yaxis":{"domain":[0,1],"automargin":true,"zerolinecolor":"#ffff","zerolinewidth":2,"gridcolor":"ffff","title":"Extent (Square km)"},"plot_bgcolor":"#e5ecf6","hovermode":"closest"},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"responsive":true},"data":[{"mode":"lines+markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"mode":"lines+markers","type":"scatter","x":[1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],"y":[57794.385534894936,70295.839958454817,43693.484059164875,103703.52527020416,49405.424149372804,62758.990942472352,82496.340710507255,85560.767618792248,54049.61268694661,70428.550962220572,87970.016185031942,40296.885865457116,76385.61352956311,69876.2092010864,84063.673221812322,68578.864442133039,15098.35966608104,63179.943450933264,27302.946941859453,44905.496978875301,25430.579954354384,69004.902958284525,69178.369151876177,97409.470034259633,90055.664752637837,96378.172333539784,64513.231891388568,126754.45752624238,118184.67136348154,27951.205898812157,33819.472860524635,15834.391794159594,46988.878045122787,11177.008477143365,11747.120521303603,45527.674779419925,27404.637117525559,60642.677795848947,39967.574685380307,52237.530874398042],"line":{"color":"lightblue"},"marker":{"color":"blue","size":8,"line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<section id="data-downloads-2" class="level3">
+<h3 class="anchored" data-anchor-id="data-downloads-2">Data downloads</h3>
+<ul>
+<li>Annualized extent time series (1985-Current) <a href="data/annualized_extent_SoutheasternBering.csv">Data</a> - <a href="data/annualized_extent_README.md">Description</a></li>
+</ul>
+</section>
+</div><div class="column" style="width:20%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/sebering.png" class="img-fluid figure-img" width="200"></p>
+<figcaption>Southeastern Bering</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="alaskan-arctic" class="level2">
+<h2 class="anchored" data-anchor-id="alaskan-arctic">Alaskan Arctic</h2>
+<div class="columns">
+<div class="column" style="width:80%;">
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-ad3a3718dc2d80a5fcb6" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-ad3a3718dc2d80a5fcb6">{"x":{"visdat":{"19694f0a74d2":["function () ","plotlyVisDat"]},"cur_data":"19694f0a74d2","attrs":{"19694f0a74d2":{"mode":"lines+markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"},"19694f0a74d2.1":{"mode":"lines+markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter","x":{},"y":{},"line":{"color":"lightblue"},"marker":{"color":"blue","size":8},"inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"showlegend":false,"title":"Annualized time series(1985-2024)","xaxis":{"domain":[0,1],"automargin":true,"rangeslider":{"visible":true},"zerolinecolor":"#ffff","zerolinewidth":2,"gridcolor":"ffff","title":"Year"},"yaxis":{"domain":[0,1],"automargin":true,"zerolinecolor":"#ffff","zerolinewidth":2,"gridcolor":"ffff","title":"Extent (Square km)"},"plot_bgcolor":"#e5ecf6","hovermode":"closest"},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false,"responsive":true},"data":[{"mode":"lines+markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"mode":"lines+markers","type":"scatter","x":[1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],"y":[472442.74289354542,464906.57252951659,438865.05936064012,454573.23656618485,461845.62740581651,437741.20097104966,446215.97056921781,462426.4480627114,443811.95389937243,433169.11237306258,457794.24451511895,434838.47001659172,434951.13025566988,379472.9306605871,395798.28077734757,442763.87624189915,442771.62438737974,444182.01839241391,393835.77357380651,389780.53504218045,397301.278624642,434272.5698042764,398295.9418219332,370670.68237225222,398711.7624451383,393295.0259789768,373950.35938472563,378998.75607910805,378052.98050382553,404486.13122678822,387345.74115482316,370290.15148338513,337183.46289851848,355584.78911077994,332579.81336025556,359639.40385603096,393547.25476183539,405708.17468357272,371052.56952862046,351419.51607199857],"line":{"color":"lightblue"},"marker":{"color":"blue","size":8,"line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<section id="data-downloads-3" class="level3">
+<h3 class="anchored" data-anchor-id="data-downloads-3">Data downloads</h3>
+<ul>
+<li>Annualized extent time series (1985-Current) <a href="data/annualized_extent_AlaskanArctic.csv">Data</a> - <a href="data/annualized_extent_README.md">Description</a></li>
+</ul>
+</section>
+</div><div class="column" style="width:20%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/arctic.png" class="img-fluid figure-img" width="200"></p>
+<figcaption>Alaskan Arctic</figcaption>
+</figure>
+</div>
+</div>
+</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
