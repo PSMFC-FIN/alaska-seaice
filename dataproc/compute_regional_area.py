@@ -1,87 +1,95 @@
 """
 Title: Compute total area in square km for Alaska Ecosystem Regions
 
-Description: 
-    For each defined region, it calculates the total sea ice extent in square kilometers
-    based on 25K polar stereographic projection and the regional shapefiles.
-    The results are printed for each region.
+Description:
+    For each defined region, calculates the total grid cell area in square
+    kilometers based on the 25 km polar stereographic projection and regional
+    shapefiles. Uses a single test SIC file to establish the grid, then clips
+    the cell area to each region and sums. Results are printed, plotted, and
+    saved as NetCDF.
 
 Regions:
-- Alaskan Arctic
-- Northern Bering Sea
-- Eastern Bering Sea
-- Southeastern Bering Sea
+    Alaskan Arctic, Northern Bering Sea, Eastern Bering Sea, Southeastern Bering Sea
 
 Dependencies:
-- os
-- sys
-- geopandas
-- datetime
-- matplotlib
-- pw_data (specifically, the pwSIC25k class)
+    geopandas, matplotlib, sic (local module)
 
 Parameters:
-- CRS: EPSG:3413 (Polar Stereographic)
-- NRT_DAILY_ID: 'nsidcG10016v2nh1day'
-- GRID_CELL_AREA_ID: 'pstere_gridcell_N25k'
-- VAR_NAME: 'cdr_seaice_conc'
-
-Usage:
-    Run this script to compute and display total sea ice extent for each region.
+    CRS          : EPSG:3411 (Polar Stereographic, Hughes 1980 ellipsoid)
+    AREA_NC_PATH : NSIDC0771 cell area file
+    VAR_NAME     : 'cdr_seaice_conc'
 
 Author: Sunny Bak Hospital
-Date: October 8, 2024
+Modified: April 16, 2026
 """
-# import matplotlib.pyplot as plt
-import os, sys
+
+import os
+import sys
+
 import geopandas as gpd
-import datetime
 import matplotlib.pyplot as plt
 
-# Import the utils module from parent directory
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.abspath(os.path.join(current_dir, '../..'))
-sys.path.insert(0, parent_dir)
+from sic import SIC25k, clip_data
 
-from pw_data import SIC25k
+# ---------------------------------------------------------------------------
+# Configuration
+# ---------------------------------------------------------------------------
+
+CRS          = 'epsg:3411'
+VAR_NAME     = 'cdr_seaice_conc'
+AREA_NC_PATH = 'resources/ref_files/NSIDC0771_CellArea_PS_N25km_v1.0.nc'
+TEST_DATA_DIR = 'data/test/'
+RESOURCE_DIR  = 'resources/akmarineeco'
+
+REGIONS = {
+    # 'AlaskanArctic':        'arctic_sf.shp',
+    # 'NorthernBering':       'nbering_sf.shp',
+    # 'EasternBering':        'ebering_sf.shp',
+    'SoutheasternBering':   'se_bering_sf.shp',
+}
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
 
 def main():
-    # server and data set info
-    
-    CRS = 'epsg:3413'
-    NRT_DAILY_ID = 'nsidcG10016v2nh1day'
-    AREA_ID = 'pstere_gridcell_N25k'  # ID for the corresponding area grid
-    VAR_NAME = 'cdr_seaice_conc'
+    # Load SIC and area once — grid is the same for all regions
+    sic = SIC25k(
+        data_dirs=TEST_DATA_DIR,
+        varname=VAR_NAME,
+        crs=CRS,
+    )
+    sic.load_area_local(AREA_NC_PATH)
 
-    Define regions and corresponding shapefiles for spatial subsetting
-    REGIONS = dict([
-       ('AlaskanArctic', 'arctic_sf.shp'),  # Alaskan Arctic region
-       ('NorthernBering', 'nbering_sf.shp'),  # Northern Bering Sea region
-       ('EasternBering', 'ebering_sf.shp'),  # Eastern Bering Sea region
-        ('SoutheasternBering', 'se_bering_sf.shp') # Southeastern Bering Sea region
-    ])
+    for name, shp_file in REGIONS.items():
+        print(f"\nRegion: {name}")
 
-
-    sic = SIC25k(NRT_DAILY_ID, VAR_NAME, CRS)  # Initialize SIC25k with ERDDAP data
-    sic.load_area(AREA_ID)  # Load the corresponding grid cell area data
-    
-    for name, shp in REGIONS.items():
-        # print(f'name is {name}, and shape file is {shp}')
-
-        # print("reading shapefile : ")
-        alaska_shp = gpd.read_file(f'resources/akmarineeco/{shp}')
-
-    # Transform projection to Polar Stereographic Projection
+        alaska_shp      = gpd.read_file(f'{RESOURCE_DIR}/{shp_file}')
         alaska_shp_proj = alaska_shp.to_crs(CRS)
 
-        _, area = sic.subset_dim([f'2023-09-01', f'2023-09-01'], alaska_shp_proj) # Get one time step
-        total_area = sic.get_total_area_km(alaska_shp_proj)
-        print(f'total area for {name}: {total_area}')
+        # Clip area to region and sum for total area
+        area_clipped = clip_data(sic.area, alaska_shp_proj)
+        total_area_km2 = float(area_clipped.sum()) / 1e6
 
-    # Get Area data
-        area.plot()
+
+        print(f"  Total grid cell area (upper limit) : {total_area_km2:,.2f} km2")
+        print(f"  Shapefile area       : {alaska_shp_proj.geometry.area.sum() / 1e6:,.2f} km2")
+
+        # Plot and save
+        area_clipped.plot()
+        plt.title(f"Cell area – {name}")
         plt.show()
-        area.to_netcdf(f'area_{name}.nc')
+
+        area_clipped.to_netcdf(f'area_{name}.nc')
+        print(f"  Saved: area_{name}.nc")
+
+
+
+
+# ---------------------------------------------------------------------------
+# Entry point
+# ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,258 @@
+#!/usr/bin/env python
+"""
+Title: Baseline Sea Ice Extent Computation for Alaska Regions
+Author: Sunny Bak Hospital
+Modified: April 16, 2026
+
+Description:
+    Computes daily sea ice extent statistics (mean and std) over a baseline
+    period for multiple Alaska regions, using locally cached NSIDC CDR daily
+    NetCDF files and the SIC25k class from the `sic` module.
+
+    Logic:
+        For each year in the baseline period, daily SIC values are binarised
+        at the 0.15 threshold and summed spatially to produce a daily extent
+        value (km2). Once all years are collected, mean and std are computed
+        grouped by month-day. This is the statistically valid approach: the
+        threshold is applied to each observation before averaging, so extent
+        statistics reflect real ice/no-ice variability across years.
+
+    Per-window loading:
+        SIC25k is instantiated once per calendar year, opening only that
+        year's files. Pixel-level math (binarise, multiply by area, sum) is
+        triggered by .compute() at the end of each year, then the result is
+        stored as a small 1-D time series before moving to the next year.
+        This keeps the Dask task graph small throughout.
+
+    Data sources (local, downloaded by download_nsidc.py):
+        CDR : data/cdr/YYYY/   (G02202_V6 daily)
+        Area: cell_area.nc
+
+    Output: one CSV per region -> bs_extent_<RegionName>.csv
+            columns: month, day, seaice_extent_mean, seaice_extent_std, month_day
+
+Regions:
+    AlaskanArctic, NorthernBering, EasternBering, SoutheasternBering
+
+Usage:
+    python compute_baseline_extent.py                              # defaults: 1985-2020
+    python compute_baseline_extent.py --start-year 1985 --end-year 2020
+    python compute_baseline_extent.py --start-year 1991           # end-year defaults to 2020
+"""
+
+import argparse
+import gc
+import sys
+from pathlib import Path
+
+import geopandas as gpd
+import pandas as pd
+import xarray as xr
+
+from sic import SIC25k
+
+# ---------------------------------------------------------------------------
+# Configuration
+# ---------------------------------------------------------------------------
+
+CRS      = 'epsg:3413'        # Polar Stereographic North
+VAR_NAME = 'cdr_seaice_conc'  # Variable name in CDR daily files
+
+CDR_DATA_DIR = Path("data/cdr")
+AREA_NC_PATH = Path("cell_area.nc")
+RESOURCE_DIR = Path("resources/akmarineeco")
+
+REGIONS = {
+    'AlaskanArctic':        'arctic_sf.shp',
+    'NorthernBering':       'nbering_sf.shp',
+    'EasternBering':        'ebering_sf.shp',
+    'SoutheasternBering':   'se_bering_sf.shp',
+}
+
+DEFAULT_START_YEAR = 1985
+DEFAULT_END_YEAR   = 2020
+
+
+# ---------------------------------------------------------------------------
+# Argument parsing
+# ---------------------------------------------------------------------------
+
+def parse_args():
+    p = argparse.ArgumentParser(
+        description="Compute baseline daily sea ice extent statistics."
+    )
+    p.add_argument(
+        '--start-year', type=int, default=DEFAULT_START_YEAR,
+        help=f"First year of the baseline period (default: {DEFAULT_START_YEAR})."
+    )
+    p.add_argument(
+        '--end-year', type=int, default=DEFAULT_END_YEAR,
+        help=f"Last year of the baseline period, inclusive (default: {DEFAULT_END_YEAR})."
+    )
+    return p.parse_args()
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def validate_paths():
+    errors = []
+    if not CDR_DATA_DIR.exists():
+        errors.append(f"CDR data directory not found: {CDR_DATA_DIR}")
+    if not AREA_NC_PATH.exists():
+        errors.append(f"Cell area file not found: {AREA_NC_PATH}")
+    if errors:
+        for e in errors:
+            print(f"ERROR: {e}")
+        print("\nRun `python download_nsidc.py --cdr-only` to download the data first.")
+        sys.exit(1)
+
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+
+def main():
+    args = parse_args()
+
+    start_year = args.start_year
+    end_year   = args.end_year
+
+    if start_year > end_year:
+        print(f"ERROR: --start-year ({start_year}) must be <= --end-year ({end_year})")
+        sys.exit(1)
+
+    validate_paths()
+
+    print(f"Baseline period: {start_year} - {end_year}")
+    print(f"Regions: {list(REGIONS.keys())}\n")
+
+    # ------------------------------------------------------------------
+    # Loop over regions
+    # ------------------------------------------------------------------
+    for region_name, shp_file in REGIONS.items():
+        shp_path = RESOURCE_DIR / shp_file
+
+        if not shp_path.exists():
+            print(f"WARNING: Shapefile not found for '{region_name}': {shp_path}. Skipping.")
+            continue
+
+        print(f"{'='*60}")
+        print(f"Region: {region_name}")
+        print(f"{'='*60}")
+
+        alaska_shp      = gpd.read_file(shp_path)
+        alaska_shp_proj = alaska_shp.to_crs(CRS)
+
+        # Collect daily extent time series across all baseline years
+        extents = []
+
+        # --------------------------------------------------------------
+        # Loop over years — one SIC25k per calendar year
+        # --------------------------------------------------------------
+        for year in range(start_year, end_year + 1):
+            year_dir = CDR_DATA_DIR / str(year)
+
+            if not year_dir.exists():
+                print(f"  {year}: directory not found ({year_dir}), skipping.")
+                continue
+
+            print(f"  {year}", end=" ... ")
+
+            try:
+                # Open only this year's files
+                sic = SIC25k(
+                    data_dirs=year_dir,
+                    varname=VAR_NAME,
+                    crs=CRS,
+                )
+                sic.load_area_local(str(AREA_NC_PATH))
+
+                # Spatial clip + full calendar year slice
+                ds, area = sic.subset_dim(
+                    [f'{year}-01-01', f'{year}-12-31'],
+                    alaska_shp_proj,
+                )
+
+                if ds.time.size == 0:
+                    print("no data, skipping.")
+                    continue
+
+                # Binarise per pixel, multiply by area, sum spatially
+                # -> 1-D DataArray of daily extent values (km2)
+                sic_bin = sic.format_sic(ds, threshold=0.15)
+                ext     = sic.compute_extent_km(sic_bin, area)
+
+                # Trigger computation now so we hold only a small 1-D
+                # time series in memory, not the full spatial dataset
+                extents.append(ext.compute())
+
+                print(f"{ds.time.size} days loaded.")
+
+            except Exception as e:
+                print(f"ERROR: {e}")
+
+            finally:
+                try:
+                    del sic, ds, sic_bin, ext
+                except NameError:
+                    pass
+                gc.collect()
+
+        if not extents:
+            print(f"No data collected for {region_name}, skipping.\n")
+            continue
+
+        # --------------------------------------------------------------
+        # Combine all years into one continuous daily time series
+        # --------------------------------------------------------------
+        combined = xr.concat(extents, dim='time')
+
+        # Convert to DataFrame and add month/day columns
+        ext_df = (combined
+                  .to_dataframe()
+                  .reset_index())
+
+        # Drop spatial_ref column if present (rioxarray artifact)
+        if 'spatial_ref' in ext_df.columns:
+            ext_df = ext_df.drop(columns=['spatial_ref'])
+
+        ext_df['time']  = pd.to_datetime(ext_df['time'])
+        ext_df['month'] = ext_df['time'].dt.month
+        ext_df['day']   = ext_df['time'].dt.day
+        ext_df = ext_df.drop(columns=['time'])
+
+        # --------------------------------------------------------------
+        # Group by month-day and compute mean and std across years
+        # --------------------------------------------------------------
+        stats = (ext_df
+                 .groupby(['month', 'day'])['seaice_extent']
+                 .agg(['mean', 'std'])
+                 .reset_index()
+                 .round(2)
+                 .rename(columns={
+                     'mean': 'seaice_extent_mean',
+                     'std':  'seaice_extent_std',
+                 }))
+
+        stats['month_day'] = stats.apply(
+            lambda r: f"{int(r['month']):02d}-{int(r['day']):02d}", axis=1
+        )
+
+        out_csv = f"bs_extent_{region_name}.csv"
+        stats.to_csv(out_csv, index=False)
+        print(f"\nSaved: {out_csv}  ({len(stats)} month-day rows)\n")
+
+        del alaska_shp_proj, extents, combined, ext_df, stats
+        gc.collect()
+
+    print("Done.")
+
+
+# ---------------------------------------------------------------------------
+# Main()
+# ---------------------------------------------------------------------------
+
+if __name__ == "__main__":
+    main()

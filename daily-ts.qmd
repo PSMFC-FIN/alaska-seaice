@@ -28,7 +28,9 @@ page-layout: full
 #| message: false
 #| results: 'hide'
 
-
+########################################
+## REGION: Eastern Bering  ########
+########################################
 
 # Set region title
 region_title <- "Eastern Bering"
@@ -40,7 +42,7 @@ nrt_df = read.csv("data/nrt_extent_EasternBering.csv")
 baseline_df = read.csv("data/bs_extent_EasternBering.csv")
 
 # Total area
-total_area = 891335.77
+total_area = 892470.62
 
 
 ```
@@ -232,6 +234,10 @@ fig_bs
 #| message: false
 #| results: 'hide'
 
+########################################
+## REGION: Northern Bering  ########
+########################################
+
 # Set region title
 region_title <- "Northern Bering"
 
@@ -407,6 +413,8 @@ fig_bs
 
 ::::
 
+
+
 ## Southeastern Bering
 :::: {.columns}
 
@@ -418,6 +426,10 @@ fig_bs
 #| message: false
 #| results: 'hide'
 
+########################################
+## REGION: Southeastern Bering  ########
+########################################
+
 
 ## REGION SPECIFIC INFO ##
 
@@ -425,7 +437,7 @@ fig_bs
 region_title <- "Southeastern Bering"
 
 # Total area
-total_area = 311729.44
+total_area = 573738.24
 
 # Load baseline data
 baseline_df = read.csv("data/bs_extent_SoutheasternBering.csv")
@@ -612,12 +624,15 @@ fig_bs
 #| message: false
 #| results: 'hide'
 
+########################################
+## REGION: Alaskan Arctic  ########
+########################################
 
 # Set region title
 region_title <- "Alaskan Arctic"
 
 # Total area
-total_area = 511126.86
+total_area = 512347.70
 
 ```
 

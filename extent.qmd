@@ -24,3 +24,25 @@ computed sea ice extent within the boundaries defined by the Ecosystem Managemen
 
 In the fisheries management, the Alaska region is made up of distinct large marine ecosystems across: the Gulf of Alaska (GOA), Aleutian Islands (AI), eastern Bering Sea (EBS), northern Bering Sea (a subset of EBS), and Chukchi Sea and Beaufort Seas (referred to here as the Alaskan Arctic). Fishery management areas include the Gulf of Alaska and Bering Sea/Aleutian Islands. No federal fisheries currently occur in the Alaskan Arctic.
 
+## What data were used for extent?
+
+Sea ice extent is based on the NOAA/NSIDC Climate Data Record (Version 6) __Sea Ice Concentration_ 
+data available from the National Snow and Ice Data Center (dataset G02202).
+
+This dataset combines measurements from multiple satellite sensors flown since 1978, 
+including Scanning Multichannel Microwave Radiometer (SMMR), Special Sensor Microwave/Imager, 
+Special Sensor Microwave Imager/Sounder, and more recent sensors like AMSR2.
+
+The data are provided daily on a ~25 km grid and form a continuous record from 1978 to present, 
+designed to be consistent across different satellites over time.
+
+For computation, you can read more at the [PolarWatch project site](https://polarwatch.github.io/alaska-seaice/methods.html)
+
+## Why the data has different versions?
+Why are there different versions, and why use the latest?
+
+Sea ice datasets are updated over time as scientists improve how satellite data are processed. New versions—like the NOAA/NSIDC Climate Data Record (Version 6)—reflect better calibration between different satellites, improved algorithms, and corrections to known issues in earlier releases.
+
+Because the record spans multiple decades and multiple sensors, small inconsistencies can occur. Each new version works to make the data more consistent and reliable across time.
+
+Using the latest version ensures you are working with the most accurate and up-to-date dataset, especially for long-term trends and comparisons.
