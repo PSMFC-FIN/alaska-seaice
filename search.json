@@ -11,7 +11,7 @@
     "href": "nbering.html",
     "title": "Sea ice extent in Northern Bering",
     "section": "",
-    "text": "Updated on April 16, 2026"
+    "text": "Updated on April 17, 2026"
   },
   {
     "objectID": "nbering.html#under-development",
@@ -95,7 +95,7 @@
     "href": "ebering.html",
     "title": "Sea ice extent in Eastern Bering",
     "section": "",
-    "text": "Updated on April 16, 2026"
+    "text": "Updated on April 17, 2026"
   },
   {
     "objectID": "ebering.html#under-development",
@@ -158,7 +158,7 @@
     "href": "arctic.html",
     "title": "Sea ice extent in Alaskan Arctic",
     "section": "",
-    "text": "Updated on April 16, 2026"
+    "text": "Updated on April 17, 2026"
   },
   {
     "objectID": "arctic.html#under-development",
@@ -364,6 +364,20 @@
     "text": "What are the regions?\nIn the fisheries management, the Alaska region is made up of distinct large marine ecosystems across: the Gulf of Alaska (GOA), Aleutian Islands (AI), eastern Bering Sea (EBS), northern Bering Sea (a subset of EBS), and Chukchi Sea and Beaufort Seas (referred to here as the Alaskan Arctic). Fishery management areas include the Gulf of Alaska and Bering Sea/Aleutian Islands. No federal fisheries currently occur in the Alaskan Arctic."
   },
   {
+    "objectID": "extent.html#what-data-were-used-for-extent",
+    "href": "extent.html#what-data-were-used-for-extent",
+    "title": "Sea Ice Extent",
+    "section": "What data were used for extent?",
+    "text": "What data were used for extent?\nSea ice extent is based on the NOAA/NSIDC Climate Data Record (Version 6) __Sea Ice Concentration_ data available from the National Snow and Ice Data Center (dataset G02202).\nThis dataset combines measurements from multiple satellite sensors flown since 1978, including Scanning Multichannel Microwave Radiometer (SMMR), Special Sensor Microwave/Imager, Special Sensor Microwave Imager/Sounder, and more recent sensors like AMSR2.\nThe data are provided daily on a ~25 km grid and form a continuous record from 1978 to present, designed to be consistent across different satellites over time.\nFor computation, you can read more at the PolarWatch project site"
+  },
+  {
+    "objectID": "extent.html#why-the-data-has-different-versions",
+    "href": "extent.html#why-the-data-has-different-versions",
+    "title": "Sea Ice Extent",
+    "section": "Why the data has different versions?",
+    "text": "Why the data has different versions?\nWhy are there different versions, and why use the latest?\nSea ice datasets are updated over time as scientists improve how satellite data are processed. New versions—like the NOAA/NSIDC Climate Data Record (Version 6)—reflect better calibration between different satellites, improved algorithms, and corrections to known issues in earlier releases.\nBecause the record spans multiple decades and multiple sensors, small inconsistencies can occur. Each new version works to make the data more consistent and reliable across time.\nUsing the latest version ensures you are working with the most accurate and up-to-date dataset, especially for long-term trends and comparisons."
+  },
+  {
     "objectID": "methods.html",
     "href": "methods.html",
     "title": "Sea ice Extent in Alaska region",
@@ -424,7 +438,7 @@
     "href": "sebering.html",
     "title": "Sea ice extent in Southeastern Bering",
     "section": "",
-    "text": "Updated on April 16, 2026"
+    "text": "Updated on April 17, 2026"
   },
   {
     "objectID": "sebering.html#under-development",
