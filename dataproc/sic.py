@@ -110,24 +110,28 @@ class IceData:
         for d in self.data_dirs:
             files.extend(glob.glob(str(d / self.file_pattern)))
 
+        files = sorted(files)  # ensure chronological order
+
         if not files:
             raise FileNotFoundError(
                 f"No files matching '{self.file_pattern}' found in: "
                 f"{[str(d) for d in self.data_dirs]}"
             )
 
-        ds = xr.open_mfdataset(
-            files,
-            combine="by_coords",
-            chunks={"time": "auto"},
-            parallel=True,
-        )
+        # Open files sequentially and concatenate — safer on memory-limited
+        # systems than open_mfdataset with chunking/parallel=True, which can
+        # cause segfaults when opening large numbers of files at once.
+        datasets = []
+        for f in files:
+            d = xr.open_dataset(f)
+            if self.varname not in d:
+                raise ValueError(
+                    f"Variable '{self.varname}' not found in {f}. "
+                    f"Available: {list(d.data_vars)}"
+                )
+            datasets.append(d)
 
-        if self.varname not in ds:
-            raise ValueError(
-                f"Variable '{self.varname}' not found. "
-                f"Available: {list(ds.data_vars)}"
-            )
+        ds = xr.concat(datasets, dim="time").sortby("time")
 
         da = ds[self.varname]
         da.rio.set_spatial_dims(
@@ -387,7 +391,8 @@ def clip_data(ds: xr.DataArray,
     Returns:
         xr.DataArray: Clipped DataArray.
     """
-    if not shape.crs.equals(ds.rio.crs):
+    if shape.crs != ds.rio.crs:
         print("CRS mismatch - reprojecting shape to match data CRS.")
         shape = shape.to_crs(ds.rio.crs)
+
     return ds.rio.clip(shape.geometry.apply(mapping), shape.crs)
