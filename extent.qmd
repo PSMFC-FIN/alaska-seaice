@@ -26,19 +26,18 @@ In the fisheries management, the Alaska region is made up of distinct large mari
 
 ## What data were used for extent?
 
-Sea ice extent is based on the NOAA/NSIDC Climate Data Record (Version 6) __Sea Ice Concentration_ 
-data available from the National Snow and Ice Data Center (dataset G02202).
+Sea ice extent is calculated using the NOAA/NSIDC Climate Data Record (Version 6) Sea Ice Concentration dataset (G02202).
 
-This dataset combines measurements from multiple satellite sensors flown since 1978, 
-including Scanning Multichannel Microwave Radiometer (SMMR), Special Sensor Microwave/Imager, 
-Special Sensor Microwave Imager/Sounder, and more recent sensors like AMSR2.
+This dataset is the standard for sea ice monitoring because it provides a long, consistent record from 1978 to present, combining multiple passive microwave satellite sensors (such as SMMR, SSM/I, SSMIS, and AMSR2). It is available daily on an approximately 25 km grid and is well-suited for tracking long-term changes.
 
-The data are provided daily on a ~25 km grid and form a continuous record from 1978 to present, 
-designed to be consistent across different satellites over time.
+Other datasets offer different advantages. Infrared-based products like AVHRR Pathfinder provide higher spatial detail but are limited by clouds and darkness. Blended products that combine microwave and infrared data can improve detail near the ice edge, but they do not yet have the same long-term, consistent record.
 
-For computation, you can read more at the [PolarWatch project site](https://polarwatch.github.io/alaska-seaice/methods.html)
+Because passive microwave sensors work through clouds and in both day and night conditions, they are the most reliable choice for consistent, long-term sea ice extent calculations.
+
+For details on how extent is computed, please refer to the [PolarWatch project site](https://polarwatch.github.io/alaska-seaice/methods.html).
 
 ## Why the data has different versions?
+
 Why are there different versions, and why use the latest?
 
 Sea ice datasets are updated over time as scientists improve how satellite data are processed. New versions—like the NOAA/NSIDC Climate Data Record (Version 6)—reflect better calibration between different satellites, improved algorithms, and corrections to known issues in earlier releases.
