@@ -17,16 +17,16 @@ Description:
         threshold is applied to each observation before averaging, so extent
         statistics reflect real ice/no-ice variability across years.
 
-    Per-window loading:
-        SIC25k is instantiated once per calendar year, opening only that
-        year's files. Pixel-level math (binarise, multiply by area, sum) is
-        triggered by .compute() at the end of each year, then the result is
-        stored as a small 1-D time series before moving to the next year.
-        This keeps the Dask task graph small throughout.
+    Memory efficiency:
+        - Cell area is loaded once and clipped once per region, not reloaded
+          every year.
+        - SIC25k is instantiated per calendar year, opening only that year's
+          files. After computation, spatial data is discarded and only the
+          small 1-D daily extent time series is kept in memory.
 
     Data sources (local, downloaded by download_nsidc.py):
         CDR : data/cdr/YYYY/   (G02202_V6 daily)
-        Area: cell_area.nc
+        Area: resources/ref_files/NSIDC0771_CellArea_PS_N25km_v1.0.nc
 
     Output: one CSV per region -> bs_extent_<RegionName>.csv
             columns: month, day, seaice_extent_mean, seaice_extent_std, month_day
@@ -35,9 +35,9 @@ Regions:
     AlaskanArctic, NorthernBering, EasternBering, SoutheasternBering
 
 Usage:
-    python compute_baseline_extent.py                              # defaults: 1985-2020
-    python compute_baseline_extent.py --start-year 1985 --end-year 2020
-    python compute_baseline_extent.py --start-year 1991           # end-year defaults to 2020
+    python compute_baseline_extent_nsidc.py                           # defaults: 1985-2020
+    python compute_baseline_extent_nsidc.py --start-year 1985 --end-year 2020
+    python compute_baseline_extent_nsidc.py --start-year 1991         # end-year defaults to 2020
 """
 
 import argparse
@@ -49,17 +49,17 @@ import geopandas as gpd
 import pandas as pd
 import xarray as xr
 
-from sic import SIC25k
+from sic import SIC25k, clip_data
 
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
 
-CRS      = 'epsg:3413'        # Polar Stereographic North
+CRS      = 'epsg:3411'        # Polar Stereographic North (Hughes 1980)
 VAR_NAME = 'cdr_seaice_conc'  # Variable name in CDR daily files
 
 CDR_DATA_DIR = Path("data/cdr")
-AREA_NC_PATH = Path("cell_area.nc")
+AREA_NC_PATH = Path("resources/ref_files/NSIDC0771_CellArea_PS_N25km_v1.0.nc")
 RESOURCE_DIR = Path("resources/akmarineeco")
 
 REGIONS = {
@@ -109,6 +109,37 @@ def validate_paths():
         sys.exit(1)
 
 
+def load_area(start_year: int, crs: str) -> xr.DataArray:
+    """
+    Loads the full grid-cell area DataArray once from disk.
+    Uses the first available year directory just to initialise SIC25k,
+    which is needed to set up the spatial metadata on the area file.
+
+    Args:
+        start_year (int): First year — used to find a valid data directory.
+        crs (str)       : CRS string.
+
+    Returns:
+        xr.DataArray: Full (unclipped) grid-cell area DataArray.
+    """
+    year = start_year
+    while year <= DEFAULT_END_YEAR:
+        year_dir = CDR_DATA_DIR / str(year)
+        if year_dir.exists():
+            break
+        year += 1
+    else:
+        print("ERROR: No valid CDR year directory found to initialise area.")
+        sys.exit(1)
+
+    sic_tmp = SIC25k(data_dirs=year_dir, varname=VAR_NAME, crs=crs)
+    sic_tmp.load_area_local(str(AREA_NC_PATH))
+    area = sic_tmp.area
+    del sic_tmp
+    gc.collect()
+    return area
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -128,6 +159,11 @@ def main():
     print(f"Baseline period: {start_year} - {end_year}")
     print(f"Regions: {list(REGIONS.keys())}\n")
 
+    # Load area once — it's the same grid for all regions and all years
+    print("Loading grid-cell area ... ", end="")
+    area_full = load_area(start_year, CRS)
+    print("done.\n")
+
     # ------------------------------------------------------------------
     # Loop over regions
     # ------------------------------------------------------------------
@@ -142,11 +178,12 @@ def main():
         print(f"Region: {region_name}")
         print(f"{'='*60}")
 
-        alaska_shp      = gpd.read_file(shp_path)
-        alaska_shp_proj = alaska_shp.to_crs(CRS)
+        alaska_shp_proj = gpd.read_file(shp_path).to_crs(CRS)
 
-        # Collect daily extent time series across all baseline years
-        extents = []
+        # Clip area once per region — reused for every year
+        area_clipped = clip_data(area_full, alaska_shp_proj)
+
+        extents = []   # collects 1-D daily extent DataArrays across years
 
         # --------------------------------------------------------------
         # Loop over years — one SIC25k per calendar year
@@ -161,17 +198,15 @@ def main():
             print(f"  {year}", end=" ... ")
 
             try:
-                # Open only this year's files
                 sic = SIC25k(
                     data_dirs=year_dir,
                     varname=VAR_NAME,
                     crs=CRS,
                 )
-                sic.load_area_local(str(AREA_NC_PATH))
 
-                # Spatial clip + full calendar year slice
-                ds, area = sic.subset_dim(
-                    [f'{year}-01-01', f'{year}-12-31'],
+                # Clip SIC to region for this year
+                ds = clip_data(
+                    sic.ds.sel(time=slice(f'{year}-01-01', f'{year}-12-31')),
                     alaska_shp_proj,
                 )
 
@@ -182,13 +217,12 @@ def main():
                 # Binarise per pixel, multiply by area, sum spatially
                 # -> 1-D DataArray of daily extent values (km2)
                 sic_bin = sic.format_sic(ds, threshold=0.15)
-                ext     = sic.compute_extent_km(sic_bin, area)
+                ext     = sic.compute_extent_km(sic_bin, area_clipped)
 
-                # Trigger computation now so we hold only a small 1-D
-                # time series in memory, not the full spatial dataset
-                extents.append(ext.compute())
+                # Store only the small 1-D result; discard spatial data
+                extents.append(ext)
 
-                print(f"{ds.time.size} days loaded.")
+                print(f"{ds.time.size} days.")
 
             except Exception as e:
                 print(f"ERROR: {e}")
@@ -202,6 +236,7 @@ def main():
 
         if not extents:
             print(f"No data collected for {region_name}, skipping.\n")
+            del alaska_shp_proj, area_clipped
             continue
 
         # --------------------------------------------------------------
@@ -209,12 +244,8 @@ def main():
         # --------------------------------------------------------------
         combined = xr.concat(extents, dim='time')
 
-        # Convert to DataFrame and add month/day columns
-        ext_df = (combined
-                  .to_dataframe()
-                  .reset_index())
+        ext_df = combined.to_dataframe().reset_index()
 
-        # Drop spatial_ref column if present (rioxarray artifact)
         if 'spatial_ref' in ext_df.columns:
             ext_df = ext_df.drop(columns=['spatial_ref'])
 
@@ -224,7 +255,7 @@ def main():
         ext_df = ext_df.drop(columns=['time'])
 
         # --------------------------------------------------------------
-        # Group by month-day and compute mean and std across years
+        # Group by month-day: mean and std across years
         # --------------------------------------------------------------
         stats = (ext_df
                  .groupby(['month', 'day'])['seaice_extent']
@@ -244,14 +275,14 @@ def main():
         stats.to_csv(out_csv, index=False)
         print(f"\nSaved: {out_csv}  ({len(stats)} month-day rows)\n")
 
-        del alaska_shp_proj, extents, combined, ext_df, stats
+        del alaska_shp_proj, area_clipped, extents, combined, ext_df, stats
         gc.collect()
 
     print("Done.")
 
 
 # ---------------------------------------------------------------------------
-# Main()
+# Entry point
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
