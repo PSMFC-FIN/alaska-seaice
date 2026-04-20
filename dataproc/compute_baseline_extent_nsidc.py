@@ -55,8 +55,8 @@ from sic import SIC25k, clip_data
 # Configuration
 # ---------------------------------------------------------------------------
 
-CRS      = 'epsg:3411'        # NSIDC Polar Stereographic North (Hughes 1980)
-VAR_NAME = 'cdr_seaice_conc'  # !CHECK Variable name in CDR daily files
+CRS      = 'epsg:3411'        # Polar Stereographic North (Hughes 1980)
+VAR_NAME = 'cdr_seaice_conc'  # Variable name in CDR daily files
 
 CDR_DATA_DIR = Path("data/cdr")
 AREA_NC_PATH = Path("resources/ref_files/NSIDC0771_CellArea_PS_N25km_v1.0.nc")
@@ -64,13 +64,17 @@ RESOURCE_DIR = Path("resources/akmarineeco")
 
 REGIONS = {
     'AlaskanArctic':        'arctic_sf.shp',
-    # 'NorthernBering':       'nbering_sf.shp',
-    # 'EasternBering':        'ebering_sf.shp',
-    # 'SoutheasternBering':   'se_bering_sf.shp',
+    'NorthernBering':       'nbering_sf.shp',
+    'EasternBering':        'ebering_sf.shp',
+    'SoutheasternBering':   'se_bering_sf.shp',
 }
 
 DEFAULT_START_YEAR = 1985
 DEFAULT_END_YEAR   = 2020
+
+# Known bad data periods — these dates contain zeros instead of valid SIC
+# values and are excluded from baseline statistics.
+EXCLUDE_DATES = set(pd.date_range('1987-12-03', '1988-01-13'))
 
 
 # ---------------------------------------------------------------------------
@@ -96,8 +100,6 @@ def parse_args():
 # Helpers
 # ---------------------------------------------------------------------------
 
-# Data must be downloaded prior to running this script, 
-# so check for expected paths and exit with a  message if not found.
 def validate_paths():
     errors = []
     if not CDR_DATA_DIR.exists():
@@ -135,10 +137,10 @@ def load_area(start_year: int, crs: str) -> xr.DataArray:
         sys.exit(1)
 
     sic_tmp = SIC25k(data_dirs=year_dir, varname=VAR_NAME, crs=crs)
-    sic_tmp.load_area_local(str(AREA_NC_PATH)) # load grid area data from the local file
+    sic_tmp.load_area_local(str(AREA_NC_PATH))
     area = sic_tmp.area
     del sic_tmp
-    gc.collect() #garbage collector to free memory immediately
+    gc.collect()
     return area
 
 
@@ -180,7 +182,6 @@ def main():
         print(f"Region: {region_name}")
         print(f"{'='*60}")
 
-        # Convert the shapefile to the same CRS as the SIC data
         alaska_shp_proj = gpd.read_file(shp_path).to_crs(CRS)
 
         # Clip area once per region — reused for every year
@@ -201,7 +202,6 @@ def main():
             print(f"  {year}", end=" ... ")
 
             try:
-                # Load data into SIC25k instance for this year only (opens only that year's files)
                 sic = SIC25k(
                     data_dirs=year_dir,
                     varname=VAR_NAME,
@@ -218,9 +218,8 @@ def main():
                     print("no data, skipping.")
                     continue
 
-                # Convert to binary values per pixel based on threshold,
-                # multiply by area, sum spatially
-                # to obtain 1-D DataArray of daily extent values (km2)
+                # Binarise per pixel, multiply by area, sum spatially
+                # -> 1-D DataArray of daily extent values (km2)
                 sic_bin = sic.format_sic(ds, threshold=0.15)
                 ext     = sic.compute_extent_km(sic_bin, area_clipped)
 
@@ -255,13 +254,18 @@ def main():
             ext_df = ext_df.drop(columns=['spatial_ref'])
 
         ext_df['time']  = pd.to_datetime(ext_df['time'])
+
+        # Exclude known bad dates before extracting month/day or dropping time
+        n_before = len(ext_df)
+        ext_df = ext_df[~ext_df['time'].isin(EXCLUDE_DATES)]
+        n_excluded = n_before - len(ext_df)
+        if n_excluded:
+            print(f"  Excluded {n_excluded} known bad dates from statistics.")
+
         ext_df['month'] = ext_df['time'].dt.month
         ext_df['day']   = ext_df['time'].dt.day
         ext_df = ext_df.drop(columns=['time'])
 
-        # Evaluate the data before grouping to check for any anomalies
-        print("\nSample of combined daily extent data before grouping:")
-        ext_df.to_csv(f'check_ext_df_{region_name}_{year}.csv', index=False)
         # --------------------------------------------------------------
         # Group by month-day: mean and std across years
         # --------------------------------------------------------------
