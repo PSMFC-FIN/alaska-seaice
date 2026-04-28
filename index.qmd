@@ -14,9 +14,6 @@ Use the links below to visualize sea ice extent and access data:
 - [Daily Time Series of Recent Years](daily-ts.qmd)  
   Visualize recent seasonal cycles and current conditions.
 
-- [Daily Time Series Anomalies](anomalies.qmd)  
-  Compare recent conditions to the long-term average.
-
 - [Annualized Time Series (1985–Present)](annual-ts.qmd)  
   Explore long-term trends and variability.
 
