@@ -39,6 +39,7 @@ jobs:
             any::DT
             any::plotly
             any::lubridate
+            any::readr
 
 
       - name: Render and Publish
