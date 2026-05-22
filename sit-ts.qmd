@@ -1,0 +1,667 @@
+---
+title: "Sea ice thickness"
+format:
+  html:
+    code-fold: true
+    toc: true
+    toc-location: left
+    toc-depth: 3
+page-layout: full
+---
+
+::: {.callout-tip title="Plots are interactive!"}
+-   **To zoom in and out, reset or download the plot**, hover on the plot to see the option on the top right corner.
+-   **To turn on and off data series**, click on the data series title in the legend located below each plot.
+:::
+
+## Eastern Bering
+
+:::: {.columns}
+
+::: {.column width="80%"}
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+library(readr)
+library(dplyr)
+library(lubridate)
+library(plotly)
+
+region <- 'EasternBering'
+
+colors <- list(
+  ice_free  = '#d0e8f5',
+  new_young = '#74b3d8',
+  thin_FY   = '#2a7db5',
+  medium_FY = '#1a5a8a',
+  thick_FY  = '#0d3b5e',
+  multiyear = '#051f30'
+)
+
+labels <- list(
+  ice_free  = 'Ice Free',
+  new_young = 'New/Young (<0.3m)',
+  thin_FY   = 'Thin FY (0.3–0.7m)',
+  medium_FY = 'Medium FY (0.7–1.2m)',
+  thick_FY  = 'Thick FY (1.2–2.0m)',
+  multiyear = 'Multi-year (>2.0m)'
+)
+
+cat_cols <- c('multiyear','thick_FY','medium_FY','thin_FY','new_young','ice_free')
+
+# Load data
+df_area <- read_csv('./data/NorthernBering_sit_daily_ts.csv') |>
+  mutate(time = as_datetime(time))
+
+# Normalize x-axis to a reference year
+# Oct-Dec → 2000, Jan-Apr → 2001 (fake year for alignment)
+normalize_time <- function(df) {
+  df |> mutate(
+    time_norm = case_when(
+      month(time) >= 10 ~ update(time, year = 2000),
+      TRUE              ~ update(time, year = 2001)
+    )
+  )
+}
+
+# Filter and normalize seasons
+df_2425 <- df_area |>
+  filter(
+    (year(time) == 2024 & month(time) %in% c(10,11,12)) |
+    (year(time) == 2025 & month(time) %in% c(1,2,3,4))
+  ) |>
+  normalize_time()
+
+df_2526 <- df_area |>
+  filter(
+    (year(time) == 2025 & month(time) %in% c(10,11,12)) |
+    (year(time) == 2026 & month(time) %in% c(1,2,3,4))
+  ) |>
+  normalize_time()
+
+# Helper to build one season plot
+make_season_plot <- function(sdf, season, show_legend) {
+  p <- plot_ly()
+  for (cat in cat_cols) {
+    p <- p |> add_trace(
+      x             = sdf$time_norm,
+      y             = sdf[[cat]],
+      type          = 'scatter',
+      mode          = 'lines',
+      name          = labels[[cat]],
+      legendgroup   = cat,
+      showlegend    = show_legend,
+      line          = list(width=0.5, color=colors[[cat]]),
+      fillcolor     = colors[[cat]],
+      stackgroup    = paste0(season, '_stack'),
+      # Show real date in tooltip
+      text          = format(sdf$time, '%b %d %Y'),
+      hovertemplate = paste0(
+        '<b>', season, '</b> ',
+        labels[[cat]], ': %{y:,.0f} km²<extra></extra>'
+      )
+    )
+  }
+  p <- p |> layout(
+    annotations = list(list(
+      text      = season,
+      x         = 0.01,
+      y         = 0.95,
+      xref      = 'paper',
+      yref      = 'paper',
+      showarrow = FALSE,
+      font      = list(size=16, color='gray', family='Arial Black') 
+    ))
+  )
+  p
+}
+
+
+# Build two plots
+p1 <- make_season_plot(df_2425, '2024/25', show_legend = TRUE)
+p2 <- make_season_plot(df_2526, '2025/26', show_legend = FALSE)
+
+# Combine as subplot
+fig <- subplot(
+  p1, p2,
+  nrows   = 2,
+  shareX  = TRUE,
+  titleY  = TRUE,
+  heights = c(0.5, 0.5)
+) |>
+  layout(
+    title = list(
+      text    = paste0(region, ' — Sea Ice Thickness (Oct - Apr)'),
+      x       = 0.5,
+      xanchor = 'center'
+    ),
+    legend = list(
+      orientation = 'h',
+      yanchor     = 'bottom',
+      y           = 0.97,       # just below the title
+      xanchor     = 'center',
+      x           = 0.5
+    ),
+
+    yaxis = list(
+      title  = 'Area (km²)'
+   
+    ),
+    yaxis2 = list(
+      title  = 'Area (km²)'
+
+    ),
+
+    xaxis = list(
+      title      = 'Month',
+      tickformat = '%b %d',   # show only month-day
+      tickangle  = -45,
+      dtick      = 'M1',
+      xhoverformat = '%b %d'
+    ),
+
+
+    margin = list(l=80, t=150) ,
+    hovermode = 'x unified',
+    height   =     NULL,   
+    autosize = TRUE
+  
+  )
+
+fig
+```
+::::
+:::
+
+
+## Northern Bering
+
+:::: {.columns}
+
+::: {.column width="80%"}
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+library(readr)
+library(dplyr)
+library(lubridate)
+library(plotly)
+
+region <- 'NorthernBering'
+
+colors <- list(
+  ice_free  = '#d0e8f5',
+  new_young = '#74b3d8',
+  thin_FY   = '#2a7db5',
+  medium_FY = '#1a5a8a',
+  thick_FY  = '#0d3b5e',
+  multiyear = '#051f30'
+)
+
+labels <- list(
+  ice_free  = 'Ice Free',
+  new_young = 'New/Young (<0.3m)',
+  thin_FY   = 'Thin FY (0.3–0.7m)',
+  medium_FY = 'Medium FY (0.7–1.2m)',
+  thick_FY  = 'Thick FY (1.2–2.0m)',
+  multiyear = 'Multi-year (>2.0m)'
+)
+
+cat_cols <- c('multiyear','thick_FY','medium_FY','thin_FY','new_young','ice_free')
+
+# Load data
+df_area <- read_csv('./data/NorthernBering_sit_daily_ts.csv') |>
+  mutate(time = as_datetime(time))
+
+# Normalize x-axis to a reference year
+# Oct-Dec → 2000, Jan-Apr → 2001 (fake year for alignment)
+normalize_time <- function(df) {
+  df |> mutate(
+    time_norm = case_when(
+      month(time) >= 10 ~ update(time, year = 2000),
+      TRUE              ~ update(time, year = 2001)
+    )
+  )
+}
+
+# Filter and normalize seasons
+df_2425 <- df_area |>
+  filter(
+    (year(time) == 2024 & month(time) %in% c(10,11,12)) |
+    (year(time) == 2025 & month(time) %in% c(1,2,3,4))
+  ) |>
+  normalize_time()
+
+df_2526 <- df_area |>
+  filter(
+    (year(time) == 2025 & month(time) %in% c(10,11,12)) |
+    (year(time) == 2026 & month(time) %in% c(1,2,3,4))
+  ) |>
+  normalize_time()
+
+# Helper to build one season plot
+make_season_plot <- function(sdf, season, show_legend) {
+  p <- plot_ly()
+  for (cat in cat_cols) {
+    p <- p |> add_trace(
+      x             = sdf$time_norm,
+      y             = sdf[[cat]],
+      type          = 'scatter',
+      mode          = 'lines',
+      name          = labels[[cat]],
+      legendgroup   = cat,
+      showlegend    = show_legend,
+      line          = list(width=0.5, color=colors[[cat]]),
+      fillcolor     = colors[[cat]],
+      stackgroup    = paste0(season, '_stack'),
+      # Show real date in tooltip
+      text          = format(sdf$time, '%b %d %Y'),
+      hovertemplate = paste0(
+        '<b>', season, '</b> — %{text}<br>',
+        labels[[cat]], ': %{y:,.0f} km²<extra></extra>'
+      )
+    )
+  }
+  p <- p |> layout(
+    annotations = list(list(
+      text      = season,
+      x         = 0.01,
+      y         = 0.95,
+      xref      = 'paper',
+      yref      = 'paper',
+      showarrow = FALSE,
+      font      = list(size=16, color='gray', family='Arial Black') 
+    ))
+  )
+  p
+}
+
+
+# Build two plots
+p1 <- make_season_plot(df_2425, '2024/25', show_legend = TRUE)
+p2 <- make_season_plot(df_2526, '2025/26', show_legend = FALSE)
+
+# Combine as subplot
+fig <- subplot(
+  p1, p2,
+  nrows   = 2,
+  shareX  = TRUE,
+  titleY  = TRUE,
+  heights = c(0.5, 0.5)
+) |>
+  layout(
+    title = list(
+      text    = paste0(region, ' — Sea Ice Thickness (Oct - Apr)'),
+      x       = 0.5,
+      xanchor = 'center'
+    ),
+    legend = list(
+      orientation = 'h',
+      yanchor     = 'bottom',
+      y           = 0.97,       # just below the title
+      xanchor     = 'center',
+      x           = 0.5
+    ),
+
+    yaxis = list(
+      title  = 'Area (km²)'
+   
+    ),
+    yaxis2 = list(
+      title  = 'Area (km²)'
+
+    ),
+
+    xaxis = list(
+      title      = 'Month',
+      tickformat = '%b %d',   # show only month-day
+      tickangle  = -45,
+      dtick      = 'M1',
+      xhoverformat = '%b %d'
+    ),
+
+
+    margin = list(l=80, t=150) ,
+    hovermode = 'x unified',
+    height   =     NULL,   
+    autosize = TRUE
+  
+  )
+
+fig
+```
+::::
+:::
+
+## Southeastern Bering
+
+:::: {.columns}
+
+::: {.column width="80%"}
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+library(readr)
+library(dplyr)
+library(lubridate)
+library(plotly)
+
+region <- 'NorthernBering'
+
+colors <- list(
+  ice_free  = '#d0e8f5',
+  new_young = '#74b3d8',
+  thin_FY   = '#2a7db5',
+  medium_FY = '#1a5a8a',
+  thick_FY  = '#0d3b5e',
+  multiyear = '#051f30'
+)
+
+labels <- list(
+  ice_free  = 'Ice Free',
+  new_young = 'New/Young (<0.3m)',
+  thin_FY   = 'Thin FY (0.3–0.7m)',
+  medium_FY = 'Medium FY (0.7–1.2m)',
+  thick_FY  = 'Thick FY (1.2–2.0m)',
+  multiyear = 'Multi-year (>2.0m)'
+)
+
+cat_cols <- c('multiyear','thick_FY','medium_FY','thin_FY','new_young','ice_free')
+
+# Load data
+df_area <- read_csv('./data/NorthernBering_sit_daily_ts.csv') |>
+  mutate(time = as_datetime(time))
+
+# Normalize x-axis to a reference year
+# Oct-Dec → 2000, Jan-Apr → 2001 (fake year for alignment)
+normalize_time <- function(df) {
+  df |> mutate(
+    time_norm = case_when(
+      month(time) >= 10 ~ update(time, year = 2000),
+      TRUE              ~ update(time, year = 2001)
+    )
+  )
+}
+
+# Filter and normalize seasons
+df_2425 <- df_area |>
+  filter(
+    (year(time) == 2024 & month(time) %in% c(10,11,12)) |
+    (year(time) == 2025 & month(time) %in% c(1,2,3,4))
+  ) |>
+  normalize_time()
+
+df_2526 <- df_area |>
+  filter(
+    (year(time) == 2025 & month(time) %in% c(10,11,12)) |
+    (year(time) == 2026 & month(time) %in% c(1,2,3,4))
+  ) |>
+  normalize_time()
+
+# Helper to build one season plot
+make_season_plot <- function(sdf, season, show_legend) {
+  p <- plot_ly()
+  for (cat in cat_cols) {
+    p <- p |> add_trace(
+      x             = sdf$time_norm,
+      y             = sdf[[cat]],
+      type          = 'scatter',
+      mode          = 'lines',
+      name          = labels[[cat]],
+      legendgroup   = cat,
+      showlegend    = show_legend,
+      line          = list(width=0.5, color=colors[[cat]]),
+      fillcolor     = colors[[cat]],
+      stackgroup    = paste0(season, '_stack'),
+      # Show real date in tooltip
+      text          = format(sdf$time, '%b %d %Y'),
+      hovertemplate = paste0(
+        '<b>', season, '</b> — %{text}<br>',
+        labels[[cat]], ': %{y:,.0f} km²<extra></extra>'
+      )
+    )
+  }
+  p <- p |> layout(
+    annotations = list(list(
+      text      = season,
+      x         = 0.01,
+      y         = 0.95,
+      xref      = 'paper',
+      yref      = 'paper',
+      showarrow = FALSE,
+      font      = list(size=16, color='gray', family='Arial Black') 
+    ))
+  )
+  p
+}
+
+
+# Build two plots
+p1 <- make_season_plot(df_2425, '2024/25', show_legend = TRUE)
+p2 <- make_season_plot(df_2526, '2025/26', show_legend = FALSE)
+
+# Combine as subplot
+fig <- subplot(
+  p1, p2,
+  nrows   = 2,
+  shareX  = TRUE,
+  titleY  = TRUE,
+  heights = c(0.5, 0.5)
+) |>
+  layout(
+    title = list(
+      text    = paste0(region, ' — Sea Ice Thickness (Oct - Apr)'),
+      x       = 0.5,
+      xanchor = 'center'
+    ),
+    legend = list(
+      orientation = 'h',
+      yanchor     = 'bottom',
+      y           = 0.97,       # just below the title
+      xanchor     = 'center',
+      x           = 0.5
+    ),
+
+    yaxis = list(
+      title  = 'Area (km²)'
+   
+    ),
+    yaxis2 = list(
+      title  = 'Area (km²)'
+
+    ),
+
+    xaxis = list(
+      title      = 'Month-Date',
+      tickformat = '%b %d',   # show only month-day
+      tickangle  = -45,
+      dtick      = 'M1',
+      xhoverformat = '%b %d'
+    ),
+
+
+    margin = list(l=80, t=150) ,
+    hovermode = 'x unified',
+    height   =     NULL,   
+    autosize = TRUE
+  
+  )
+
+fig
+```
+::::
+:::
+
+
+## Alaskan Arctic
+
+:::: {.columns}
+
+::: {.column width="80%"}
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+library(readr)
+library(dplyr)
+library(lubridate)
+library(plotly)
+
+region <- 'AlaskanArctic'
+
+colors <- list(
+  ice_free  = '#d0e8f5',
+  new_young = '#74b3d8',
+  thin_FY   = '#2a7db5',
+  medium_FY = '#1a5a8a',
+  thick_FY  = '#0d3b5e',
+  multiyear = '#051f30'
+)
+
+labels <- list(
+  ice_free  = 'Ice Free',
+  new_young = 'New/Young (<0.3m)',
+  thin_FY   = 'Thin FY (0.3–0.7m)',
+  medium_FY = 'Medium FY (0.7–1.2m)',
+  thick_FY  = 'Thick FY (1.2–2.0m)',
+  multiyear = 'Multi-year (>2.0m)'
+)
+
+cat_cols <- c('multiyear','thick_FY','medium_FY','thin_FY','new_young','ice_free')
+
+# Load data
+df_area <- read_csv('./data/AlaskanArctic_sit_daily_ts.csv') |>
+  mutate(time = as_datetime(time))
+
+# Normalize x-axis to a reference year
+# Oct-Dec → 2000, Jan-Apr → 2001 (fake year for alignment)
+normalize_time <- function(df) {
+  df |> mutate(
+    time_norm = case_when(
+      month(time) >= 10 ~ update(time, year = 2000),
+      TRUE              ~ update(time, year = 2001)
+    )
+  )
+}
+
+# Filter and normalize seasons
+df_2425 <- df_area |>
+  filter(
+    (year(time) == 2024 & month(time) %in% c(10,11,12)) |
+    (year(time) == 2025 & month(time) %in% c(1,2,3,4))
+  ) |>
+  normalize_time()
+
+df_2526 <- df_area |>
+  filter(
+    (year(time) == 2025 & month(time) %in% c(10,11,12)) |
+    (year(time) == 2026 & month(time) %in% c(1,2,3,4))
+  ) |>
+  normalize_time()
+
+# Helper to build one season plot
+make_season_plot <- function(sdf, season, show_legend) {
+  p <- plot_ly()
+  for (cat in cat_cols) {
+    p <- p |> add_trace(
+      x             = sdf$time_norm,
+      y             = sdf[[cat]],
+      type          = 'scatter',
+      mode          = 'lines',
+      name          = labels[[cat]],
+      legendgroup   = cat,
+      showlegend    = show_legend,
+      line          = list(width=0.5, color=colors[[cat]]),
+      fillcolor     = colors[[cat]],
+      stackgroup    = paste0(season, '_stack'),
+      # Show real date in tooltip
+      text          = format(sdf$time, '%b %d %Y'),
+      hovertemplate = paste0(
+        '<b>', season, '</b> — %{text}<br>',
+        labels[[cat]], ': %{y:,.0f} km²<extra></extra>'
+      )
+    )
+  }
+  p <- p |> layout(
+    annotations = list(list(
+      text      = season,
+      x         = 0.01,
+      y         = 0.95,
+      xref      = 'paper',
+      yref      = 'paper',
+      showarrow = FALSE,
+      font      = list(size=16, color='gray', family='Arial Black') 
+    ))
+  )
+  p
+}
+
+
+# Build two plots
+p1 <- make_season_plot(df_2425, '2024/25', show_legend = TRUE)
+p2 <- make_season_plot(df_2526, '2025/26', show_legend = FALSE)
+
+# Combine as subplot
+fig <- subplot(
+  p1, p2,
+  nrows   = 2,
+  shareX  = TRUE,
+  titleY  = TRUE,
+  heights = c(0.5, 0.5)
+) |>
+  layout(
+    title = list(
+      text    = paste0(region, ' — Sea Ice Thickness (Oct - Apr)'),
+      x       = 0.5,
+      xanchor = 'center'
+    ),
+    legend = list(
+      orientation = 'h',
+      yanchor     = 'bottom',
+      y           = 0.97,       # just below the title
+      xanchor     = 'center',
+      x           = 0.5
+    ),
+
+    yaxis = list(
+      title  = 'Area (km²)'
+   
+    ),
+    yaxis2 = list(
+      title  = 'Area (km²)'
+
+    ),
+
+    xaxis = list(
+      title      = 'Month',
+      tickformat = '%b %d',   # show only month-day
+      tickangle  = -45,
+      dtick      = 'M1',
+      xhoverformat = '%b %d'
+    ),
+
+
+    margin = list(l=80, t=150) ,
+    hovermode = 'x unified',
+    height   =     NULL,   
+    autosize = TRUE
+  
+  )
+
+fig
+```
+::::
+:::
+

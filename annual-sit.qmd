@@ -1,0 +1,708 @@
+---
+title: "Sea ice thickness"
+format:
+  html:
+    code-fold: true
+    toc: true
+    toc-location: left
+    toc-depth: 3
+page-layout: full
+---
+
+::: {.callout-tip title="Plots are interactive!"}
+-   **To zoom in and out, reset or download the plot**, hover on the plot to see the option on the top right corner.
+-   **To turn on and off data series**, click on the data series title in the legend located below each plot.
+:::
+
+```{r config}
+#| echo: false
+#| warning: false
+#| message: false
+
+
+library(readr)
+library(dplyr)
+library(lubridate)
+library(plotly)
+
+colors <- list(
+  ice_free  = '#d0e8f5',
+  new_young = '#74b3d8',
+  thin_FY   = '#2a7db5',
+  medium_FY = '#1a5a8a',
+  thick_FY  = '#0d3b5e',
+  multiyear = '#051f30'
+)
+
+labels <- list(
+  ice_free  = 'Ice Free',
+  new_young = 'New/Young (<0.3m)',
+  thin_FY   = 'Thin FY (0.3–0.7m)',
+  medium_FY = 'Medium FY (0.7–1.2m)',
+  thick_FY  = 'Thick FY (1.2–2.0m)',
+  multiyear = 'Multi-year (>2.0m)'
+)
+
+cat_cols <- c('multiyear','thick_FY','medium_FY','thin_FY','new_young','ice_free')
+
+```
+
+## Eastern Bering
+
+:::: {.columns}
+
+::: {.column width="80%"}
+
+
+
+```{r EasternBerinng}
+#| echo: false
+#| warning: false
+#| message: false
+
+#############  Eastern Bering #############
+
+region <- 'Eastern Bering'
+total_area_km2_base <- 581894  # from Python computation at 12.5km resolution
+
+
+############## SUMMER #############
+
+# Load data
+df_base <- read_csv('./data/EasternBering_sit_annual_oct.csv') |>
+  mutate(
+    time = as_datetime(time),
+    year = as.character(year(time))
+  )
+
+# Build plot
+fig <- plot_ly()
+
+for (cat in cat_cols) {
+  fig <- fig |> add_trace(
+    x             = df_base$year,
+    y             = df_base[[cat]],
+    type          = 'scatter',
+    mode          = 'lines',
+    name          = labels[[cat]],
+    line          = list(width=0.5, color=colors[[cat]]),
+    fillcolor     = colors[[cat]],
+    stackgroup    = 'one',
+    hovertemplate = paste0(labels[[cat]], ': %{y:,.0f} km²<extra></extra>')
+  )
+}
+
+#    line          = list(
+#      width = 1.5,          # thicker stroke
+#      color = 'white'       # white border between categories
+#    ) 
+
+fig <- fig |>
+  layout(
+    title = list(
+      text    = paste0(region, ' — October Sea Ice Thickness (2011–2023)'),
+      x       = 0.5,
+      xanchor = 'center',
+      y       = 0.98,          # push title to very top
+      yanchor = 'top'
+    ),
+    xaxis = list(
+      title      = 'Year',
+      tickangle  = -45,
+      rangeslider = list(visible = TRUE)   # slider at bottom
+    ),
+    yaxis = list(
+      title     = 'Area (km²)',
+      range     = c(0, total_area_km2_base),
+      showgrid  = TRUE,
+      gridwidth = 0.5,
+      gridcolor = 'lightgray'
+    ),
+    legend = list(
+      orientation = 'h',
+      yanchor     = 'bottom',
+      y           = 1.08,
+      xanchor     = 'left',
+      x           = 0 # start from the left edge (coords)
+    ),
+    margin = list(l=80, t=120, b=90), #left, top, bottom
+    hovermode = 'x unified',
+    height    = NULL,
+    autosize = TRUE,
+    template  = 'plotly_white'
+  )
+
+#fig
+
+
+
+############## WINTER #############
+
+# Load data
+df_base <- read_csv('./data/EasternBering_sit_annual_apr.csv') |>
+  mutate(
+    time = as_datetime(time),
+    year = as.character(year(time))
+  )
+
+# Build plot
+fig <- plot_ly()
+
+for (cat in cat_cols) {
+  fig <- fig |> add_trace(
+    x             = df_base$year,
+    y             = df_base[[cat]],
+    type          = 'scatter',
+    mode          = 'lines',
+    name          = labels[[cat]],
+    line          = list(width=0.5, color=colors[[cat]]),
+    fillcolor     = colors[[cat]],
+    stackgroup    = 'one',
+    hovertemplate = paste0(labels[[cat]], ': %{y:,.0f} km²<extra></extra>')
+  )
+}
+
+#    line          = list(
+#      width = 1.5,          # thicker stroke
+#      color = 'white'       # white border between categories
+#    ) 
+
+fig <- fig |>
+  layout(
+    title = list(
+      text    = paste0(region, ' — April Sea Ice Thickness (2011–2023)'),
+      x       = 0.5,
+      xanchor = 'center',
+      y       = 0.98,          # push title to very top
+      yanchor = 'top'
+    ),
+    xaxis = list(
+      title      = 'Year',
+      tickangle  = -45,
+      rangeslider = list(visible = TRUE)   # slider at bottom
+    ),
+    yaxis = list(
+      title     = 'Area (km²)',
+      range     = c(0, total_area_km2_base),
+      showgrid  = TRUE,
+      gridwidth = 0.5,
+      gridcolor = 'lightgray'
+    ),
+    legend = list(
+      orientation = 'h',
+      yanchor     = 'bottom',
+      y           = 1.08,
+      xanchor     = 'left',
+      x           = 0 # start from the left edge (coords)
+    ),
+    margin = list(l=80, t=120, b=90), #left, top, bottom
+    hovermode = 'x unified',
+    height    = NULL,
+    autosize = TRUE,
+    template  = 'plotly_white'
+  )
+
+fig
+
+
+```
+
+::::
+::: 
+
+
+
+
+## Northern Bering
+
+:::: {.columns}
+
+::: {.column width="80%"}
+
+
+```{r NorthernBering}
+#| echo: false
+#| warning: false
+#| message: false
+
+
+############## Nothern Bering #############
+
+region <- 'Northern Bering'
+total_area_km2_base <- 279918   # from Python computation at 12.5km resolution
+
+
+############## WINTER #############
+
+# Load data
+df_base <- read_csv('./data/NorthernBering_sit_annual_oct.csv') |>
+  mutate(
+    time = as_datetime(time),
+    year = as.character(year(time))
+  )
+
+# Build plot
+fig <- plot_ly()
+
+for (cat in cat_cols) {
+  fig <- fig |> add_trace(
+    x             = df_base$year,
+    y             = df_base[[cat]],
+    type          = 'scatter',
+    mode          = 'lines',
+    name          = labels[[cat]],
+    line          = list(width=0.5, color=colors[[cat]]),
+    fillcolor     = colors[[cat]],
+    stackgroup    = 'one',
+    hovertemplate = paste0(labels[[cat]], ': %{y:,.0f} km²<extra></extra>')
+  )
+}
+
+#    line          = list(
+#      width = 1.5,          # thicker stroke
+#      color = 'white'       # white border between categories
+#    ) 
+
+fig <- fig |>
+  layout(
+    title = list(
+      text    = paste0(region, ' — October Sea Ice Thickness (2011–2023)'),
+      x       = 0.5,
+      xanchor = 'center',
+      y       = 0.98,          # push title to very top
+      yanchor = 'top'
+    ),
+    xaxis = list(
+      title      = 'Year',
+      tickangle  = -45,
+      rangeslider = list(visible = TRUE)   # slider at bottom
+    ),
+    yaxis = list(
+      title     = 'Area (km²)',
+      range     = c(0, total_area_km2_base),
+      showgrid  = TRUE,
+      gridwidth = 0.5,
+      gridcolor = 'lightgray'
+    ),
+    legend = list(
+      orientation = 'h',
+      yanchor     = 'bottom',
+      y           = 1.08,
+      xanchor     = 'left',
+      x           = 0 # start from the left edge (coords)
+    ),
+    margin = list(l=80, t=120, b=90), #left, top, bottom
+    hovermode = 'x unified',
+    height    = NULL,
+    autosize = TRUE,
+    template  = 'plotly_white'
+  )
+
+#fig
+
+
+############## WINTER #############
+
+# Load data
+df_base <- read_csv('./data/NorthernBering_sit_annual_apr.csv') |>
+  mutate(
+    time = as_datetime(time),
+    year = as.character(year(time))
+  )
+
+# Build plot
+fig <- plot_ly()
+
+for (cat in cat_cols) {
+  fig <- fig |> add_trace(
+    x             = df_base$year,
+    y             = df_base[[cat]],
+    type          = 'scatter',
+    mode          = 'lines',
+    name          = labels[[cat]],
+    line          = list(width=0.5, color=colors[[cat]]),
+    fillcolor     = colors[[cat]],
+    stackgroup    = 'one',
+    hovertemplate = paste0(labels[[cat]], ': %{y:,.0f} km²<extra></extra>')
+  )
+}
+
+#    line          = list(
+#      width = 1.5,          # thicker stroke
+#      color = 'white'       # white border between categories
+#    ) 
+
+fig <- fig |>
+  layout(
+    title = list(
+      text    = paste0(region, ' — April Sea Ice Thickness (2011–2023)'),
+      x       = 0.5,
+      xanchor = 'center',
+      y       = 0.98,          # push title to very top
+      yanchor = 'top'
+    ),
+    xaxis = list(
+      title      = 'Year',
+      tickangle  = -45,
+      rangeslider = list(visible = TRUE)   # slider at bottom
+    ),
+    yaxis = list(
+      title     = 'Area (km²)',
+      range     = c(0, total_area_km2_base),
+      showgrid  = TRUE,
+      gridwidth = 0.5,
+      gridcolor = 'lightgray'
+    ),
+    legend = list(
+      orientation = 'h',
+      yanchor     = 'bottom',
+      y           = 1.08,
+      xanchor     = 'left',
+      x           = 0 # start from the left edge (coords)
+    ),
+    margin = list(l=80, t=120, b=100), #left, top, bottom
+    hovermode = 'x unified',
+    height    = NULL,
+    autosize = TRUE,
+    template  = 'plotly_white'
+  )
+
+fig
+
+
+```
+
+::::
+::: 
+
+
+
+
+## SourthernBering Bering
+
+:::: {.columns}
+
+::: {.column width="80%"}
+
+#### Winter Month
+
+```{r SourthernBering}
+#| echo: false
+#| warning: false
+#| message: false
+
+
+############## Southeastern Bering #############
+
+region <- 'Southeastern Bering'
+total_area_km2_base <- 301977   # from Python computation at 12.5km resolution
+
+############## SUMMER #############
+
+# Load data
+df_base <- read_csv('./data/SoutheasternBering_sit_annual_oct.csv') |>
+  mutate(
+    time = as_datetime(time),
+    year = as.character(year(time))
+  )
+
+# Build plot
+fig <- plot_ly()
+
+for (cat in cat_cols) {
+  fig <- fig |> add_trace(
+    x             = df_base$year,
+    y             = df_base[[cat]],
+    type          = 'scatter',
+    mode          = 'lines',
+    name          = labels[[cat]],
+    line          = list(width=0.5, color=colors[[cat]]),
+    fillcolor     = colors[[cat]],
+    stackgroup    = 'one',
+    hovertemplate = paste0(labels[[cat]], ': %{y:,.0f} km²<extra></extra>')
+  )
+}
+
+#    line          = list(
+#      width = 1.5,          # thicker stroke
+#      color = 'white'       # white border between categories
+#    ) 
+
+fig <- fig |>
+  layout(
+    title = list(
+      text    = paste0(region, ' — April Sea Ice Thickness (2011–2023)'),
+      x       = 0.5,
+      xanchor = 'center',
+      y       = 0.98,          # push title to very top
+      yanchor = 'top'
+    ),
+    xaxis = list(
+      title      = 'Year',
+      tickangle  = -45,
+      rangeslider = list(visible = TRUE)   # slider at bottom
+    ),
+    yaxis = list(
+      title     = 'Area (km²)',
+      range     = c(0, total_area_km2_base),
+      showgrid  = TRUE,
+      gridwidth = 0.5,
+      gridcolor = 'lightgray'
+    ),
+    legend = list(
+      orientation = 'h',
+      yanchor     = 'bottom',
+      y           = 1.08,
+      xanchor     = 'left',
+      x           = 0 # start from the left edge (coords)
+    ),
+    margin = list(l=80, t=120, b=100), #left, top, bottom
+    hovermode = 'x unified',
+    height    = NULL,
+    autosize = TRUE,
+    template  = 'plotly_white'
+  )
+
+#fig
+
+
+############## WINTER #############
+
+# Load data
+df_base <- read_csv('./data/SoutheasternBering_sit_annual_apr.csv') |>
+  mutate(
+    time = as_datetime(time),
+    year = as.character(year(time))
+  )
+
+# Build plot
+fig <- plot_ly()
+
+for (cat in cat_cols) {
+  fig <- fig |> add_trace(
+    x             = df_base$year,
+    y             = df_base[[cat]],
+    type          = 'scatter',
+    mode          = 'lines',
+    name          = labels[[cat]],
+    line          = list(width=0.5, color=colors[[cat]]),
+    fillcolor     = colors[[cat]],
+    stackgroup    = 'one',
+    hovertemplate = paste0(labels[[cat]], ': %{y:,.0f} km²<extra></extra>')
+  )
+}
+
+#    line          = list(
+#      width = 1.5,          # thicker stroke
+#      color = 'white'       # white border between categories
+#    ) 
+
+fig <- fig |>
+  layout(
+    title = list(
+      text    = paste0(region, ' — April Sea Ice Thickness (2011–2023)'),
+      x       = 0.5,
+      xanchor = 'center',
+      y       = 0.98,          # push title to very top
+      yanchor = 'top'
+    ),
+    xaxis = list(
+      title      = 'Year',
+      tickangle  = -45,
+      rangeslider = list(visible = TRUE)   # slider at bottom
+    ),
+    yaxis = list(
+      title     = 'Area (km²)',
+      range     = c(0, total_area_km2_base),
+      showgrid  = TRUE,
+      gridwidth = 0.5,
+      gridcolor = 'lightgray'
+    ),
+    legend = list(
+      orientation = 'h',
+      yanchor     = 'bottom',
+      y           = 1.08,
+      xanchor     = 'left',
+      x           = 0 # start from the left edge (coords)
+    ),
+    margin = list(l=80, t=120, b=100), #left, top, bottom
+    hovermode = 'x unified',
+    height    = NULL,
+    autosize = TRUE,
+    template  = 'plotly_white'
+  )
+
+fig
+
+
+```
+
+::::
+::: 
+
+
+
+## Alaskan Arctic
+
+:::: {.columns}
+
+::: {.column width="80%"}
+
+
+
+```{r AlaskanArctic}
+#| echo: false
+#| warning: false
+#| message: false
+
+
+############## Alaskan Arctic #############
+
+region <- 'Alaskan Arctic'
+total_area_km2_base <- 467682   # from Python computation at 12.5km resolution
+
+
+
+############## WINTER #############
+
+# Load data
+df_base <- read_csv('./data/AlaskanArctic_sit_annual_apr.csv') |>
+  mutate(
+    time = as_datetime(time),
+    year = as.character(year(time))
+  )
+
+# Build plot
+fig <- plot_ly()
+
+for (cat in cat_cols) {
+  fig <- fig |> add_trace(
+    x             = df_base$year,
+    y             = df_base[[cat]],
+    type          = 'scatter',
+    mode          = 'lines',
+    name          = labels[[cat]],
+    line          = list(width=0.5, color=colors[[cat]]),
+    fillcolor     = colors[[cat]],
+    stackgroup    = 'one',
+    hovertemplate = paste0(labels[[cat]], ': %{y:,.0f} km²<extra></extra>')
+  )
+}
+
+#    line          = list(
+#      width = 1.5,          # thicker stroke
+#      color = 'white'       # white border between categories
+#    ) 
+
+fig <- fig |>
+  layout(
+    title = list(
+      text    = paste0(region, ' — April Sea Ice Thickness (2011–2023)'),
+      x       = 0.5,
+      xanchor = 'center',
+      y       = 0.98,          # push title to very top
+      yanchor = 'top'
+    ),
+    xaxis = list(
+      title      = 'Year',
+      tickangle  = -45,
+      rangeslider = list(visible = TRUE)   # slider at bottom
+    ),
+    yaxis = list(
+      title     = 'Area (km²)',
+      range     = c(0, total_area_km2_base),
+      showgrid  = TRUE,
+      gridwidth = 0.5,
+      gridcolor = 'lightgray'
+    ),
+    legend = list(
+      orientation = 'h',
+      yanchor     = 'bottom',
+      y           = 1.08,
+      xanchor     = 'left',
+      x           = 0 # start from the left edge (coords)
+    ),
+    margin = list(l=80, t=120, b=90), #left, top, bottom
+    hovermode = 'x unified',
+    height    = NULL,
+    autosize = TRUE,
+    template  = 'plotly_white'
+  )
+
+fig
+############## SUMMER #############
+
+# Load data
+df_base <- read_csv('./data/AlaskanArctic_sit_annual_oct.csv') |>
+  mutate(
+    time = as_datetime(time),
+    year = as.character(year(time))
+  )
+
+# Build plot
+fig <- plot_ly()
+
+for (cat in cat_cols) {
+  fig <- fig |> add_trace(
+    x             = df_base$year,
+    y             = df_base[[cat]],
+    type          = 'scatter',
+    mode          = 'lines',
+    name          = labels[[cat]],
+    line          = list(width=0.5, color=colors[[cat]]),
+    fillcolor     = colors[[cat]],
+    stackgroup    = 'one',
+    hovertemplate = paste0(labels[[cat]], ': %{y:,.0f} km²<extra></extra>')
+  )
+}
+
+#    line          = list(
+#      width = 1.5,          # thicker stroke
+#      color = 'white'       # white border between categories
+#    ) 
+
+fig <- fig |>
+  layout(
+    title = list(
+      text    = paste0(region, ' — October Sea Ice Thickness (2011–2023)'),
+      x       = 0.5,
+      xanchor = 'center',
+      y       = 0.98,          # push title to very top
+      yanchor = 'top'
+    ),
+    xaxis = list(
+      title      = 'Year',
+      tickangle  = -45,
+      showgrid = FALSE,
+      rangeslider = list(visible = TRUE)   # slider at bottom
+    ),
+    yaxis = list(
+      title     = 'Area (km²)',
+      range     = c(0, total_area_km2_base),
+      showgrid  = FALSE,
+      gridwidth = 0.5,
+      gridcolor = 'lightgray'
+    ),
+    legend = list(
+      orientation = 'h',
+      yanchor     = 'bottom',
+      y           = 1.08,
+      xanchor     = 'left',
+      x           = 0 # start from the left edge (coords)
+    ),
+    margin = list(l=80, t=120, b=90), #left, top, bottom
+    hovermode = 'x unified',
+    height    = NULL,
+    autosize = TRUE,
+    template  = 'plotly_white'
+  )
+
+fig
+
+
+
+
+```
+
+::::
+::: 
