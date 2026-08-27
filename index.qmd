@@ -3,7 +3,7 @@ title: "AKFIN - Sea Ice Extent"
 toc: False
 ---
 
-aloha test.
+aloha test2
 
 This site presents sea ice extent across regions off Alaska, aligned with 
 Large Marine Ecosystems supported by AKFIN. You can explore how sea ice 
