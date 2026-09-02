@@ -17,7 +17,7 @@ Use the links below to visualize sea ice extent and access data:
 - [Annualized Time Series of sea ice extent (1985–Present)](annual-ts.qmd)  
   Explore long-term trends and variability in sea ice extent.
 
-- [Annualized Time Series of sea ice thickness (March and April average; 2011–Present)](CHANGE.qmd)  
+- [Annualized Time Series of sea ice thickness (October, March, and April average; 2011–Present)](CHANGE.qmd)  
   Explore long-term trends and variability in sea ice thickness.
 
 ## Acknowledgement
