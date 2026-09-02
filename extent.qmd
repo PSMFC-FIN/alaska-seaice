@@ -11,24 +11,24 @@ format: html
 Sea ice extent is a simple measure of how much of 
 the ocean surface is covered by ice. It is computed by 
 counting all areas where there is at least a small amount of ice 
-(usually about 15% or more) and adding them together.
+(here we use 15% or more) and adding them together.
 
 Sea ice extent is widely used because it can be measured 
 consistently using satellites and helps track seasonal changes 
 and long-term trends in sea ice coverage.
 
 The sea ice extent presented here used remote sensing data with 25km resolution and 
-computed sea ice extent within the boundaries defined by the Ecosystem Management Regions: 
+computed sea ice extent within the boundaries defined as Large Marine Ecosystems: 
 
-## What are the regions?
+## What are the Large Marine Ecosystems?
 
-In the fisheries management, the Alaska region is made up of distinct large marine ecosystems across: the Gulf of Alaska (GOA), Aleutian Islands (AI), eastern Bering Sea (EBS), northern Bering Sea (a subset of EBS), and Chukchi Sea and Beaufort Seas (referred to here as the Alaskan Arctic). Fishery management areas include the Gulf of Alaska and Bering Sea/Aleutian Islands. No federal fisheries currently occur in the Alaskan Arctic.
+In federal fisheries management, the Alaska region is made up of distinct large marine ecosystems across the Gulf of Alaska (GOA), Aleutian Islands (AI), eastern Bering Sea (including the northern Bering Sea), and Chukchi Sea and Beaufort Seas (referred to here as the Alaskan Arctic). Fishery management areas include the Gulf of Alaska and Bering Sea/Aleutian Islands. No federal fisheries currently occur in the Alaskan Arctic.
 
 ## What data were used for extent?
 
 Sea ice extent is calculated using the NOAA/NSIDC Climate Data Record (Version 6) Sea Ice Concentration dataset (G02202).
 
-This dataset is the standard for sea ice monitoring because it provides a long, consistent record from 1978 to present, combining multiple passive microwave satellite sensors (such as SMMR, SSM/I, SSMIS, and AMSR2). It is available daily on an approximately 25 km grid and is well-suited for tracking long-term changes.
+This dataset is the standard for sea ice monitoring because it provides a long, consistent record from 1978 to present, combining multiple passive microwave satellite sensors (such as SMMR, SSM/I, SSMIS, and AMSR2). It is available daily on an approximately 25km grid and is well-suited for tracking long-term changes.
 
 Other datasets offer different advantages. Infrared-based products like AVHRR Pathfinder provide higher spatial detail but are limited by clouds and darkness. Blended products that combine microwave and infrared data can improve detail near the ice edge, but they do not yet have the same long-term, consistent record.
 
@@ -36,7 +36,10 @@ Because passive microwave sensors work through clouds and in both day and night 
 
 For details on how extent is computed, please refer to the [PolarWatch project site](https://polarwatch.github.io/alaska-seaice/methods.html).
 
-## Why the data has different versions?
+## What data were used for thickness?
+SUNNY add here
+
+## Why are there different versions of sea ice data?
 
 Why are there different versions, and why use the latest?
 
