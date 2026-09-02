@@ -8,12 +8,14 @@ format:
     toc-depth: 3
 page-layout: full
 ---
-
+SUNNY - Can the index on the left (and order of plots when scrolling down) go: Eastern BS, southern, northern, Arctic?  (so southern->arctic goes south->north)
 
 ::: {.callout-tip title="Plots are interactive!"}
--   **To zoom in and out, reset or download the plot**, hover on the plot to see the option on the top right corner.
+-   **To zoom in and out, reset, or download the plot**, hover on the plot to see the option on the top right corner.
 -   **To turn on and off data series**, click on the data series title in the legend located below each plot.
 :::
+
+SUNNY - should we include a legend for the SD band below each plot?
 
 ## Eastern Bering
 
@@ -234,6 +236,8 @@ fig_bs
 #| message: false
 #| results: 'hide'
 
+SUNNY - should the max SD band be capped at the toal area, similar to how the minimum is set at 0 km2? Same question for Alaskan Arctic plot
+
 ########################################
 ## REGION: Northern Bering  ########
 ########################################
@@ -408,7 +412,7 @@ fig_bs
 :::
 
 ::: {.column width="20%"}
-![Eastern Bering](img/nbering.png){width="200px"}
+![Northern Bering](img/nbering.png){width="200px"}
 :::
 
 ::::
