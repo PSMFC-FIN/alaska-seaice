@@ -11,7 +11,7 @@ page-layout: full
 
 
 ::: {.callout-tip title="Plots are interactive!"}
--   **To zoom in and out, reset or download the plot**, hover on the plot to see the option on the top right corner.
+-   **To zoom in and out, reset, or download the plot**, hover on the plot to see the option on the top right corner.
 -   **To turn on and off data series**, click on the data series title in the legend located below each plot.
 :::
 
@@ -51,12 +51,13 @@ library(lubridate)
 # Load annualized extent
 annual = read.csv("data/annualized_extent_EasternBering.csv")
 
+SUNNY - in the plot title Annualized time series (1985-2024) can you auto-update the most recent year, or do these all need to be manually updated each year? Or say "1985 - current" like under Data downloads
 # Plot annual time series
 fig_annual <- plot_ly(annual, type = 'scatter', mode = 'lines+markers')%>%
   add_trace(x = ~year, y = ~extent, 
             line=list(color='lightblue'),
             marker = list(color='blue', size =8))%>%
-  layout(showlegend = F, title="Annualized time series(1985-2024)",
+  layout(showlegend = F, title="Annualized time series (1985-2024)",
          xaxis = list(rangeslider = list(visible = T),
                       zerolinecolor = '#ffff',
                       zerolinewidth = 2,
@@ -112,7 +113,7 @@ fig_annual <- plot_ly(annual, type = 'scatter', mode = 'lines+markers')%>%
   add_trace(x = ~year, y = ~extent, 
             line=list(color='lightblue'),
             marker = list(color='blue', size =8))%>%
-  layout(showlegend = F, title="Annualized time series(1985-2024)",
+  layout(showlegend = F, title="Annualized time series (1985-2024)",
          xaxis = list(rangeslider = list(visible = T),
                       zerolinecolor = '#ffff',
                       zerolinewidth = 2,
@@ -167,7 +168,7 @@ fig_annual <- plot_ly(annual, type = 'scatter', mode = 'lines+markers')%>%
   add_trace(x = ~year, y = ~extent, 
             line=list(color='lightblue'),
             marker = list(color='blue', size =8))%>%
-  layout(showlegend = F, title="Annualized time series(1985-2024)",
+  layout(showlegend = F, title="Annualized time series (1985-2024)",
          xaxis = list(rangeslider = list(visible = T),
                       zerolinecolor = '#ffff',
                       zerolinewidth = 2,
@@ -222,7 +223,7 @@ fig_annual <- plot_ly(annual, type = 'scatter', mode = 'lines+markers')%>%
   add_trace(x = ~year, y = ~extent, 
             line=list(color='lightblue'),
             marker = list(color='blue', size =8))%>%
-  layout(showlegend = F, title="Annualized time series(1985-2024)",
+  layout(showlegend = F, title="Annualized time series (1985-2024)",
          xaxis = list(rangeslider = list(visible = T),
                       zerolinecolor = '#ffff',
                       zerolinewidth = 2,
