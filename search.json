@@ -14,18 +14,18 @@
     "text": "Eastern Bering"
   },
   {
-    "objectID": "sit-ts.html#northern-bering",
-    "href": "sit-ts.html#northern-bering",
-    "title": "Sea ice thickness",
-    "section": "Northern Bering",
-    "text": "Northern Bering"
-  },
-  {
     "objectID": "sit-ts.html#southeastern-bering",
     "href": "sit-ts.html#southeastern-bering",
     "title": "Sea ice thickness",
     "section": "Southeastern Bering",
     "text": "Southeastern Bering"
+  },
+  {
+    "objectID": "sit-ts.html#northern-bering",
+    "href": "sit-ts.html#northern-bering",
+    "title": "Sea ice thickness",
+    "section": "Northern Bering",
+    "text": "Northern Bering"
   },
   {
     "objectID": "sit-ts.html#alaskan-arctic",
@@ -210,18 +210,18 @@
     "text": "Eastern Bering\n\n\n\n\n\n\n\n\n\nData downloads\n\nBaseline daily extent time series (1991-2020) Data - Description\nNear-real-time daily extent of two recent years Data - Description\n\n\n\n\n\n\nEastern Bering"
   },
   {
-    "objectID": "daily-ts.html#northern-bering",
-    "href": "daily-ts.html#northern-bering",
-    "title": "Daily Time Series",
-    "section": "Northern Bering",
-    "text": "Northern Bering\n\n\n\n\n\n\n\n\n\nData downloads\n\nBaseline daily extent time series (1991-2020) Data - Description\nNear-real-time daily extent of two recent years Data - Description\n\n\n\n\n\n\nEastern Bering"
-  },
-  {
     "objectID": "daily-ts.html#southeastern-bering",
     "href": "daily-ts.html#southeastern-bering",
     "title": "Daily Time Series",
     "section": "Southeastern Bering",
     "text": "Southeastern Bering\n\n\n\n\n\n\n\n\n\nData downloads\n\nBaseline daily extent time series (1991-2020) Data - Description\nNear-real-time daily extent of two recent years Data - Description\n\n\n\n\n\n\nSoutheastern Bering"
+  },
+  {
+    "objectID": "daily-ts.html#northern-bering",
+    "href": "daily-ts.html#northern-bering",
+    "title": "Daily Time Series",
+    "section": "Northern Bering",
+    "text": "Northern Bering\n\n\n\n\n\n\n\n\n\nData downloads\n\nBaseline daily extent time series (1991-2020) Data - Description\nNear-real-time daily extent of two recent years Data - Description\n\n\n\n\n\n\nEastern Bering"
   },
   {
     "objectID": "daily-ts.html#alaskan-arctic",
@@ -301,18 +301,18 @@
     "text": "Eastern Bering"
   },
   {
-    "objectID": "annual-sit.html#northern-bering",
-    "href": "annual-sit.html#northern-bering",
-    "title": "Sea ice thickness",
-    "section": "Northern Bering",
-    "text": "Northern Bering"
-  },
-  {
     "objectID": "annual-sit.html#sourthernbering-bering",
     "href": "annual-sit.html#sourthernbering-bering",
     "title": "Sea ice thickness",
     "section": "SourthernBering Bering",
     "text": "SourthernBering Bering\n\n\n\nWinter Month"
+  },
+  {
+    "objectID": "annual-sit.html#northern-bering",
+    "href": "annual-sit.html#northern-bering",
+    "title": "Sea ice thickness",
+    "section": "Northern Bering",
+    "text": "Northern Bering"
   },
   {
     "objectID": "annual-sit.html#alaskan-arctic",
@@ -336,18 +336,18 @@
     "text": "Eastern Bering\n\n\n\n\n\n\n\n\n\nData downloads\n\nAnnualized extent time series (1985-Current) Data - Description\n\n\n\n\n\n\nEastern Bering"
   },
   {
-    "objectID": "annual-ts.html#northern-bering",
-    "href": "annual-ts.html#northern-bering",
-    "title": "Annualized Time Series",
-    "section": "Northern Bering",
-    "text": "Northern Bering\n\n\n\n\n\n\n\n\n\nData downloads\n\nAnnualized extent time series (1985-Current) Data - Description\n\n\n\n\n\n\nNorthern Bering"
-  },
-  {
     "objectID": "annual-ts.html#southeastern-bering",
     "href": "annual-ts.html#southeastern-bering",
     "title": "Annualized Time Series",
     "section": "Southeastern Bering",
     "text": "Southeastern Bering\n\n\n\n\n\n\n\n\n\nData downloads\n\nAnnualized extent time series (1985-Current) Data - Description\n\n\n\n\n\n\nSoutheastern Bering"
+  },
+  {
+    "objectID": "annual-ts.html#northern-bering",
+    "href": "annual-ts.html#northern-bering",
+    "title": "Annualized Time Series",
+    "section": "Northern Bering",
+    "text": "Northern Bering\n\n\n\n\n\n\n\n\n\nData downloads\n\nAnnualized extent time series (1985-Current) Data - Description\n\n\n\n\n\n\nNorthern Bering"
   },
   {
     "objectID": "annual-ts.html#alaskan-arctic",
