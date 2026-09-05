@@ -4,7 +4,7 @@
     "href": "sit-ts.html",
     "title": "Sea ice thickness",
     "section": "",
-    "text": "TipPlots are interactive!\n\n\n\n\nTo zoom in and out, reset or download the plot, hover on the plot to see the option on the top right corner.\nTo turn on and off data series, click on the data series title in the legend located below each plot."
+    "text": "TipPlots are interactive!\n\n\n\n\nTo zoom in and out, reset, or download the plot, hover on the plot to see the option on the top right corner.\nTo turn on and off data series, click on the data series title in the legend located below each plot."
   },
   {
     "objectID": "sit-ts.html#eastern-bering",
@@ -158,35 +158,42 @@
     "href": "extent.html",
     "title": "Sea Ice Extent",
     "section": "",
-    "text": "Sea ice extent is a simple measure of how much of the ocean surface is covered by ice. It is computed by counting all areas where there is at least a small amount of ice (usually about 15% or more) and adding them together.\nSea ice extent is widely used because it can be measured consistently using satellites and helps track seasonal changes and long-term trends in sea ice coverage.\nThe sea ice extent presented here used remote sensing data with 25km resolution and computed sea ice extent within the boundaries defined by the Ecosystem Management Regions:"
+    "text": "Sea ice extent is a simple measure of how much of the ocean surface is covered by ice. It is computed by counting all areas where there is at least a small amount of ice (here we use 15% or more) and adding them together.\nSea ice extent is widely used because it can be measured consistently using satellites and helps track seasonal changes and long-term trends in sea ice coverage.\nThe sea ice extent presented here used remote sensing data with 25km resolution and computed sea ice extent within the boundaries defined as Large Marine Ecosystems:"
   },
   {
     "objectID": "extent.html#what-is-extent",
     "href": "extent.html#what-is-extent",
     "title": "Sea Ice Extent",
     "section": "",
-    "text": "Sea ice extent is a simple measure of how much of the ocean surface is covered by ice. It is computed by counting all areas where there is at least a small amount of ice (usually about 15% or more) and adding them together.\nSea ice extent is widely used because it can be measured consistently using satellites and helps track seasonal changes and long-term trends in sea ice coverage.\nThe sea ice extent presented here used remote sensing data with 25km resolution and computed sea ice extent within the boundaries defined by the Ecosystem Management Regions:"
+    "text": "Sea ice extent is a simple measure of how much of the ocean surface is covered by ice. It is computed by counting all areas where there is at least a small amount of ice (here we use 15% or more) and adding them together.\nSea ice extent is widely used because it can be measured consistently using satellites and helps track seasonal changes and long-term trends in sea ice coverage.\nThe sea ice extent presented here used remote sensing data with 25km resolution and computed sea ice extent within the boundaries defined as Large Marine Ecosystems:"
   },
   {
-    "objectID": "extent.html#what-are-the-regions",
-    "href": "extent.html#what-are-the-regions",
+    "objectID": "extent.html#what-are-the-large-marine-ecosystems",
+    "href": "extent.html#what-are-the-large-marine-ecosystems",
     "title": "Sea Ice Extent",
-    "section": "What are the regions?",
-    "text": "What are the regions?\nIn the fisheries management, the Alaska region is made up of distinct large marine ecosystems across: the Gulf of Alaska (GOA), Aleutian Islands (AI), eastern Bering Sea (EBS), northern Bering Sea (a subset of EBS), and Chukchi Sea and Beaufort Seas (referred to here as the Alaskan Arctic). Fishery management areas include the Gulf of Alaska and Bering Sea/Aleutian Islands. No federal fisheries currently occur in the Alaskan Arctic."
+    "section": "What are the Large Marine Ecosystems?",
+    "text": "What are the Large Marine Ecosystems?\nIn federal fisheries management, the Alaska region is made up of distinct large marine ecosystems across the Gulf of Alaska (GOA), Aleutian Islands (AI), eastern Bering Sea (including the northern Bering Sea), and Chukchi Sea and Beaufort Seas (referred to here as the Alaskan Arctic). Fishery management areas include the Gulf of Alaska and Bering Sea/Aleutian Islands. No federal fisheries currently occur in the Alaskan Arctic."
   },
   {
     "objectID": "extent.html#what-data-were-used-for-extent",
     "href": "extent.html#what-data-were-used-for-extent",
     "title": "Sea Ice Extent",
     "section": "What data were used for extent?",
-    "text": "What data were used for extent?\nSea ice extent is calculated using the NOAA/NSIDC Climate Data Record (Version 6) Sea Ice Concentration dataset (G02202).\nThis dataset is the standard for sea ice monitoring because it provides a long, consistent record from 1978 to present, combining multiple passive microwave satellite sensors (such as SMMR, SSM/I, SSMIS, and AMSR2). It is available daily on an approximately 25 km grid and is well-suited for tracking long-term changes.\nOther datasets offer different advantages. Infrared-based products like AVHRR Pathfinder provide higher spatial detail but are limited by clouds and darkness. Blended products that combine microwave and infrared data can improve detail near the ice edge, but they do not yet have the same long-term, consistent record.\nBecause passive microwave sensors work through clouds and in both day and night conditions, they are the most reliable choice for consistent, long-term sea ice extent calculations.\nFor details on how extent is computed, please refer to the PolarWatch project site."
+    "text": "What data were used for extent?\nSea ice extent is calculated using the NOAA/NSIDC Climate Data Record (Version 6) Sea Ice Concentration dataset (G02202).\nThis dataset is the standard for sea ice monitoring because it provides a long, consistent record from 1978 to present, combining multiple passive microwave satellite sensors (such as SMMR, SSM/I, SSMIS, and AMSR2). It is available daily on an approximately 25km grid and is well-suited for tracking long-term changes.\nOther datasets offer different advantages. Infrared-based products like AVHRR Pathfinder provide higher spatial detail but are limited by clouds and darkness. Blended products that combine microwave and infrared data can improve detail near the ice edge, but they do not yet have the same long-term, consistent record.\nBecause passive microwave sensors work through clouds and in both day and night conditions, they are the most reliable choice for consistent, long-term sea ice extent calculations.\nFor details on how extent is computed, please refer to the PolarWatch project site."
   },
   {
-    "objectID": "extent.html#why-the-data-has-different-versions",
-    "href": "extent.html#why-the-data-has-different-versions",
+    "objectID": "extent.html#what-data-were-used-for-thickness",
+    "href": "extent.html#what-data-were-used-for-thickness",
     "title": "Sea Ice Extent",
-    "section": "Why the data has different versions?",
-    "text": "Why the data has different versions?\nWhy are there different versions, and why use the latest?\nSea ice datasets are updated over time as scientists improve how satellite data are processed. New versions—like the NOAA/NSIDC Climate Data Record (Version 6)—reflect better calibration between different satellites, improved algorithms, and corrections to known issues in earlier releases.\nBecause the record spans multiple decades and multiple sensors, small inconsistencies can occur. Each new version works to make the data more consistent and reliable across time.\nUsing the latest version ensures you are working with the most accurate and up-to-date dataset, especially for long-term trends and comparisons."
+    "section": "What data were used for thickness?",
+    "text": "What data were used for thickness?\nSUNNY add here"
+  },
+  {
+    "objectID": "extent.html#why-are-there-different-versions-of-sea-ice-data",
+    "href": "extent.html#why-are-there-different-versions-of-sea-ice-data",
+    "title": "Sea Ice Extent",
+    "section": "Why are there different versions of sea ice data?",
+    "text": "Why are there different versions of sea ice data?\nWhy are there different versions, and why use the latest?\nSea ice datasets are updated over time as scientists improve how satellite data are processed. New versions—like the NOAA/NSIDC Climate Data Record (Version 6)—reflect better calibration between different satellites, improved algorithms, and corrections to known issues in earlier releases.\nBecause the record spans multiple decades and multiple sensors, small inconsistencies can occur. Each new version works to make the data more consistent and reliable across time.\nUsing the latest version ensures you are working with the most accurate and up-to-date dataset, especially for long-term trends and comparisons."
   },
   {
     "objectID": "daily-ts.html",
@@ -319,7 +326,7 @@
     "href": "annual-ts.html",
     "title": "Annualized Time Series",
     "section": "",
-    "text": "TipPlots are interactive!\n\n\n\n\nTo zoom in and out, reset or download the plot, hover on the plot to see the option on the top right corner.\nTo turn on and off data series, click on the data series title in the legend located below each plot."
+    "text": "TipPlots are interactive!\n\n\n\n\nTo zoom in and out, reset, or download the plot, hover on the plot to see the option on the top right corner.\nTo turn on and off data series, click on the data series title in the legend located below each plot."
   },
   {
     "objectID": "annual-ts.html#eastern-bering",
