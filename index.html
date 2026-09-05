@@ -45,7 +45,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-b868edd3aae87d809627aa5b8ff69b69.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-5668f5a8a2e0b7699a19751affc0343e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -95,18 +95,44 @@ ul.task-list li input[type="checkbox"] {
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="./daily-ts.html"> 
-<span class="menu-text">Daily Time Series</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sea-ice-extent" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Sea Ice Extent</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sea-ice-extent">    
+        <li>
+    <a class="dropdown-item" href="./extent.html">
+ <span class="dropdown-text">about Sea Ice Extent</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./annual-ts.html"> 
-<span class="menu-text">Annualized Time Series</span></a>
+        <li>
+    <a class="dropdown-item" href="./sic-ts-daily.html">
+ <span class="dropdown-text">Daily Time Series</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./extent.html"> 
-<span class="menu-text">About Sea Ice Extent</span></a>
+        <li>
+    <a class="dropdown-item" href="./sic-ts-annual.html">
+ <span class="dropdown-text">Annualized Time Series</span></a>
   </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sea-ice-thickness" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Sea Ice Thickness</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sea-ice-thickness">    
+        <li>
+    <a class="dropdown-item" href="./sit.qmd">
+ <span class="dropdown-text">about Sea Ice Thickness</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sit-ts-daily.html">
+ <span class="dropdown-text">Daily Time Series</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sit-ts-annual.html">
+ <span class="dropdown-text">Annualized Time Series</span></a>
+  </li>  
+    </ul>
+  </li>
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -150,9 +176,9 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="explore-the-data">Explore the Data</h2>
 <p>Use the links below to visualize sea ice extent and access data:</p>
 <ul>
-<li><p><a href="./daily-ts.html">Daily Time Series of Recent Years</a><br>
+<li><p><a href="daily-ts.qmd">Daily Time Series of Recent Years</a><br>
 Visualize recent seasonal cycles and current conditions.</p></li>
-<li><p><a href="./annual-ts.html">Annualized Time Series of sea ice extent (1985–Present)</a><br>
+<li><p><a href="annual-ts.qmd">Annualized Time Series of sea ice extent (1985–Present)</a><br>
 Explore long-term trends and variability in sea ice extent.</p></li>
 <li><p><a href="CHANGE.qmd">Annualized Time Series of sea ice thickness (October, March, and April average; 2011–Present)</a><br>
 Explore long-term trends and variability in sea ice thickness.</p></li>
@@ -167,7 +193,6 @@ Explore long-term trends and variability in sea ice thickness.</p></li>
 
 </main> <!-- /main -->
 <script>
-// custom.js
 document.addEventListener("DOMContentLoaded", function() {
   // List of URLs with target=_blank
   const urlsToOpenInNewTab = [
@@ -181,6 +206,29 @@ document.addEventListener("DOMContentLoaded", function() {
     if (link) {
       link.setAttribute('target', '_blank');
     }
+  });
+
+  // Add dismiss button to all tip callouts
+  document.querySelectorAll('.callout.callout-tip').forEach(function(callout) {
+    if (callout.querySelector('.callout-close')) return;
+
+    const header = callout.querySelector('.callout-header');
+    if (!header) return;
+
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'callout-close';
+    closeButton.setAttribute('aria-label', 'Close tip');
+    closeButton.innerHTML = '&times;';
+    closeButton.addEventListener('click', function() {
+      callout.style.opacity = '0';
+      callout.style.transition = 'opacity 0.25s ease';
+      setTimeout(function() {
+        callout.style.display = 'none';
+      }, 250);
+    });
+
+    header.appendChild(closeButton);
   });
 });
 </script>

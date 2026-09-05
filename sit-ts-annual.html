@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Sea ice thickness – AKFIN - Sea Ice</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5668f5a8a2e0b7699a19751affc0343e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="site_libs/plotly-binding-4.12.1/plotly.js"></script>
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="site_libs/plotly-htmlwidgets-css-2.25.2/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="site_libs/plotly-main-2.25.2/plotly-latest.min.js"></script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">AKFIN - Sea Ice</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sea-ice-extent" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Sea Ice Extent</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sea-ice-extent">    
+        <li>
+    <a class="dropdown-item" href="./extent.html">
+ <span class="dropdown-text">about Sea Ice Extent</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sic-ts-daily.html">
+ <span class="dropdown-text">Daily Time Series</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sic-ts-annual.html">
+ <span class="dropdown-text">Annualized Time Series</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-sea-ice-thickness" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Sea Ice Thickness</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-sea-ice-thickness">    
+        <li>
+    <a class="dropdown-item" href="./sit.qmd">
+ <span class="dropdown-text">about Sea Ice Thickness</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sit-ts-daily.html">
+ <span class="dropdown-text">Daily Time Series</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./sit-ts-annual.html">
+ <span class="dropdown-text">Annualized Time Series</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#eastern-bering" id="toc-eastern-bering" class="nav-link active" data-scroll-target="#eastern-bering">Eastern Bering</a></li>
+  <li><a href="#southeastern-bering" id="toc-southeastern-bering" class="nav-link" data-scroll-target="#southeastern-bering">Southeastern Bering</a></li>
+  <li><a href="#northern-bering" id="toc-northern-bering" class="nav-link" data-scroll-target="#northern-bering">Northern Bering</a></li>
+  <li><a href="#alaskan-arctic" id="toc-alaskan-arctic" class="nav-link" data-scroll-target="#alaskan-arctic">Alaskan Arctic</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Sea ice thickness</h1>
+</div>
+
+
+
+<div class="quarto-title-meta column-page-right">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-tip callout-titled" title="Plots are interactive!">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Plots are interactive!
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>To zoom in and out, reset or download the plot</strong>, hover on the plot to see the option on the top right corner.</li>
+<li><strong>To turn on and off data series</strong>, click on the data series title in the legend located below each plot.</li>
+</ul>
+</div>
+</div>
+<section id="eastern-bering" class="level2">
+<h2 class="anchored" data-anchor-id="eastern-bering">Eastern Bering</h2>
+<div class="columns">
+<div class="column" style="width:80%;">
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-60e1a238c0aaff406a58" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-60e1a238c0aaff406a58">{"x":{"visdat":{"19a455a9d699":["function () ","plotlyVisDat"]},"cur_data":"19a455a9d699","attrs":{"19a455a9d699":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[442.8840760038384,2259.2735767769159,2431.7425705504816,208.28318411628635,444.4209743067583,220.67358885045925,699.72540560621189,432.09367196705801,219.1340017094997,5215.7151006647564,5264.1646125536372,3002.71824486075,3625.0818067510704],"type":"scatter","mode":"lines","name":"Multi-year (>2.0m)","line":{"width":0.5,"color":"#051f30"},"fillcolor":"#051f30","stackgroup":"one","hovertemplate":"Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a455a9d699.1":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[8895.2935737237185,18925.982398277243,4607.5584081517536,5521.8184896555649,5299.8175663765705,2390.4087860532791,12720.358112052596,4151.0025697699448,4171.0648117502642,25809.026476044557,24839.99042106004,15841.390091554966,18473.17207050075],"type":"scatter","mode":"lines","name":"Thick FY (1.2–2.0m)","line":{"width":0.5,"color":"#0d3b5e"},"fillcolor":"#0d3b5e","stackgroup":"one","hovertemplate":"Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a455a9d699.2":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[77174.173516109033,73088.08947966258,48186.709391886106,42366.182520153241,48461.478159151447,34613.8541043941,59084.580322266374,15750.463272619159,27996.872160045285,70444.084665681934,78361.869384770689,71246.083773350154,92360.11037546552],"type":"scatter","mode":"lines","name":"Medium FY (0.7–1.2m)","line":{"width":0.5,"color":"#1a5a8a"},"fillcolor":"#1a5a8a","stackgroup":"one","hovertemplate":"Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a455a9d699.3":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[149341.49554349092,111104.23689851216,72809.976783215054,32476.139196141936,48568.636649415625,54051.521961768536,107294.53514452543,3243.687115923311,8587.3170452650174,48326.86235705702,85936.573217631492,118934.18848027952,127537.6014877916],"type":"scatter","mode":"lines","name":"Thin FY (0.3–0.7m)","line":{"width":0.5,"color":"#2a7db5"},"fillcolor":"#2a7db5","stackgroup":"one","hovertemplate":"Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a455a9d699.4":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[57283.484830625755,47217.30042553848,52590.19062218738,7968.0762525720174,12329.626347611746,15090.047109982335,20069.160995318915,439.80759055995895,1350.122644830971,1835.5018405565088,9680.9853347946737,30953.055451082782,28656.427395082686],"type":"scatter","mode":"lines","name":"New/Young (<0.3m)","line":{"width":0.5,"color":"#74b3d8"},"fillcolor":"#74b3d8","stackgroup":"one","hovertemplate":"New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a455a9d699.5":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[284867.38632529398,327721.04191341239,396540.97812574788,492405.66273811425,466790.3749608412,475527.84910665464,382025.99467793386,557877.30043686391,539569.84399410232,430263.1642176985,377810.77168689278,341385.86302920966,309768.31862941722],"type":"scatter","mode":"lines","name":"Ice Free","line":{"width":0.5,"color":"#d0e8f5"},"fillcolor":"#d0e8f5","stackgroup":"one","hovertemplate":"Ice Free: %{y:,.0f} km²<extra><\/extra>","inherit":true}},"layout":{"margin":{"b":90,"l":80,"t":120,"r":10},"title":{"text":"Eastern Bering — April Sea Ice Thickness (2011–2023)","x":0.5,"xanchor":"center","y":0.97999999999999998,"yanchor":"top"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Year","tickangle":-45,"rangeslider":{"visible":true},"type":"category","categoryorder":"array","categoryarray":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Area (km²)","range":[0,581894],"showgrid":true,"gridwidth":0.5,"gridcolor":"lightgray"},"legend":{"orientation":"h","yanchor":"bottom","y":1.0800000000000001,"xanchor":"left","x":0},"hovermode":"x unified","autosize":true,"template":"plotly_white","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[442.8840760038384,2259.2735767769159,2431.7425705504816,208.28318411628635,444.4209743067583,220.67358885045925,699.72540560621189,432.09367196705801,219.1340017094997,5215.7151006647564,5264.1646125536372,3002.71824486075,3625.0818067510704],"type":"scatter","mode":"lines","name":"Multi-year (>2.0m)","line":{"color":"#051f30","width":0.5},"fillcolor":"#051f30","stackgroup":"one","hovertemplate":["Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[8895.2935737237185,18925.982398277243,4607.5584081517536,5521.8184896555649,5299.8175663765705,2390.4087860532791,12720.358112052596,4151.0025697699448,4171.0648117502642,25809.026476044557,24839.99042106004,15841.390091554966,18473.17207050075],"type":"scatter","mode":"lines","name":"Thick FY (1.2–2.0m)","line":{"color":"#0d3b5e","width":0.5},"fillcolor":"#0d3b5e","stackgroup":"one","hovertemplate":["Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[77174.173516109033,73088.08947966258,48186.709391886106,42366.182520153241,48461.478159151447,34613.8541043941,59084.580322266374,15750.463272619159,27996.872160045285,70444.084665681934,78361.869384770689,71246.083773350154,92360.11037546552],"type":"scatter","mode":"lines","name":"Medium FY (0.7–1.2m)","line":{"color":"#1a5a8a","width":0.5},"fillcolor":"#1a5a8a","stackgroup":"one","hovertemplate":["Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(44,160,44,1)","line":{"color":"rgba(44,160,44,1)"}},"error_y":{"color":"rgba(44,160,44,1)"},"error_x":{"color":"rgba(44,160,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[149341.49554349092,111104.23689851216,72809.976783215054,32476.139196141936,48568.636649415625,54051.521961768536,107294.53514452543,3243.687115923311,8587.3170452650174,48326.86235705702,85936.573217631492,118934.18848027952,127537.6014877916],"type":"scatter","mode":"lines","name":"Thin FY (0.3–0.7m)","line":{"color":"#2a7db5","width":0.5},"fillcolor":"#2a7db5","stackgroup":"one","hovertemplate":["Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(214,39,40,1)","line":{"color":"rgba(214,39,40,1)"}},"error_y":{"color":"rgba(214,39,40,1)"},"error_x":{"color":"rgba(214,39,40,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[57283.484830625755,47217.30042553848,52590.19062218738,7968.0762525720174,12329.626347611746,15090.047109982335,20069.160995318915,439.80759055995895,1350.122644830971,1835.5018405565088,9680.9853347946737,30953.055451082782,28656.427395082686],"type":"scatter","mode":"lines","name":"New/Young (<0.3m)","line":{"color":"#74b3d8","width":0.5},"fillcolor":"#74b3d8","stackgroup":"one","hovertemplate":["New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(148,103,189,1)","line":{"color":"rgba(148,103,189,1)"}},"error_y":{"color":"rgba(148,103,189,1)"},"error_x":{"color":"rgba(148,103,189,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[284867.38632529398,327721.04191341239,396540.97812574788,492405.66273811425,466790.3749608412,475527.84910665464,382025.99467793386,557877.30043686391,539569.84399410232,430263.1642176985,377810.77168689278,341385.86302920966,309768.31862941722],"type":"scatter","mode":"lines","name":"Ice Free","line":{"color":"#d0e8f5","width":0.5},"fillcolor":"#d0e8f5","stackgroup":"one","hovertemplate":["Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(140,86,75,1)","line":{"color":"rgba(140,86,75,1)"}},"error_y":{"color":"rgba(140,86,75,1)"},"error_x":{"color":"rgba(140,86,75,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div><div class="column" style="width:20%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/ebering.png" class="img-fluid figure-img" width="200"></p>
+<figcaption>Eastern Bering</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="southeastern-bering" class="level2">
+<h2 class="anchored" data-anchor-id="southeastern-bering">Southeastern Bering</h2>
+<div class="columns">
+<div class="column" style="width:80%;">
+<section id="winter-month" class="level4">
+<h4 class="anchored" data-anchor-id="winter-month">Winter Month</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-0b4a5d3f9a608c6f17bf" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-0b4a5d3f9a608c6f17bf">{"x":{"visdat":{"19a45452834a":["function () ","plotlyVisDat"]},"cur_data":"19a45452834a","attrs":{"19a45452834a":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[0,247.90835049724507,0,0,0,0,255.30443129945351,0,0,498.78736061894881,1496.3346967960331,0,997.57472123789762],"type":"scatter","mode":"lines","name":"Multi-year (>2.0m)","line":{"width":0.5,"color":"#051f30"},"fillcolor":"#051f30","stackgroup":"one","hovertemplate":"Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a45452834a.1":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[250.87597133841305,3488.1955019834718,0,0,0,0,767.37701003641848,0,0,742.23368030947461,1753.1580287533943,0,748.18104092842327],"type":"scatter","mode":"lines","name":"Thick FY (1.2–2.0m)","line":{"width":0.5,"color":"#0d3b5e"},"fillcolor":"#0d3b5e","stackgroup":"one","hovertemplate":"Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a45452834a.2":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[4554.0109673382094,7541.0376980268429,1497.6652281346942,0,1980.2840616134397,0,3578.3808630879435,0,0,1004.9800626935124,1759.0872108931508,1034.3812839355221,1751.6727711859389],"type":"scatter","mode":"lines","name":"Medium FY (0.7–1.2m)","line":{"width":0.5,"color":"#1a5a8a"},"fillcolor":"#1a5a8a","stackgroup":"one","hovertemplate":"Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a45452834a.3":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[31203.27058539123,35247.29040432132,19609.602631074929,0,6246.4681079156007,0,20110.358079503221,0,0,3000.1264844472653,5278.7071695151635,9537.2792340546839,16620.814753897688],"type":"scatter","mode":"lines","name":"Thin FY (0.3–0.7m)","line":{"width":0.5,"color":"#2a7db5"},"fillcolor":"#2a7db5","stackgroup":"one","hovertemplate":"Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a45452834a.4":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[35626.634304308216,38291.694412861718,29735.33559803808,0,2520.4492317137851,0,10322.601593621621,0,0,0,751.13952735847056,21946.533393179609,15060.8639811455],"type":"scatter","mode":"lines","name":"New/Young (<0.3m)","line":{"width":0.5,"color":"#74b3d8"},"fillcolor":"#74b3d8","stackgroup":"one","hovertemplate":"New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a45452834a.5":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[226452.16177025999,215582.03405787799,249569.92503345889,301976.59039109212,291229.38898984931,301976.59039109212,266942.56841354351,301976.59039109212,301976.59039109212,296730.46280302294,290938.16375777591,268927.34089255682,266033.05837744568],"type":"scatter","mode":"lines","name":"Ice Free","line":{"width":0.5,"color":"#d0e8f5"},"fillcolor":"#d0e8f5","stackgroup":"one","hovertemplate":"Ice Free: %{y:,.0f} km²<extra><\/extra>","inherit":true}},"layout":{"margin":{"b":100,"l":80,"t":120,"r":10},"title":{"text":"Southeastern Bering — April Sea Ice Thickness (2011–2023)","x":0.5,"xanchor":"center","y":0.97999999999999998,"yanchor":"top"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Year","tickangle":-45,"rangeslider":{"visible":true},"type":"category","categoryorder":"array","categoryarray":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Area (km²)","range":[0,301977],"showgrid":true,"gridwidth":0.5,"gridcolor":"lightgray"},"legend":{"orientation":"h","yanchor":"bottom","y":1.0800000000000001,"xanchor":"left","x":0},"hovermode":"x unified","autosize":true,"template":"plotly_white","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[0,247.90835049724507,0,0,0,0,255.30443129945351,0,0,498.78736061894881,1496.3346967960331,0,997.57472123789762],"type":"scatter","mode":"lines","name":"Multi-year (>2.0m)","line":{"color":"#051f30","width":0.5},"fillcolor":"#051f30","stackgroup":"one","hovertemplate":["Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[250.87597133841305,3488.1955019834718,0,0,0,0,767.37701003641848,0,0,742.23368030947461,1753.1580287533943,0,748.18104092842327],"type":"scatter","mode":"lines","name":"Thick FY (1.2–2.0m)","line":{"color":"#0d3b5e","width":0.5},"fillcolor":"#0d3b5e","stackgroup":"one","hovertemplate":["Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[4554.0109673382094,7541.0376980268429,1497.6652281346942,0,1980.2840616134397,0,3578.3808630879435,0,0,1004.9800626935124,1759.0872108931508,1034.3812839355221,1751.6727711859389],"type":"scatter","mode":"lines","name":"Medium FY (0.7–1.2m)","line":{"color":"#1a5a8a","width":0.5},"fillcolor":"#1a5a8a","stackgroup":"one","hovertemplate":["Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(44,160,44,1)","line":{"color":"rgba(44,160,44,1)"}},"error_y":{"color":"rgba(44,160,44,1)"},"error_x":{"color":"rgba(44,160,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[31203.27058539123,35247.29040432132,19609.602631074929,0,6246.4681079156007,0,20110.358079503221,0,0,3000.1264844472653,5278.7071695151635,9537.2792340546839,16620.814753897688],"type":"scatter","mode":"lines","name":"Thin FY (0.3–0.7m)","line":{"color":"#2a7db5","width":0.5},"fillcolor":"#2a7db5","stackgroup":"one","hovertemplate":["Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(214,39,40,1)","line":{"color":"rgba(214,39,40,1)"}},"error_y":{"color":"rgba(214,39,40,1)"},"error_x":{"color":"rgba(214,39,40,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[35626.634304308216,38291.694412861718,29735.33559803808,0,2520.4492317137851,0,10322.601593621621,0,0,0,751.13952735847056,21946.533393179609,15060.8639811455],"type":"scatter","mode":"lines","name":"New/Young (<0.3m)","line":{"color":"#74b3d8","width":0.5},"fillcolor":"#74b3d8","stackgroup":"one","hovertemplate":["New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(148,103,189,1)","line":{"color":"rgba(148,103,189,1)"}},"error_y":{"color":"rgba(148,103,189,1)"},"error_x":{"color":"rgba(148,103,189,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[226452.16177025999,215582.03405787799,249569.92503345889,301976.59039109212,291229.38898984931,301976.59039109212,266942.56841354351,301976.59039109212,301976.59039109212,296730.46280302294,290938.16375777591,268927.34089255682,266033.05837744568],"type":"scatter","mode":"lines","name":"Ice Free","line":{"color":"#d0e8f5","width":0.5},"fillcolor":"#d0e8f5","stackgroup":"one","hovertemplate":["Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(140,86,75,1)","line":{"color":"rgba(140,86,75,1)"}},"error_y":{"color":"rgba(140,86,75,1)"},"error_x":{"color":"rgba(140,86,75,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+</div><div class="column" style="width:20%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/sebering.png" class="img-fluid figure-img" width="200"></p>
+<figcaption>Southeastern Bering</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="northern-bering" class="level2">
+<h2 class="anchored" data-anchor-id="northern-bering">Northern Bering</h2>
+<div class="columns">
+<div class="column" style="width:80%;">
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-cff4acc551d671abbf69" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-cff4acc551d671abbf69">{"x":{"visdat":{"19a4271c3a58":["function () ","plotlyVisDat"]},"cur_data":"19a4271c3a58","attrs":{"19a4271c3a58":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[442.8840760038384,2011.3652262796704,2431.7425705504816,208.28318411628635,444.4209743067583,220.67358885045925,444.4209743067583,432.09367196705801,219.1340017094997,4716.9277400458068,3767.829915757603,3002.71824486075,2627.507085513173],"type":"scatter","mode":"lines","name":"Multi-year (>2.0m)","line":{"width":0.5,"color":"#051f30"},"fillcolor":"#051f30","stackgroup":"one","hovertemplate":"Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a4271c3a58.1":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[8644.4176023853051,15437.786896293775,4607.5584081517536,5521.8184896555649,5299.8175663765705,2390.4087860532791,11952.981102016178,4151.0025697699448,4171.0648117502642,25066.79279573508,23086.832392306638,15841.390091554966,17724.991029572331],"type":"scatter","mode":"lines","name":"Thick FY (1.2–2.0m)","line":{"width":0.5,"color":"#0d3b5e"},"fillcolor":"#0d3b5e","stackgroup":"one","hovertemplate":"Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a4271c3a58.2":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[72620.162548770837,65547.051781635746,46689.044163751409,42366.182520153241,46481.194097537998,34613.8541043941,55506.199459178431,15750.463272619159,27996.872160045285,69439.104602988431,76602.782173877553,70211.702489414631,90608.437604279577],"type":"scatter","mode":"lines","name":"Medium FY (0.7–1.2m)","line":{"width":0.5,"color":"#1a5a8a"},"fillcolor":"#1a5a8a","stackgroup":"one","hovertemplate":"Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a4271c3a58.3":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[118138.22495809972,75856.946494190852,53200.374152140132,32476.139196141936,42322.168541500017,54051.521961768536,87184.177065022202,3243.687115923311,8587.3170452650174,45326.735872609752,80657.866048116324,109396.90924622488,110916.78673389392],"type":"scatter","mode":"lines","name":"Thin FY (0.3–0.7m)","line":{"width":0.5,"color":"#2a7db5"},"fillcolor":"#2a7db5","stackgroup":"one","hovertemplate":"Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a4271c3a58.4":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[21656.850526317547,8925.6060126767679,22854.855024149299,7968.0762525720174,9809.1771158979645,15090.047109982335,9746.5594016972937,439.80759055995895,1350.122644830971,1835.5018405565088,8929.8458074362024,9006.5220579031848,13595.56341393718],"type":"scatter","mode":"lines","name":"New/Young (<0.3m)","line":{"width":0.5,"color":"#74b3d8"},"fillcolor":"#74b3d8","stackgroup":"one","hovertemplate":"New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a4271c3a58.5":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[58415.224555034001,112139.00785553442,146971.05309228893,190429.07234702213,175560.9859709919,173551.25871556252,115083.42626439038,255900.71004577176,237593.25360301021,133532.70141467563,86872.607929116901,72458.522136652842,43735.260251971551],"type":"scatter","mode":"lines","name":"Ice Free","line":{"width":0.5,"color":"#d0e8f5"},"fillcolor":"#d0e8f5","stackgroup":"one","hovertemplate":"Ice Free: %{y:,.0f} km²<extra><\/extra>","inherit":true}},"layout":{"margin":{"b":100,"l":80,"t":120,"r":10},"title":{"text":"Northern Bering — April Sea Ice Thickness (2011–2023)","x":0.5,"xanchor":"center","y":0.97999999999999998,"yanchor":"top"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Year","tickangle":-45,"rangeslider":{"visible":true},"type":"category","categoryorder":"array","categoryarray":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Area (km²)","range":[0,279918],"showgrid":true,"gridwidth":0.5,"gridcolor":"lightgray"},"legend":{"orientation":"h","yanchor":"bottom","y":1.0800000000000001,"xanchor":"left","x":0},"hovermode":"x unified","autosize":true,"template":"plotly_white","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[442.8840760038384,2011.3652262796704,2431.7425705504816,208.28318411628635,444.4209743067583,220.67358885045925,444.4209743067583,432.09367196705801,219.1340017094997,4716.9277400458068,3767.829915757603,3002.71824486075,2627.507085513173],"type":"scatter","mode":"lines","name":"Multi-year (>2.0m)","line":{"color":"#051f30","width":0.5},"fillcolor":"#051f30","stackgroup":"one","hovertemplate":["Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[8644.4176023853051,15437.786896293775,4607.5584081517536,5521.8184896555649,5299.8175663765705,2390.4087860532791,11952.981102016178,4151.0025697699448,4171.0648117502642,25066.79279573508,23086.832392306638,15841.390091554966,17724.991029572331],"type":"scatter","mode":"lines","name":"Thick FY (1.2–2.0m)","line":{"color":"#0d3b5e","width":0.5},"fillcolor":"#0d3b5e","stackgroup":"one","hovertemplate":["Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[72620.162548770837,65547.051781635746,46689.044163751409,42366.182520153241,46481.194097537998,34613.8541043941,55506.199459178431,15750.463272619159,27996.872160045285,69439.104602988431,76602.782173877553,70211.702489414631,90608.437604279577],"type":"scatter","mode":"lines","name":"Medium FY (0.7–1.2m)","line":{"color":"#1a5a8a","width":0.5},"fillcolor":"#1a5a8a","stackgroup":"one","hovertemplate":["Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(44,160,44,1)","line":{"color":"rgba(44,160,44,1)"}},"error_y":{"color":"rgba(44,160,44,1)"},"error_x":{"color":"rgba(44,160,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[118138.22495809972,75856.946494190852,53200.374152140132,32476.139196141936,42322.168541500017,54051.521961768536,87184.177065022202,3243.687115923311,8587.3170452650174,45326.735872609752,80657.866048116324,109396.90924622488,110916.78673389392],"type":"scatter","mode":"lines","name":"Thin FY (0.3–0.7m)","line":{"color":"#2a7db5","width":0.5},"fillcolor":"#2a7db5","stackgroup":"one","hovertemplate":["Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(214,39,40,1)","line":{"color":"rgba(214,39,40,1)"}},"error_y":{"color":"rgba(214,39,40,1)"},"error_x":{"color":"rgba(214,39,40,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[21656.850526317547,8925.6060126767679,22854.855024149299,7968.0762525720174,9809.1771158979645,15090.047109982335,9746.5594016972937,439.80759055995895,1350.122644830971,1835.5018405565088,8929.8458074362024,9006.5220579031848,13595.56341393718],"type":"scatter","mode":"lines","name":"New/Young (<0.3m)","line":{"color":"#74b3d8","width":0.5},"fillcolor":"#74b3d8","stackgroup":"one","hovertemplate":["New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(148,103,189,1)","line":{"color":"rgba(148,103,189,1)"}},"error_y":{"color":"rgba(148,103,189,1)"},"error_x":{"color":"rgba(148,103,189,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[58415.224555034001,112139.00785553442,146971.05309228893,190429.07234702213,175560.9859709919,173551.25871556252,115083.42626439038,255900.71004577176,237593.25360301021,133532.70141467563,86872.607929116901,72458.522136652842,43735.260251971551],"type":"scatter","mode":"lines","name":"Ice Free","line":{"color":"#d0e8f5","width":0.5},"fillcolor":"#d0e8f5","stackgroup":"one","hovertemplate":["Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(140,86,75,1)","line":{"color":"rgba(140,86,75,1)"}},"error_y":{"color":"rgba(140,86,75,1)"},"error_x":{"color":"rgba(140,86,75,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div><div class="column" style="width:20%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/nbering.png" class="img-fluid figure-img" width="200"></p>
+<figcaption>Northern Bering</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="alaskan-arctic" class="level2">
+<h2 class="anchored" data-anchor-id="alaskan-arctic">Alaskan Arctic</h2>
+<div class="columns">
+<div class="column" style="width:80%;">
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-aee88d42f2e7b710312e" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-aee88d42f2e7b710312e">{"x":{"visdat":{"19a43df97444":["function () ","plotlyVisDat"]},"cur_data":"19a43df97444","attrs":{"19a43df97444":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[11370.515746972129,108096.97787247444,32608.651336622541,83797.483480227165,111108.39573201128,17886.876499781371,28536.219523978711,10912.518897703185,51218.447114681898,48371.66230969334,26492.814826807575,26253.406872356925,61573.690123688408],"type":"scatter","mode":"lines","name":"Multi-year (>2.0m)","line":{"width":0.5,"color":"#051f30"},"fillcolor":"#051f30","stackgroup":"one","hovertemplate":"Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a43df97444.1":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[408511.65442308079,319345.13625012094,337273.71989695297,298836.85302346735,299821.94610258256,288010.06912922516,374156.5544144999,334455.25569032982,317214.64720691484,375390.71689158754,394633.80192429258,348592.68540902942,386091.77554107149],"type":"scatter","mode":"lines","name":"Thick FY (1.2–2.0m)","line":{"width":0.5,"color":"#0d3b5e"},"fillcolor":"#0d3b5e","stackgroup":"one","hovertemplate":"Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a43df97444.2":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[45921.404508794163,22151.771367813632,80635.37305485172,70347.184236757283,35897.643851660381,116862.6881018417,61793.09299462122,102923.82591434637,90981.791171292803,42537.022090484061,45005.980162539257,89183.210027186607,19840.048933837526],"type":"scatter","mode":"lines","name":"Medium FY (0.7–1.2m)","line":{"width":0.5,"color":"#1a5a8a"},"fillcolor":"#1a5a8a","stackgroup":"one","hovertemplate":"Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a43df97444.3":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[491.1008729709763,725.59548963886198,1694.6388754119575,970.75165361402242,168.56120743662265,10136.411892897442,397.76652770862381,940.25630252390545,2438.6592616143612,0,162.07863817864344,494.33404075172479,176.6180602539059],"type":"scatter","mode":"lines","name":"Thin FY (0.3–0.7m)","line":{"width":0.5,"color":"#2a7db5"},"fillcolor":"#2a7db5","stackgroup":"one","hovertemplate":"Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a43df97444.4":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[0,0,0,0,0,166.94359661368938,0,0,0,0,0,0,0],"type":"scatter","mode":"lines","name":"New/Young (<0.3m)","line":{"width":0.5,"color":"#74b3d8"},"fillcolor":"#74b3d8","stackgroup":"one","hovertemplate":"New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a43df97444.5":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[1387.4571070332679,17362.651678803468,15469.749495012096,13729.860264785504,20685.585765160529,34619.143438491978,2798.4991980428204,18450.275853948093,5828.5879043474451,1382.7313670863523,1387.4571070332679,3158.4963095266448,0],"type":"scatter","mode":"lines","name":"Ice Free","line":{"width":0.5,"color":"#d0e8f5"},"fillcolor":"#d0e8f5","stackgroup":"one","hovertemplate":"Ice Free: %{y:,.0f} km²<extra><\/extra>","inherit":true}},"layout":{"margin":{"b":90,"l":80,"t":120,"r":10},"title":{"text":"Alaskan Arctic — April Sea Ice Thickness (2011–2023)","x":0.5,"xanchor":"center","y":0.97999999999999998,"yanchor":"top"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Year","tickangle":-45,"rangeslider":{"visible":true},"type":"category","categoryorder":"array","categoryarray":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Area (km²)","range":[0,467682],"showgrid":true,"gridwidth":0.5,"gridcolor":"lightgray"},"legend":{"orientation":"h","yanchor":"bottom","y":1.0800000000000001,"xanchor":"left","x":0},"hovermode":"x unified","autosize":true,"template":"plotly_white","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[11370.515746972129,108096.97787247444,32608.651336622541,83797.483480227165,111108.39573201128,17886.876499781371,28536.219523978711,10912.518897703185,51218.447114681898,48371.66230969334,26492.814826807575,26253.406872356925,61573.690123688408],"type":"scatter","mode":"lines","name":"Multi-year (>2.0m)","line":{"color":"#051f30","width":0.5},"fillcolor":"#051f30","stackgroup":"one","hovertemplate":["Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[408511.65442308079,319345.13625012094,337273.71989695297,298836.85302346735,299821.94610258256,288010.06912922516,374156.5544144999,334455.25569032982,317214.64720691484,375390.71689158754,394633.80192429258,348592.68540902942,386091.77554107149],"type":"scatter","mode":"lines","name":"Thick FY (1.2–2.0m)","line":{"color":"#0d3b5e","width":0.5},"fillcolor":"#0d3b5e","stackgroup":"one","hovertemplate":["Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[45921.404508794163,22151.771367813632,80635.37305485172,70347.184236757283,35897.643851660381,116862.6881018417,61793.09299462122,102923.82591434637,90981.791171292803,42537.022090484061,45005.980162539257,89183.210027186607,19840.048933837526],"type":"scatter","mode":"lines","name":"Medium FY (0.7–1.2m)","line":{"color":"#1a5a8a","width":0.5},"fillcolor":"#1a5a8a","stackgroup":"one","hovertemplate":["Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(44,160,44,1)","line":{"color":"rgba(44,160,44,1)"}},"error_y":{"color":"rgba(44,160,44,1)"},"error_x":{"color":"rgba(44,160,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[491.1008729709763,725.59548963886198,1694.6388754119575,970.75165361402242,168.56120743662265,10136.411892897442,397.76652770862381,940.25630252390545,2438.6592616143612,0,162.07863817864344,494.33404075172479,176.6180602539059],"type":"scatter","mode":"lines","name":"Thin FY (0.3–0.7m)","line":{"color":"#2a7db5","width":0.5},"fillcolor":"#2a7db5","stackgroup":"one","hovertemplate":["Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(214,39,40,1)","line":{"color":"rgba(214,39,40,1)"}},"error_y":{"color":"rgba(214,39,40,1)"},"error_x":{"color":"rgba(214,39,40,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[0,0,0,0,0,166.94359661368938,0,0,0,0,0,0,0],"type":"scatter","mode":"lines","name":"New/Young (<0.3m)","line":{"color":"#74b3d8","width":0.5},"fillcolor":"#74b3d8","stackgroup":"one","hovertemplate":["New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(148,103,189,1)","line":{"color":"rgba(148,103,189,1)"}},"error_y":{"color":"rgba(148,103,189,1)"},"error_x":{"color":"rgba(148,103,189,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"y":[1387.4571070332679,17362.651678803468,15469.749495012096,13729.860264785504,20685.585765160529,34619.143438491978,2798.4991980428204,18450.275853948093,5828.5879043474451,1382.7313670863523,1387.4571070332679,3158.4963095266448,0],"type":"scatter","mode":"lines","name":"Ice Free","line":{"color":"#d0e8f5","width":0.5},"fillcolor":"#d0e8f5","stackgroup":"one","hovertemplate":["Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(140,86,75,1)","line":{"color":"rgba(140,86,75,1)"}},"error_y":{"color":"rgba(140,86,75,1)"},"error_x":{"color":"rgba(140,86,75,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-1e477f614ddae3e9812e" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-1e477f614ddae3e9812e">{"x":{"visdat":{"19a49c676da":["function () ","plotlyVisDat"]},"cur_data":"19a49c676da","attrs":{"19a49c676da":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"],"y":[0,0,0,0,147.3792640554897,0,0,0,0,0,0,152.29593550774914,0],"type":"scatter","mode":"lines","name":"Multi-year (>2.0m)","line":{"width":0.5,"color":"#051f30"},"fillcolor":"#051f30","stackgroup":"one","hovertemplate":"Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a49c676da.1":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"],"y":[297.994560986328,0,0,13773.201711608492,4945.1343956736528,959.455146518314,0,1147.754223028835,0,0,872.69821693622657,450.32862639920631,0],"type":"scatter","mode":"lines","name":"Thick FY (1.2–2.0m)","line":{"width":0.5,"color":"#0d3b5e"},"fillcolor":"#0d3b5e","stackgroup":"one","hovertemplate":"Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a49c676da.2":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"],"y":[7826.4555681996517,2819.1163009942861,0,75217.476857337911,65360.78604514974,4995.5181725036246,0,4520.9305054228607,8900.5635146977784,630.41314322078745,7575.0539970385444,11695.797307191426,579.58076318208975],"type":"scatter","mode":"lines","name":"Medium FY (0.7–1.2m)","line":{"width":0.5,"color":"#1a5a8a"},"fillcolor":"#1a5a8a","stackgroup":"one","hovertemplate":"Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a49c676da.3":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"],"y":[90814.067489624838,56247.500122192061,0,55005.71764839044,74464.491904904775,136555.36912752199,288.18494191110727,36516.875482621821,144442.70411711081,10463.864240171475,152589.99781770486,214543.18825597965,95424.651574999996],"type":"scatter","mode":"lines","name":"Thin FY (0.3–0.7m)","line":{"width":0.5,"color":"#2a7db5"},"fillcolor":"#2a7db5","stackgroup":"one","hovertemplate":"Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a49c676da.4":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"],"y":[15437.769812023444,14130.779873515035,0,9691.7632340622622,12975.215307881879,28823.126737919458,0,4166.5653857346369,29840.368404552079,2556.1536338141718,24372.364936687591,41567.417209865169,13443.340628031114],"type":"scatter","mode":"lines","name":"New/Young (<0.3m)","line":{"width":0.5,"color":"#74b3d8"},"fillcolor":"#74b3d8","stackgroup":"one","hovertemplate":"New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","inherit":true},"19a49c676da.5":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"x":["2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"],"y":[353007.80708986358,393936.42781591183,467682.13265885133,313993.97320745216,308863.93593109242,296014.77628116054,467393.94771694019,421184.2703066594,282625.55674616125,454031.70164164493,281482.84234857024,197782.99340802521,358088.82293725444],"type":"scatter","mode":"lines","name":"Ice Free","line":{"width":0.5,"color":"#d0e8f5"},"fillcolor":"#d0e8f5","stackgroup":"one","hovertemplate":"Ice Free: %{y:,.0f} km²<extra><\/extra>","inherit":true}},"layout":{"margin":{"b":90,"l":80,"t":120,"r":10},"title":{"text":"Alaskan Arctic — October Sea Ice Thickness (2011–2023)","x":0.5,"xanchor":"center","y":0.97999999999999998,"yanchor":"top"},"xaxis":{"domain":[0,1],"automargin":true,"title":"Year","tickangle":-45,"showgrid":false,"rangeslider":{"visible":true},"type":"category","categoryorder":"array","categoryarray":["2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"]},"yaxis":{"domain":[0,1],"automargin":true,"title":"Area (km²)","range":[0,467682],"showgrid":false,"gridwidth":0.5,"gridcolor":"lightgray"},"legend":{"orientation":"h","yanchor":"bottom","y":1.0800000000000001,"xanchor":"left","x":0},"hovermode":"x unified","autosize":true,"template":"plotly_white","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":["2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"],"y":[0,0,0,0,147.3792640554897,0,0,0,0,0,0,152.29593550774914,0],"type":"scatter","mode":"lines","name":"Multi-year (>2.0m)","line":{"color":"#051f30","width":0.5},"fillcolor":"#051f30","stackgroup":"one","hovertemplate":["Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>","Multi-year (>2.0m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"],"y":[297.994560986328,0,0,13773.201711608492,4945.1343956736528,959.455146518314,0,1147.754223028835,0,0,872.69821693622657,450.32862639920631,0],"type":"scatter","mode":"lines","name":"Thick FY (1.2–2.0m)","line":{"color":"#0d3b5e","width":0.5},"fillcolor":"#0d3b5e","stackgroup":"one","hovertemplate":["Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>","Thick FY (1.2–2.0m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(255,127,14,1)","line":{"color":"rgba(255,127,14,1)"}},"error_y":{"color":"rgba(255,127,14,1)"},"error_x":{"color":"rgba(255,127,14,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"],"y":[7826.4555681996517,2819.1163009942861,0,75217.476857337911,65360.78604514974,4995.5181725036246,0,4520.9305054228607,8900.5635146977784,630.41314322078745,7575.0539970385444,11695.797307191426,579.58076318208975],"type":"scatter","mode":"lines","name":"Medium FY (0.7–1.2m)","line":{"color":"#1a5a8a","width":0.5},"fillcolor":"#1a5a8a","stackgroup":"one","hovertemplate":["Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>","Medium FY (0.7–1.2m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(44,160,44,1)","line":{"color":"rgba(44,160,44,1)"}},"error_y":{"color":"rgba(44,160,44,1)"},"error_x":{"color":"rgba(44,160,44,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"],"y":[90814.067489624838,56247.500122192061,0,55005.71764839044,74464.491904904775,136555.36912752199,288.18494191110727,36516.875482621821,144442.70411711081,10463.864240171475,152589.99781770486,214543.18825597965,95424.651574999996],"type":"scatter","mode":"lines","name":"Thin FY (0.3–0.7m)","line":{"color":"#2a7db5","width":0.5},"fillcolor":"#2a7db5","stackgroup":"one","hovertemplate":["Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>","Thin FY (0.3–0.7m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(214,39,40,1)","line":{"color":"rgba(214,39,40,1)"}},"error_y":{"color":"rgba(214,39,40,1)"},"error_x":{"color":"rgba(214,39,40,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"],"y":[15437.769812023444,14130.779873515035,0,9691.7632340622622,12975.215307881879,28823.126737919458,0,4166.5653857346369,29840.368404552079,2556.1536338141718,24372.364936687591,41567.417209865169,13443.340628031114],"type":"scatter","mode":"lines","name":"New/Young (<0.3m)","line":{"color":"#74b3d8","width":0.5},"fillcolor":"#74b3d8","stackgroup":"one","hovertemplate":["New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>","New/Young (<0.3m): %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(148,103,189,1)","line":{"color":"rgba(148,103,189,1)"}},"error_y":{"color":"rgba(148,103,189,1)"},"error_x":{"color":"rgba(148,103,189,1)"},"xaxis":"x","yaxis":"y","frame":null},{"x":["2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022"],"y":[353007.80708986358,393936.42781591183,467682.13265885133,313993.97320745216,308863.93593109242,296014.77628116054,467393.94771694019,421184.2703066594,282625.55674616125,454031.70164164493,281482.84234857024,197782.99340802521,358088.82293725444],"type":"scatter","mode":"lines","name":"Ice Free","line":{"color":"#d0e8f5","width":0.5},"fillcolor":"#d0e8f5","stackgroup":"one","hovertemplate":["Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>","Ice Free: %{y:,.0f} km²<extra><\/extra>"],"marker":{"color":"rgba(140,86,75,1)","line":{"color":"rgba(140,86,75,1)"}},"error_y":{"color":"rgba(140,86,75,1)"},"error_x":{"color":"rgba(140,86,75,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div><div class="column" style="width:20%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/arctic.png" class="img-fluid figure-img" width="200"></p>
+<figcaption>Alaskan Arctic</figcaption>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // List of URLs with target=_blank
+  const urlsToOpenInNewTab = [
+    "https://github.com/polarwatch/alaska-seaice",
+    "https://shinyfin.psmfc.org/ak-sst-mhw/",
+    "https://polarwatch.noaa.gov"
+  ];
+
+  urlsToOpenInNewTab.forEach(url => {
+    const link = document.querySelector(`a[href="${url}"]`);
+    if (link) {
+      link.setAttribute('target', '_blank');
+    }
+  });
+
+  // Add dismiss button to all tip callouts
+  document.querySelectorAll('.callout.callout-tip').forEach(function(callout) {
+    if (callout.querySelector('.callout-close')) return;
+
+    const header = callout.querySelector('.callout-header');
+    if (!header) return;
+
+    const closeButton = document.createElement('button');
+    closeButton.type = 'button';
+    closeButton.className = 'callout-close';
+    closeButton.setAttribute('aria-label', 'Close tip');
+    closeButton.innerHTML = '&times;';
+    closeButton.addEventListener('click', function() {
+      callout.style.opacity = '0';
+      callout.style.transition = 'opacity 0.25s ease';
+      setTimeout(function() {
+        callout.style.display = 'none';
+      }, 250);
+    });
+
+    header.appendChild(closeButton);
+  });
+});
+</script>
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/PSMFC-FIN\.github\.io\/alaska-seaice\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
