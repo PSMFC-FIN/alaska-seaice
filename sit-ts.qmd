@@ -173,9 +173,11 @@ fig <- subplot(
 
 fig
 ```
-::::
 :::
-
+::: {.column width="20%"}
+![Eastern Bering](img/ebering.png){width="200px"}
+:::
+::::
 
 
 ## Southeastern Bering
@@ -337,8 +339,12 @@ fig <- subplot(
 
 fig
 ```
-::::
 :::
+
+::: {.column width="20%"}
+![Southeastern Bering](img/sebering.png){width="200px"}
+:::
+::::
 
 
 ## Northern Bering
@@ -500,8 +506,11 @@ fig <- subplot(
 
 fig
 ```
-::::
 :::
+::: {.column width="20%"}
+![Northern Bering](img/nbering.png){width="200px"}
+:::
+::::
 
 ## Alaskan Arctic
 
@@ -663,6 +672,9 @@ fig <- subplot(
 
 fig
 ```
-::::
 :::
+::: {.column width="20%"}
+![Alaskan Arctic](img/arctic.png){width="200px"}
+:::
+::::
 
