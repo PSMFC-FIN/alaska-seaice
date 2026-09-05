@@ -39,7 +39,7 @@
     "href": "sebering.html",
     "title": "Sea ice extent in Southeastern Bering",
     "section": "",
-    "text": "Updated on September 04, 2026"
+    "text": "Updated on September 05, 2026"
   },
   {
     "objectID": "sebering.html#under-development",
@@ -354,7 +354,7 @@
     "href": "arctic.html",
     "title": "Sea ice extent in Alaskan Arctic",
     "section": "",
-    "text": "Updated on September 04, 2026"
+    "text": "Updated on September 05, 2026"
   },
   {
     "objectID": "arctic.html#under-development",
@@ -417,7 +417,7 @@
     "href": "ebering.html",
     "title": "Sea ice extent in Eastern Bering",
     "section": "",
-    "text": "Updated on September 04, 2026"
+    "text": "Updated on September 05, 2026"
   },
   {
     "objectID": "ebering.html#under-development",
@@ -478,21 +478,21 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "AKFIN - Sea Ice Extent",
+    "title": "Sea Ice Extent",
     "section": "",
-    "text": "This site presents sea ice extent across regions off Alaska, aligned with Large Marine Ecosystems supported by AKFIN. You can explore how sea ice changes over time, visualize recent conditions, and download data for further analysis."
+    "text": "This site presents sea ice extent and thickness across regions off Alaska, aligned with Large Marine Ecosystems supported by AKFIN. You can explore how sea ice changes over time, visualize recent conditions, and download data for further analysis."
   },
   {
     "objectID": "index.html#explore-the-data",
     "href": "index.html#explore-the-data",
-    "title": "AKFIN - Sea Ice Extent",
+    "title": "Sea Ice Extent",
     "section": "Explore the Data",
-    "text": "Explore the Data\nUse the links below to visualize sea ice extent and access data:\n\nDaily Time Series of Recent Years\nVisualize recent seasonal cycles and current conditions.\nAnnualized Time Series (1985–Present)\nExplore long-term trends and variability."
+    "text": "Explore the Data\nUse the links below to visualize sea ice extent and access data:\n\nDaily Time Series of Recent Years\nVisualize recent seasonal cycles and current conditions.\nAnnualized Time Series of sea ice extent (1985–Present)\nExplore long-term trends and variability in sea ice extent.\nAnnualized Time Series of sea ice thickness (October, March, and April average; 2011–Present)\nExplore long-term trends and variability in sea ice thickness."
   },
   {
     "objectID": "index.html#acknowledgement",
     "href": "index.html#acknowledgement",
-    "title": "AKFIN - Sea Ice Extent",
+    "title": "Sea Ice Extent",
     "section": "Acknowledgement",
     "text": "Acknowledgement\nThe data and methods used in this site are based on work from the NOAA PolarWatch project."
   },
@@ -501,7 +501,7 @@
     "href": "nbering.html",
     "title": "Sea ice extent in Northern Bering",
     "section": "",
-    "text": "Updated on September 04, 2026"
+    "text": "Updated on September 05, 2026"
   },
   {
     "objectID": "nbering.html#under-development",
