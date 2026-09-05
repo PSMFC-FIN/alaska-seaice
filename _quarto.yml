@@ -8,17 +8,29 @@ project:
 
 website:
   title: "AKFIN - Sea Ice"
-  
+
   navbar:
     background: primary
     foreground: light
     left:
-      - href: daily-ts.qmd
-        text: "Daily Time Series"
-      - href: annual-ts.qmd
-        text: "Annualized Time Series"
-      - href: extent.qmd
-        text: "About Sea Ice Extent"
+      - text: "Sea Ice Extent"
+        menu:
+          - href: extent.qmd
+            text: "about Sea Ice Extent" 
+          - href: sic-ts-daily.qmd
+            text: "Daily Time Series"
+          - href: sic-ts-annual.qmd
+            text: "Annualized Time Series"
+      - text: "Sea Ice Thickness"
+        menu:
+          - href: sit.qmd
+            text: "about Sea Ice Thickness"
+          - href: sit-ts-daily.qmd
+            text: "Daily Time Series"
+          - href: sit-ts-annual.qmd
+            text: "Annualized Time Series"
+
+
 
 format:
   html:
@@ -29,7 +41,7 @@ format:
     toc-depth: 2
     toc-location: left
     grid:
-      sidebar-width: 250px
+      sidebar-width: 200px
       body-width: 1200px
       margin-width: 100px
       gutter-width: 1.5rem
