@@ -15,7 +15,7 @@ page-layout: full
 :::
 
 ## Eastern Bering
-SUNNY - add thumbnail maps on the right like on other pages
+
 :::: {.columns}
 
 ::: {.column width="80%"}
@@ -40,7 +40,7 @@ colors <- list(
   thick_FY  = '#0d3b5e',
   multiyear = '#051f30'
 )
-SUNNY - what does FY mean below?
+
 labels <- list(
   ice_free  = 'Ice Free',
   new_young = 'New/Young (<0.3m)',
@@ -53,7 +53,7 @@ labels <- list(
 cat_cols <- c('multiyear','thick_FY','medium_FY','thin_FY','new_young','ice_free')
 
 # Load data
-df_area <- read_csv('./data/NorthernBering_sit_daily_ts.csv') |>
+df_area <- read_csv('./data/EasternBering_sit_daily_ts.csv') |>
   mutate(time = as_datetime(time))
 
 # Normalize x-axis to a reference year
@@ -340,7 +340,7 @@ fig
 :::
 
 ## Southeastern Bering
-SUNNY - I can't find where the error is coming from in the code, but the label on the page says "SourtherBering Bering" and below on line 358 says "region <- 'NorthernBering'"?
+
 :::: {.columns}
 
 ::: {.column width="80%"}
@@ -355,7 +355,7 @@ library(dplyr)
 library(lubridate)
 library(plotly)
 
-region <- 'NorthernBering'
+region <- 'SoutheasternBering'
 
 colors <- list(
   ice_free  = '#d0e8f5',
@@ -378,7 +378,7 @@ labels <- list(
 cat_cols <- c('multiyear','thick_FY','medium_FY','thin_FY','new_young','ice_free')
 
 # Load data
-df_area <- read_csv('./data/NorthernBering_sit_daily_ts.csv') |>
+df_area <- read_csv('./data/SoutheasternBering_sit_daily.csv') |>
   mutate(time = as_datetime(time))
 
 # Normalize x-axis to a reference year
