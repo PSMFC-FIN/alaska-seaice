@@ -1,0 +1,28 @@
+---
+title: "Sea Ice Thickness"
+format: html
+---
+
+
+##  Understanding Sea Ice Thickness
+
+Sea ice thickness refers to how deep a sheet of frozen ocean water is --
+from its surface down to where it meets the open water below.   
+
+While sea ice extent tells you how much area is covered by ice, **sea ice thickness** tells 
+you how much ice there actually is, and how tough or long-lasting it's likely to be.
+
+
+## Not all sea ice is the same
+
+Sea ice thickness can be categorized commonly as first-year ice and multi-year ice.  
+First year ice is relatively thin and forms over a single winter whereas multi-year ice
+has survived one or more seasons, building over time; multi-year ice can be several meters thick
+and generally harder.
+
+## Data and methods
+
+
+
+## Reading resources
+* https://nsidc.org/learn/parts-cryosphere/sea-ice/science-sea-ice#anchor-sea-ice-formations

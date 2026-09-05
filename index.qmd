@@ -1,26 +1,34 @@
 ---
-title: "Sea Ice Extent"
+title: "Alaska Sea Ice"
 toc: False
 ---
 
-This site presents sea ice extent and thickness across regions off Alaska, aligned with 
-Large Marine Ecosystems supported by AKFIN. You can explore how sea ice 
-changes over time, visualize recent conditions, and download data for further analysis.
+This site tracks sea ice extent and thickness across regions off Alaska, aligned with 
+Large Marine Ecosystems supported by AKFIN. Explore how sea ice changes over time, 
+check recent conditions, and download data for further analysis.
 
-## Explore the Data
+## Sea Ice Extent
 
-Use the links below to visualize sea ice extent and access data:
+- [About Sea Ice Extent](extent.qmd)  
+  What sea ice extent is and how it's measured.
 
-- [Daily Time Series of Recent Years](daily-ts.qmd)  
-  Visualize recent seasonal cycles and current conditions.
+- [Daily Time Series](sic-ts-daily.qmd)  
+  Recent seasonal cycles and current conditions.
 
-- [Annualized Time Series of sea ice extent (1985–Present)](annual-ts.qmd)  
-  Explore long-term trends and variability in sea ice extent.
+- [Annualized Time Series (1985–Present)](sic-ts-annual.qmd)  
+  Long-term trends and year-to-year variability in extent.
 
-- [Annualized Time Series of sea ice thickness (October, March, and April average; 2011–Present)](CHANGE.qmd)  
-  Explore long-term trends and variability in sea ice thickness.
+## Sea Ice Thickness
 
-## Acknowledgement
+- [About Sea Ice Thickness](sit.qmd)  
+  What sea ice thickness is and how it's measured.
 
-The data and methods used in this site are based on work from the 
-[NOAA PolarWatch project](https://polarwatch.github.io/alaska-seaice).
+- [Daily Time Series](sit-ts-daily.qmd)  
+  Recent seasonal cycles and current conditions.
+
+- [Annualized Time Series (2011–Present)](sit-ts-annual.qmd)  
+  Long-term trends in thickness, averaged for October, March, and April.
+
+## Regions and the Marine Ecosystems
+
+In federal fisheries management, the Alaska region is made up of distinct large marine ecosystems across the Gulf of Alaska (GOA), Aleutian Islands (AI), eastern Bering Sea (including the northern Bering Sea), and Chukchi and Beaufort Seas (referred to here as the Alaskan Arctic). Fishery management areas include the Gulf of Alaska and Bering Sea/Aleutian Islands. No federal fisheries currently occur in the Alaskan Arctic.
