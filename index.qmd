@@ -3,32 +3,23 @@ title: "Alaska Sea Ice"
 toc: False
 ---
 
-This site tracks sea ice extent and thickness across regions off Alaska, aligned with 
-Large Marine Ecosystems supported by AKFIN. Explore how sea ice changes over time, 
+This site presents sea ice extent and thickness across regions off Alaska, aligned with Large Marine Ecosystems supported by AKFIN." Explore how sea ice changes over time, 
 check recent conditions, and download data for further analysis.
 
 ## Sea Ice Extent
 
-- [About Sea Ice Extent](extent.qmd)  
-  What sea ice extent is and how it's measured.
-
-- [Daily Time Series](sic-ts-daily.qmd)  
-  Recent seasonal cycles and current conditions.
-
-- [Annualized Time Series (1985–Present)](sic-ts-annual.qmd)  
-  Long-term trends and year-to-year variability in extent.
+Sea ice extent measures how much ocean area is covered by ice, and how that 
+coverage shifts across seasons and years. [Learn more and explore the data](extent.qmd).
 
 ## Sea Ice Thickness
 
-- [About Sea Ice Thickness](sit.qmd)  
-  What sea ice thickness is and how it's measured.
+Sea ice thickness reflects how the ice itself has changed over time, based on 
+average conditions in October, March, and April. [Learn more and explore the data](sit.qmd).
 
-- [Daily Time Series](sit-ts-daily.qmd)  
-  Recent seasonal cycles and current conditions.
+## Large Marine Ecosystems
 
-- [Annualized Time Series (2011–Present)](sit-ts-annual.qmd)  
-  Long-term trends in thickness, averaged for October, March, and April.
-
-## Regions and the Marine Ecosystems
-
-In federal fisheries management, the Alaska region is made up of distinct large marine ecosystems across the Gulf of Alaska (GOA), Aleutian Islands (AI), eastern Bering Sea (including the northern Bering Sea), and Chukchi and Beaufort Seas (referred to here as the Alaskan Arctic). Fishery management areas include the Gulf of Alaska and Bering Sea/Aleutian Islands. No federal fisheries currently occur in the Alaskan Arctic.
+In federal fisheries management, the Alaska region is made up of distinct large marine 
+ecosystems across the Gulf of Alaska (GOA), Aleutian Islands (AI), 
+eastern Bering Sea (including the northern Bering Sea), and 
+Chukchi and Beaufort Seas (referred to here as the Alaskan Arctic). 
+Fishery management areas include the Gulf of Alaska and Bering Sea/Aleutian Islands. No federal fisheries currently occur in the Alaskan Arctic.
