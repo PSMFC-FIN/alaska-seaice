@@ -51,7 +51,6 @@ library(lubridate)
 # Load annualized extent
 annual = read.csv("data/annualized_extent_EasternBering.csv")
 
-SUNNY - in the plot title Annualized time series (1985-2024) can you auto-update the most recent year, or do these all need to be manually updated each year? Or say "1985 - current" like under Data downloads
 # Plot annual time series
 fig_annual <- plot_ly(annual, type = 'scatter', mode = 'lines+markers')%>%
   add_trace(x = ~year, y = ~extent, 
