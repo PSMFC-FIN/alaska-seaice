@@ -90,6 +90,63 @@ fig_annual
  
 
 
+## Southeastern Bering
+:::: {.columns}
+
+::: {.column width="80%"}
+
+```{r "Southeastern Bering"}
+#| echo: false
+#| warning: false
+#| message: false
+
+## ANNUAL TIME SERIES PLOT ##
+
+
+
+# Load annualized extent
+annual = read.csv("data/annualized_extent_SoutheasternBering.csv")
+
+# Plot annual time series
+fig_annual <- plot_ly(annual, type = 'scatter', mode = 'lines+markers')%>%
+  add_trace(x = ~year, y = ~extent, 
+            line=list(color='lightblue'),
+            marker = list(color='blue', size =8))%>%
+  layout(showlegend = F, title="Annualized time series (1985-2024)",
+         xaxis = list(rangeslider = list(visible = T),
+                      zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff',
+                      title="Year"),
+         yaxis = list(zerolinecolor = '#ffff',
+                      zerolinewidth = 2,
+                      gridcolor = 'ffff',
+                      title="Extent (Square km)"),
+         #autosize = TRUE,
+         plot_bgcolor='#e5ecf6') %>%
+  config(responsive = TRUE)
+
+# Display
+fig_annual
+```
+
+### Data downloads
+
+-   Annualized extent time series (1985-Current) [Data](data/annualized_extent_SoutheasternBering.csv) - [Description](data/annualized_extent_README.md)
+
+
+
+:::
+
+::: {.column width="20%"}
+![Southeastern Bering](img/sebering.png){width="200px"}
+:::
+
+::::
+
+
+
+
 ## Northern Bering
 :::: {.columns}
 
@@ -145,59 +202,6 @@ fig_annual
 
 ::::
 
-## Southeastern Bering
-:::: {.columns}
-
-::: {.column width="80%"}
-
-```{r "Southeastern Bering"}
-#| echo: false
-#| warning: false
-#| message: false
-
-## ANNUAL TIME SERIES PLOT ##
-
-
-
-# Load annualized extent
-annual = read.csv("data/annualized_extent_SoutheasternBering.csv")
-
-# Plot annual time series
-fig_annual <- plot_ly(annual, type = 'scatter', mode = 'lines+markers')%>%
-  add_trace(x = ~year, y = ~extent, 
-            line=list(color='lightblue'),
-            marker = list(color='blue', size =8))%>%
-  layout(showlegend = F, title="Annualized time series (1985-2024)",
-         xaxis = list(rangeslider = list(visible = T),
-                      zerolinecolor = '#ffff',
-                      zerolinewidth = 2,
-                      gridcolor = 'ffff',
-                      title="Year"),
-         yaxis = list(zerolinecolor = '#ffff',
-                      zerolinewidth = 2,
-                      gridcolor = 'ffff',
-                      title="Extent (Square km)"),
-         #autosize = TRUE,
-         plot_bgcolor='#e5ecf6') %>%
-  config(responsive = TRUE)
-
-# Display
-fig_annual
-```
-
-### Data downloads
-
--   Annualized extent time series (1985-Current) [Data](data/annualized_extent_SoutheasternBering.csv) - [Description](data/annualized_extent_README.md)
-
-
-
-:::
-
-::: {.column width="20%"}
-![Southeastern Bering](img/sebering.png){width="200px"}
-:::
-
-::::
 ## Alaskan Arctic
 
 :::: {.columns}
