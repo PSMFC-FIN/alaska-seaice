@@ -256,6 +256,9 @@ baseline_df = read.csv("data/bs_extent_SoutheasternBering.csv")
 # Load near real time data for this year and last year
 nrt_df = read.csv("data/nrt_extent_SoutheasternBering.csv")
 
+# Load near real time data for this year and last year
+nrt_df = read.csv("data/nrt_extent_SoutheasternBering.csv")
+
 ```
 
 ```{r}
