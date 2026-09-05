@@ -7,7 +7,6 @@ format: html
 ##  What is extent?
 
 
-
 Sea ice extent is a simple measure of how much of 
 the ocean surface is covered by ice. It is computed by 
 counting all areas where there is at least a small amount of ice 
@@ -20,9 +19,6 @@ and long-term trends in sea ice coverage.
 The sea ice extent presented here used remote sensing data with 25km resolution and 
 computed sea ice extent within the boundaries defined as Large Marine Ecosystems: 
 
-## What are the Large Marine Ecosystems?
-
-In federal fisheries management, the Alaska region is made up of distinct large marine ecosystems across the Gulf of Alaska (GOA), Aleutian Islands (AI), eastern Bering Sea (including the northern Bering Sea), and Chukchi Sea and Beaufort Seas (referred to here as the Alaskan Arctic). Fishery management areas include the Gulf of Alaska and Bering Sea/Aleutian Islands. No federal fisheries currently occur in the Alaskan Arctic.
 
 ## What data were used for extent?
 
@@ -36,8 +32,6 @@ Because passive microwave sensors work through clouds and in both day and night 
 
 For details on how extent is computed, please refer to the [PolarWatch project site](https://polarwatch.github.io/alaska-seaice/methods.html).
 
-## What data were used for thickness?
-SUNNY add here
 
 ## Why are there different versions of sea ice data?
 
@@ -48,3 +42,9 @@ Sea ice datasets are updated over time as scientists improve how satellite data 
 Because the record spans multiple decades and multiple sensors, small inconsistencies can occur. Each new version works to make the data more consistent and reliable across time.
 
 Using the latest version ensures you are working with the most accurate and up-to-date dataset, especially for long-term trends and comparisons.
+
+
+## Acknowledgement
+
+The data and methods for the sea ice extent are based on the collaborate project 
+with [NOAA PolarWatch](https://polarwatch.github.io/alaska-seaice) in 2025.
