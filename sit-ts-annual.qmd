@@ -10,7 +10,7 @@ page-layout: full
 ---
 
 ::: {.callout-tip title="Plots are interactive!"}
--   **To zoom in and out, reset or download the plot**, hover on the plot to see the option on the top right corner.
+-   **To zoom in and out, reset, or download the plot**, hover on the plot to see the option on the top right corner.
 -   **To turn on and off data series**, click on the data series title in the legend located below each plot.
 :::
 

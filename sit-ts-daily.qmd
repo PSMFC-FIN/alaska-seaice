@@ -32,13 +32,14 @@ library(plotly)
 
 region <- 'EasternBering'
 
+
 colors <- list(
-  ice_free  = '#d0e8f5',
-  new_young = '#74b3d8',
-  thin_FY   = '#2a7db5',
-  medium_FY = '#1a5a8a',
-  thick_FY  = '#0d3b5e',
-  multiyear = '#051f30'
+  ice_free  = '#ffffff',
+  new_young = '#9ecae1',
+  thin_FY   = '#4292c6',
+  medium_FY = '#2171b5',
+  thick_FY  = '#08519c',
+  multiyear = '#08306b'
 )
 
 labels <- list(
@@ -53,9 +54,12 @@ labels <- list(
 cat_cols <- c('multiyear','thick_FY','medium_FY','thin_FY','new_young','ice_free')
 
 # Load data
-df_area <- read_csv('./data/EasternBering_sit_daily_ts.csv') |>
-  mutate(time = as_datetime(time))
+# df_area <- read_csv('./data/EasternBering_sit_daily_ts.csv') |>
+#   mutate(time = as_datetime(time))
 
+df_area <- read_csv(paste0('./data/', region, '_sit_daily_ts.csv')) |>
+  mutate(time = as_datetime(time))
+  
 # Normalize x-axis to a reference year
 # Oct-Dec → 2000, Jan-Apr → 2001 (fake year for alignment)
 normalize_time <- function(df) {
@@ -191,47 +195,13 @@ fig
 #| warning: false
 #| message: false
 
-library(readr)
-library(dplyr)
-library(lubridate)
-library(plotly)
-
 region <- 'SoutheasternBering'
 
-colors <- list(
-  ice_free  = '#d0e8f5',
-  new_young = '#74b3d8',
-  thin_FY   = '#2a7db5',
-  medium_FY = '#1a5a8a',
-  thick_FY  = '#0d3b5e',
-  multiyear = '#051f30'
-)
-
-labels <- list(
-  ice_free  = 'Ice Free',
-  new_young = 'New/Young (<0.3m)',
-  thin_FY   = 'Thin FY (0.3–0.7m)',
-  medium_FY = 'Medium FY (0.7–1.2m)',
-  thick_FY  = 'Thick FY (1.2–2.0m)',
-  multiyear = 'Multi-year (>2.0m)'
-)
-
-cat_cols <- c('multiyear','thick_FY','medium_FY','thin_FY','new_young','ice_free')
 
 # Load data
-df_area <- read_csv('./data/SoutheasternBering_sit_daily.csv') |>
+df_area <- read_csv(paste0('./data/', region, '_sit_daily_ts.csv')) |>
   mutate(time = as_datetime(time))
 
-# Normalize x-axis to a reference year
-# Oct-Dec → 2000, Jan-Apr → 2001 (fake year for alignment)
-normalize_time <- function(df) {
-  df |> mutate(
-    time_norm = case_when(
-      month(time) >= 10 ~ update(time, year = 2000),
-      TRUE              ~ update(time, year = 2001)
-    )
-  )
-}
 
 # Filter and normalize seasons
 df_2425 <- df_area |>
@@ -358,47 +328,14 @@ fig
 #| warning: false
 #| message: false
 
-library(readr)
-library(dplyr)
-library(lubridate)
-library(plotly)
-
 region <- 'NorthernBering'
 
-colors <- list(
-  ice_free  = '#d0e8f5',
-  new_young = '#74b3d8',
-  thin_FY   = '#2a7db5',
-  medium_FY = '#1a5a8a',
-  thick_FY  = '#0d3b5e',
-  multiyear = '#051f30'
-)
 
-labels <- list(
-  ice_free  = 'Ice Free',
-  new_young = 'New/Young (<0.3m)',
-  thin_FY   = 'Thin FY (0.3–0.7m)',
-  medium_FY = 'Medium FY (0.7–1.2m)',
-  thick_FY  = 'Thick FY (1.2–2.0m)',
-  multiyear = 'Multi-year (>2.0m)'
-)
-
-cat_cols <- c('multiyear','thick_FY','medium_FY','thin_FY','new_young','ice_free')
 
 # Load data
-df_area <- read_csv('./data/NorthernBering_sit_daily_ts.csv') |>
+df_area <- read_csv(paste0('./data/', region, '_sit_daily_ts.csv')) |>
   mutate(time = as_datetime(time))
 
-# Normalize x-axis to a reference year
-# Oct-Dec → 2000, Jan-Apr → 2001 (fake year for alignment)
-normalize_time <- function(df) {
-  df |> mutate(
-    time_norm = case_when(
-      month(time) >= 10 ~ update(time, year = 2000),
-      TRUE              ~ update(time, year = 2001)
-    )
-  )
-}
 
 # Filter and normalize seasons
 df_2425 <- df_area |>
@@ -524,47 +461,12 @@ fig
 #| warning: false
 #| message: false
 
-library(readr)
-library(dplyr)
-library(lubridate)
-library(plotly)
-
 region <- 'AlaskanArctic'
 
-colors <- list(
-  ice_free  = '#d0e8f5',
-  new_young = '#74b3d8',
-  thin_FY   = '#2a7db5',
-  medium_FY = '#1a5a8a',
-  thick_FY  = '#0d3b5e',
-  multiyear = '#051f30'
-)
-
-labels <- list(
-  ice_free  = 'Ice Free',
-  new_young = 'New/Young (<0.3m)',
-  thin_FY   = 'Thin FY (0.3–0.7m)',
-  medium_FY = 'Medium FY (0.7–1.2m)',
-  thick_FY  = 'Thick FY (1.2–2.0m)',
-  multiyear = 'Multi-year (>2.0m)'
-)
-
-cat_cols <- c('multiyear','thick_FY','medium_FY','thin_FY','new_young','ice_free')
-
 # Load data
-df_area <- read_csv('./data/AlaskanArctic_sit_daily_ts.csv') |>
+df_area <- read_csv(paste0('./data/', region, '_sit_daily_ts.csv')) |>
   mutate(time = as_datetime(time))
 
-# Normalize x-axis to a reference year
-# Oct-Dec → 2000, Jan-Apr → 2001 (fake year for alignment)
-normalize_time <- function(df) {
-  df |> mutate(
-    time_norm = case_when(
-      month(time) >= 10 ~ update(time, year = 2000),
-      TRUE              ~ update(time, year = 2001)
-    )
-  )
-}
 
 # Filter and normalize seasons
 df_2425 <- df_area |>
