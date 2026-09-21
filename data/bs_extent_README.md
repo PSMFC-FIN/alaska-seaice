@@ -20,14 +20,18 @@ please refer to the methods section and the GitHub repository.
 * seaice_extent_std: Standard deviation of daily sea ice extent (unit: square km)
 * date: Month-day (format: mm-dd)
 
+
 ## Resource
 * link to methods : https://polarwatch.github.io/alaska-seaice/methods.html
 
-## Creator
-* PolarWatch, NOAA CoastWatch : https://polarwatch.noaa.gov
+## Creators
+* NOAA Alaska Fisheries Science Center
+* PolarWatch, NOAA CoastWatch 
 
 ## Contact
-* PolarWatch Coordinator: Sun Bak Hospital (sun.bak-hospital@noaa.gov)
+* Elizabeth.Siddon@noaa.gov (elizabeth.siddon@noaa.gov)
 
 ## Date Created
-* 06/30/2024
+* 09/16/2026 updated by Alaska Fisheries Science Center
+* 06/30/2024 created by PolarWatch, NOAA CoastWatch
+
