@@ -117,12 +117,12 @@ class IceData:
                 f"No files matching '{self.file_pattern}' found in: "
                 f"{[str(d) for d in self.data_dirs]}"
             )
-
         # Open files sequentially and concatenate — safer on memory-limited
         # systems than open_mfdataset with chunking/parallel=True, which can
         # cause segfaults when opening large numbers of files at once.
         datasets = []
         for f in files:
+
             d = xr.open_dataset(f)
             if self.varname not in d:
                 raise ValueError(
@@ -131,7 +131,7 @@ class IceData:
                 )
             datasets.append(d)
 
-        ds = xr.concat(datasets, dim="time").sortby("time")
+        ds = xr.concat(datasets, dim="time", data_vars='all').sortby("time")
 
         da = ds[self.varname]
         da.rio.set_spatial_dims(
@@ -139,6 +139,10 @@ class IceData:
         )
         da.rio.write_crs(self.crs, inplace=True)
         da = da.clip(min=0, max=1)
+        # xarray's value-clip above rebuilds the array and can drop the
+        # rioxarray CRS metadata written a few lines up — reassert it so
+        # downstream ds.rio.crs (used in clip_data()) isn't None.
+        da.rio.write_crs(self.crs, inplace=True)
 
         return da
 

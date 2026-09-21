@@ -66,7 +66,7 @@ AREA_NC_PATH = Path("resources/ref_files/NSIDC0771_CellArea_PS_N25km_v1.0.nc")
 SHP_DIR      = Path("resources/akmarineeco")
 
 FIRST_YEAR = 1985
-LAST_YEAR  = 2025
+LAST_YEAR  = 2026
 
 REGIONS = {
     'AlaskanArctic':      'arctic_sf.shp',
@@ -191,9 +191,11 @@ def main():
                 row = pd.DataFrame([{
                     'region':     region_name,
                     'year':       year,
-                    'extent_km2': annual_mean,
+                    'extent': annual_mean,
                     'n_days':     int(ds.time.size),
                 }])
+                print('printing data')
+                print(row)
                 row.to_csv(out_csv, mode='a', index=False, header=write_header)
                 write_header = False  # header written once only
 
