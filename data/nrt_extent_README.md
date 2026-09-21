@@ -6,7 +6,7 @@ was computed using the NOAA/NSIDC near real-time sea ice concentration data (SIC
 You can access the SIC data at https://polarwatch.noaa.gov/erddap/griddap/nsidcG10016v2nh1day.html
 
 The remote sensing data were cropped to fit within the boundaries of 
-each ecosystem fisheries management region, and the sea ice extent 
+each ecosystem fisheries management region,yand the sea ice extent 
 was calculated using a SIC threshold of 0.15. 
 
 For more detailed methods and the Python code used, 
@@ -19,11 +19,14 @@ please refer to the methods section and the GitHub repository.
 ## Resource
 * link to methods : https://polarwatch.github.io/alaska-seaice/methods.html
 
-## Creator
-* PolarWatch, NOAA CoastWatch : https://polarwatch.noaa.gov
+## Creators
+* NOAA Alaska Fisheries Science Center
+* PolarWatch, NOAA CoastWatch 
 
 ## Contact
-* PolarWatch Coordinator: Sun Bak Hospital (sun.bak-hospital@noaa.gov)
+* Elizabeth.Siddon@noaa.gov (elizabeth.siddon@noaa.gov)
 
 ## Date Created
-* 06/30/2024
+* 09/16/2026 updated by Alaska Fisheries Science Center
+* 06/30/2024 created by PolarWatch, NOAA CoastWatch
+

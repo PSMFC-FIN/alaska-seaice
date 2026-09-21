@@ -149,7 +149,6 @@ ul.task-list li input[type="checkbox"] {
    
   <ul class="collapse">
   <li><a href="#understanding-sea-ice-thickness" id="toc-understanding-sea-ice-thickness" class="nav-link active" data-scroll-target="#understanding-sea-ice-thickness">Understanding Sea Ice Thickness</a></li>
-  <li><a href="#not-all-sea-ice-is-the-same" id="toc-not-all-sea-ice-is-the-same" class="nav-link" data-scroll-target="#not-all-sea-ice-is-the-same">Not all sea ice is the same</a></li>
   <li><a href="#data-and-methods" id="toc-data-and-methods" class="nav-link" data-scroll-target="#data-and-methods">Data and methods</a></li>
   <li><a href="#reading-resources" id="toc-reading-resources" class="nav-link" data-scroll-target="#reading-resources">Reading resources</a></li>
   </ul>
@@ -183,16 +182,31 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="understanding-sea-ice-thickness" class="level2">
 <h2 class="anchored" data-anchor-id="understanding-sea-ice-thickness">Understanding Sea Ice Thickness</h2>
-<p>Sea ice thickness refers to how deep a sheet of frozen ocean water is – from its surface down to where it meets the open water below.</p>
-<p>While sea ice extent tells you how much area is covered by ice, <strong>sea ice thickness</strong> tells you how much ice there actually is, and how tough or long-lasting it’s likely to be.</p>
-</section>
-<section id="not-all-sea-ice-is-the-same" class="level2">
-<h2 class="anchored" data-anchor-id="not-all-sea-ice-is-the-same">Not all sea ice is the same</h2>
-<p>Sea ice thickness can be categorized commonly as first-year ice and multi-year ice.<br>
-First year ice is relatively thin and forms over a single winter whereas multi-year ice has survived one or more seasons, building over time; multi-year ice can be several meters thick and generally harder.</p>
+<p>Sea ice thickness refers to the vertical depth of a sheet of frozen ocean water, measured from its surface down to the ice–ocean interface below.</p>
+<p>While sea ice extent describes the total area covered by ice, sea ice thickness describes how deep that ice is, and thickness is a key indicator of the ice’s structural strength and expected longevity. Thicker ice typically persists longer through seasonal warming, while thinner ice is more vulnerable to rapid melt and breakup.</p>
+<p>Thickness also plays a direct role in the ice’s response to temperature: thinner ice loses heat to the atmosphere more readily and can melt through more quickly, whereas thicker ice acts as a stronger insulating barrier between the relatively warm ocean below and the cold atmosphere above, slowing the melt process. This relationship means thickness is not just a static measurement but an important factor shaping how sea ice evolves over time.</p>
 </section>
 <section id="data-and-methods" class="level2">
 <h2 class="anchored" data-anchor-id="data-and-methods">Data and methods</h2>
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data">Data</h3>
+<p>For annualized sea ice thickness summary was derived from the reprocessed sea ice thickness dataset <code>c3s_obs-si_glo_phy_my_nh-l3_P1M</code> (product <code>SEAICE_GLO_PHY_CLIMATE_L3_MY_011_013</code>) distributed by the Copernicus Climate Change Service (C3S).</p>
+<section id="annualized-sea-ice-thickness-199596202324" class="level4">
+<h4 class="anchored" data-anchor-id="annualized-sea-ice-thickness-199596202324">Annualized sea ice thickness (1995/96–2023/24)</h4>
+<p>Annualized sea ice thickness for the Alaska fisheries management region was derived from the reprocessed dataset <code>c3s_obs-si_glo_phy_my_nh-l3_P1M</code> (product <code>SEAICE_GLO_PHY_CLIMATE_L3_MY_011_013</code>).</p>
+<p>It is a Level 3, monthly-resolution product on a 25 × 25 km grid, distributed by the Copernicus Climate Change Service (C3S) and derived from reprocessed radar altimeter retrievals from the Envisat and CryoSat-2 missions.</p>
+<p>Data were retrieved separately for each winter freezing season (1 October–1 April) from 1995/96 through 2023/24 — 29 seasons, representing the full temporal extent currently available for this reprocessed product.</p>
+<ul>
+<li><strong>Near-real-time record (2024/25–2025/26)</strong>. For the two most recent winter seasons, NRT sea ice thickness was obtained from the dataset esa_obs-si_arc_phy-sit_nrt_l4-multi_P1D-m (product SEAICE_GLO_PHY_L4_NRT_011_014), a Level 4 product nominally resolved weekly but delivered as a daily gridded field, on a 12.5 × 12.5 km grid. This product merges CryoSat-2 radar altimetry, ESA SMOS L-band radiometry, and Sentinel-3A/B altimetry via an optimal-interpolation approach (Ricker et al., 2017), updated daily with an approximate 5-day latency. Production is limited to the Northern Hemisphere freezing season (mid-October through mid-April); the 2025/26 season’s coverage therefore ends when NRT production pauses for the seasonal transition rather than extending through the requested end-of-April window.</li>
+</ul>
+<p>Spatial and temporal extraction. Both products were subset at the point of download to a bounding box covering the Alaska fisheries management region (160°E–230°E, 0–360° longitude convention; 47°N–80°N), which spans the western Aleutians to southeast Alaska while avoiding a dateline split. Requests were issued per winter season (one NetCDF file per season) to avoid server-side timeouts on large multi-year requests, and each request was preceded by a dry run to confirm the expected file size before downloading.</p>
+<p>Study Region</p>
+<p>Within the larger download bounding box, four sub-regions relevant to Alaska fisheries management were defined using ESRI shapefiles: the Alaskan Arctic, Northern Bering, Eastern Bering, and Southeastern Bering. Shapefiles were read with geopandas, assigned a source coordinate reference system (EPSG:6397, Alaska Albers) where not already defined, and reprojected to WGS84 (EPSG:4326) to match the SIT grid. Because the baseline product uses a −180°/180° longitude convention while the NRT product uses a 0°/360° convention, region shapefiles used for the NRT analysis were separately translated to the 0–360° system prior to spatial clipping. Regional subsetting of the gridded SIT fields was performed with rioxarray (rio.clip, all_touched=False) after explicitly setting spatial dimensions and CRS metadata on each dataset.</p>
+<p>Baseline Period Selection</p>
+<p>Although the reprocessed C3S product is available from 1995 onward, the 1995–2009 portion of the record was excluded from subsequent analysis; a transition between contributing sensors over this period produced values inconsistent with the more homogeneous post-2010 record. The analytical baseline therefore comprises the 2010–2023 seasons (14 years) drawn from the full downloaded 1995–2023 archive.</p>
+<p>Sea ice thickness (SIT) data were obtained from the Copernicus Marine Environment Monitoring Service (CMEMS) via the copernicusmarine Python API, for two complementary products spanning a long-term reprocessed baseline and a near-real-time (NRT) record.</p>
+</section>
+</section>
 </section>
 <section id="reading-resources" class="level2">
 <h2 class="anchored" data-anchor-id="reading-resources">Reading resources</h2>
