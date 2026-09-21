@@ -1,6 +1,7 @@
 """
 Title: NOAA NSIDC Sea Ice Data Downloader
 Author: Sunny Bak Hospital
+Modified: Sep 21, 2026 to compute 2026 annualized extent
 Modified: April 16, 2026
 
 Description:
@@ -22,7 +23,7 @@ Usage:
     python download_nsidc.py --nrt-only
     python download_nsidc.py --start-year 2020           # from 2020 to product max
     python download_nsidc.py --start-year 2020 --end-year 2022  # 2020–2022 only
-
+    
 Dependencies:
     requests, tqdm
 """
@@ -48,7 +49,7 @@ NRT_BASE = "https://noaadata.apps.nsidc.org/NOAA/G10016_V4/north/daily/"
 # NRT  : seaice_conc_daily_nh_YYYYMMDD_*.nc  (same pattern, different product)  
 FILE_PATTERN = re.compile(r'sic_psn25_\d{8}_[^"]+\.nc')   
 # Year boundaries
-CDR_YEAR_RANGE = (1984, 1984)   # CDR is finalized through 2024
+CDR_YEAR_RANGE = (2025, 2025)   # CDR is finalized through 2026
 # NRT_YEAR_RANGE = (2026, 2026)   # NRT covers the most recent / current year
 LOCAL_DATA_DIR = Path("data")
 

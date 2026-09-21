@@ -56,7 +56,7 @@ fig_annual <- plot_ly(annual, type = 'scatter', mode = 'lines+markers')%>%
   add_trace(x = ~year, y = ~extent, 
             line=list(color='lightblue'),
             marker = list(color='blue', size =8))%>%
-  layout(showlegend = F, title="Annualized time series (1985-2024)",
+  layout(showlegend = F, title="Annualized time series",
          xaxis = list(rangeslider = list(visible = T),
                       zerolinecolor = '#ffff',
                       zerolinewidth = 2,
@@ -112,7 +112,7 @@ fig_annual <- plot_ly(annual, type = 'scatter', mode = 'lines+markers')%>%
   add_trace(x = ~year, y = ~extent, 
             line=list(color='lightblue'),
             marker = list(color='blue', size =8))%>%
-  layout(showlegend = F, title="Annualized time series (1985-2024)",
+  layout(showlegend = F, title="Annualized time series",
          xaxis = list(rangeslider = list(visible = T),
                       zerolinecolor = '#ffff',
                       zerolinewidth = 2,
@@ -169,7 +169,7 @@ fig_annual <- plot_ly(annual, type = 'scatter', mode = 'lines+markers')%>%
   add_trace(x = ~year, y = ~extent, 
             line=list(color='lightblue'),
             marker = list(color='blue', size =8))%>%
-  layout(showlegend = F, title="Annualized time series (1985-2024)",
+  layout(showlegend = F, title="Annualized time series",
          xaxis = list(rangeslider = list(visible = T),
                       zerolinecolor = '#ffff',
                       zerolinewidth = 2,
@@ -226,7 +226,7 @@ fig_annual <- plot_ly(annual, type = 'scatter', mode = 'lines+markers')%>%
   add_trace(x = ~year, y = ~extent, 
             line=list(color='lightblue'),
             marker = list(color='blue', size =8))%>%
-  layout(showlegend = F, title="Annualized time series (1985-2024)",
+  layout(showlegend = F, title="Annualized time series",
          xaxis = list(rangeslider = list(visible = T),
                       zerolinecolor = '#ffff',
                       zerolinewidth = 2,
